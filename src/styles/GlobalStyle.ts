@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Pretendard-Regular', sans-serif; /* 적용한 폰트 사용 */
+    background-color:#f0f0f0;
   }
 `;
 export default GlobalStyle;
