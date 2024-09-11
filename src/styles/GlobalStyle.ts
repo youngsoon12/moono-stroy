@@ -108,7 +108,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Pretendard', sans-serif; /* 적용한 폰트 사용 */
     box-sizing: border-box;
     font-weight: 400;
-  }
+    background-color: #f0f0f0;
   *:focus{
     outline: none;
   }
