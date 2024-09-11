@@ -39,12 +39,14 @@ const LoginPage = (props: any) => {
       <InfoInput placeholder="비밀번호" name="pwd" onChange={onChangeInfo} />
       <LoginBtn variant="contained" onClick={onClickLogin}>
         로그인
-      </LoginBtn> 
+      </LoginBtn>
       <FootArea>
         <span
           style={{ margin: '0 40px 0 92px', cursor: 'pointer' }}
           onClick={() => {
-            alert('단순 오류에 의하여 해결중에 있습니다. 불편을 끼쳐 죄송합니다.');
+            alert(
+              '단순 오류에 의하여 해결중에 있습니다. 불편을 끼쳐 죄송합니다.'
+            );
           }}
         >
           ID/PW 찾기
@@ -52,7 +54,7 @@ const LoginPage = (props: any) => {
         <span
           style={{ cursor: 'pointer' }}
           onClick={() => {
-            navigate('/regist');
+            navigate('/register');
           }}
         >
           회원가입
