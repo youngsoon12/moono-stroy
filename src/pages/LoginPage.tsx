@@ -52,7 +52,7 @@ const LoginPage = (props: any) => {
         <span
           style={{ cursor: 'pointer' }}
           onClick={() => {
-            navigate('/regist');
+            navigate('/register');
           }}
         >
           회원가입
