@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 // bounce-in-top 애니메이션 정의
 const bounceInTop = keyframes`
@@ -108,6 +109,11 @@ const Toptext = styled.div`
   text-align: center;
 `;
 const Intro = () => {
+  const navigate = useNavigate();
+
+  const onLogin = () => {
+    navigate('/login');
+  };
   return (
     <Container>
       <Toptext>
@@ -144,7 +150,7 @@ const Intro = () => {
           alt="Logo"
         />
       </ImgContainer>
-      <StartButton>로그인하기</StartButton>
+      <StartButton onClick={onLogin}>로그인하기</StartButton>
     </Container>
   );
 };
