@@ -1,5 +1,5 @@
 const WorldView = () => {
-  return <div>세계관 페이지입니다.</div>;
+  return <div>세계관 페입니다.</div>;
 };
 
 export default WorldView;
