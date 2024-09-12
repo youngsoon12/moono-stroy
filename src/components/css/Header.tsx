@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Header = styled.div`
+  position: absolute;
+  top: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  height: 80px;
   max-width: 480px; /* 모바일에서 최대 너비 고정 */
-  margin: 0 auto;
+  padding: 10px 30px;
   box-sizing: border-box;
-  background-color: #ffffff;
+  /* border: 1px solid #333333; */
 `;
 
-export default Container;
+export default Header;

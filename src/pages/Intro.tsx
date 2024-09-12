@@ -1,43 +1,93 @@
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+const Intro = () => {
+  const navigate = useNavigate();
+  return (
+    <Container>
+      <Toptext>
+        <span style={{ fontSize: '16px', fontWeight: '200', margin: '20px 0' }}>
+          내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
+        </span>
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: '22px',
+            fontWeight: '500',
+            margin: '20px 0',
+            lineHeight: '25px',
+          }}
+        >
+          <div>
+            <span style={{ color: '#E947AE' }}>당신</span>에게 들려주는
+          </div>
+          <div
+            style={{ fontSize: '24px', color: '#E947AE', fontWeight: '800' }}
+          >
+            무너 이야기
+          </div>
+        </div>
+      </Toptext>
+
+      <ImgContainer>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/intro/HotPink.png`}
+          alt="Hot Pink"
+        />
+        <img
+          src={`${process.env.PUBLIC_URL}/images/intro/LogoLess2.png`}
+          alt="Logo"
+        />
+      </ImgContainer>
+      <StartButton
+        onClick={() => {
+          navigate('/login');
+        }}
+      >
+        로그인하기
+      </StartButton>
+    </Container>
+  );
+};
+
+export default Intro;
 // bounce-in-top 애니메이션 정의
 const bounceInTop = keyframes`
-  0% {
-    transform: translateY(-500px);
-    animation-timing-function: ease-in;
-    opacity: 0;
-  }
-  38% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-    opacity: 1;
-  }
-  55% {
-    transform: translateY(-65px);
-    animation-timing-function: ease-in;
-  }
-  72% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  81% {
-    transform: translateY(-28px);
-    animation-timing-function: ease-in;
-  }
-  90% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  95% {
-    transform: translateY(-8px);
-    animation-timing-function: ease-in;
-  }
-  100% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-`;
+      0% {
+        transform: translateY(-500px);
+        animation-timing-function: ease-in;
+        opacity: 0;
+      }
+      38% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+        opacity: 1;
+      }
+      55% {
+        transform: translateY(-65px);
+        animation-timing-function: ease-in;
+      }
+      72% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+      }
+      81% {
+        transform: translateY(-28px);
+        animation-timing-function: ease-in;
+      }
+      90% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+      }
+      95% {
+        transform: translateY(-8px);
+        animation-timing-function: ease-in;
+      }
+      100% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+      }
+    `;
 
 // Container는 기본적으로 위치를 기준으로 삼기 위해 relative로 설정
 const Container = styled.div`
@@ -108,51 +158,3 @@ const Toptext = styled.div`
   margin: 160px 0 0 0;
   text-align: center;
 `;
-const Intro = () => {
-  const navigate = useNavigate();
-
-  const onLogin = () => {
-    navigate('/login');
-  };
-  return (
-    <Container>
-      <Toptext>
-        <span style={{ fontSize: '16px', fontWeight: '200', margin: '20px 0' }}>
-          내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
-        </span>
-        <div
-          style={{
-            textAlign: 'center',
-            fontSize: '22px',
-            fontWeight: '500',
-            margin: '20px 0',
-            lineHeight: '25px',
-          }}
-        >
-          <div>
-            <span style={{ color: '#E947AE' }}>당신</span>에게 들려주는
-          </div>
-          <div
-            style={{ fontSize: '24px', color: '#E947AE', fontWeight: '800' }}
-          >
-            무너 이야기
-          </div>
-        </div>
-      </Toptext>
-
-      <ImgContainer>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/intro/HotPink.png`}
-          alt="Hot Pink"
-        />
-        <img
-          src={`${process.env.PUBLIC_URL}/images/intro/LogoLess2.png`}
-          alt="Logo"
-        />
-      </ImgContainer>
-      <StartButton onClick={onLogin}>로그인하기</StartButton>
-    </Container>
-  );
-};
-
-export default Intro;
