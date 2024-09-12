@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }: any) => {
     } catch (error) {
       console.error('토큰 파싱 중 오류 발생:', error);
       return true; // 토큰 파싱 실패 시 만료로 처리
-    }
+    } 
   };
 
   // 토큰이 없거나 만료된 경우
