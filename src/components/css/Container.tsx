@@ -9,7 +9,6 @@ const Container = styled.div`
   height: 100vh;
   max-width: 480px; /* 모바일에서 최대 너비 고정 */
   margin: 0 auto;
-  padding: 10px;
   box-sizing: border-box;
   background-color: #ffffff;
 `;
