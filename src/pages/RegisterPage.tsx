@@ -4,9 +4,12 @@ import RegistInput from '../components/form/RegistInput';
 import LoginBtn from '../components/form/LoginBtn';
 import { useState } from 'react';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import { useNavigate } from 'react-router-dom';
+import { IdDuplicateAPI } from 'api/IdDuplicatge';
+import { RegisterAPI } from 'api/RegisterAPI';
 
 const RegisterPage = () => {
-  // 회원가입 정보 및 단계 관리
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [registInfo, setRegistInfo] = useState({
     id: '',
@@ -23,37 +26,89 @@ const RegisterPage = () => {
   };
 
   // 다음 단계로 이동
-  const nextStep = () => {
+  const nextStep = (e: any) => {
     setStep(step + 1);
   };
 
+  // 회원가입 완료 버튼
+  const onRegistClick = async (e: any) => {
+    try {
+      const data = await RegisterAPI(registInfo); // 회원가입 API 호출
+      alert(data);
+      setStep(step + 1);
+    } catch (error) {
+      console.error('회원가입 실패', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  // 아이디 중복검사
+  const idCheck = async (e: any) => {
+    if (!registInfo.id) {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+    try {
+      const data = await IdDuplicateAPI({ id: registInfo.id }); // 아이디 중복 체크 API 호출
+      setStep(step + 1);
+      console.log(data);
+    } catch (error) {
+      console.error('아이디 중복입니다.', error);
+      alert('아이디 중복입니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
-    <Container>
+    <Container style={{ paddingBottom: '120px' }}>
       <CheckArea>
-        {step >= 2 && (
+        {step >= 2 && step < 4 && (
           <div
             style={{
               display: 'flex',
               justifyContent: 'center',
-              fontSize: '14px',
+              fontSize: '10px',
               flexDirection: 'column',
-              gap: '13px',
+              gap: '2px',
+              opacity: '0.7',
+              marginBottom: '3px',
             }}
           >
             <div>
               {'아이디'}
-              <CheckRoundedIcon sx={{ fontSize: '18px', color: '#34A853', verticalAlign: 'middle' }} />
+              <CheckRoundedIcon
+                sx={{
+                  fontSize: '16px',
+                  color: '#34A853',
+                  verticalAlign: 'middle',
+                }}
+              />
             </div>
             <CheckInfo>{registInfo.id}</CheckInfo>
           </div>
         )}
         {step === 3 && (
-          <div style={{ display: 'flex', justifyContent: 'center', fontSize: '14px', flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              fontSize: '10px',
+              flexDirection: 'column',
+              gap: '2px',
+              marginTop: '5px',
+              opacity: '0.7',
+            }}
+          >
             <div>
               {'비밀번호'}
-              <CheckRoundedIcon sx={{ fontSize: '18px', color: '#34A853', verticalAlign: 'middle' }} />
+              <CheckRoundedIcon
+                sx={{
+                  fontSize: '16px',
+                  color: '#34A853',
+                  verticalAlign: 'middle',
+                }}
+              />
             </div>
-            <CheckInfo>{registInfo.pwd}</CheckInfo>
+            <CheckInfo>확인 완료</CheckInfo>
           </div>
         )}
       </CheckArea>
@@ -68,7 +123,7 @@ const RegisterPage = () => {
             onChange={handleChange}
             sx={{ marginBottom: '20px' }}
           />
-          <LoginBtn onClick={nextStep}>확인</LoginBtn>
+          <LoginBtn onClick={idCheck}>확인</LoginBtn>
         </>
       )}
 
@@ -99,7 +154,23 @@ const RegisterPage = () => {
             onChange={handleChange}
             sx={{ marginBottom: '20px' }}
           />
-          <LoginBtn>가입 완료</LoginBtn>
+          <LoginBtn onClick={onRegistClick}>가입 완료</LoginBtn>
+        </>
+      )}
+      {step === 4 && (
+        <>
+          <StepFourInfo>
+            회원가입완료 👍🏻 <br />
+            <span style={{ color: '#e947ae' }}>무너의 이야기를</span> 들어
+            볼까요?!
+          </StepFourInfo>
+          <LoginBtn
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            확인
+          </LoginBtn>
         </>
       )}
     </Container>
@@ -122,10 +193,17 @@ const CheckArea = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 350px;
+  margin-bottom: 10px;
 `;
 
 const CheckInfo = styled.div`
-  font-size: 24px;
+  font-size: 16px;
   color: #e947ae;
   font-weight: bold;
+`;
+
+const StepFourInfo = styled.div`
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 60px;
 `;

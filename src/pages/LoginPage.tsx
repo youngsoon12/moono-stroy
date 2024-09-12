@@ -18,6 +18,10 @@ const LoginPage = (props: any) => {
   };
 
   const onClickLogin = async () => {
+    if (!userInfo.id || !userInfo.pwd) {
+      alert('아이디, 비밀번호를 모두 입력하세요.');
+      return;
+    }
     try {
       const data = await loginAPI(userInfo); // 로그인 API 호출
       sessionStorage.setItem('token', data.token);
@@ -36,15 +40,22 @@ const LoginPage = (props: any) => {
         <ColorSpan>무너</ColorSpan>의 고향은 용궁입니다.
       </TitleArea>
       <InfoInput placeholder="아이디" name="id" onChange={onChangeInfo} />
-      <InfoInput placeholder="비밀번호" name="pwd" onChange={onChangeInfo} />
+      <InfoInput
+        placeholder="비밀번호"
+        type="password"
+        name="pwd"
+        onChange={onChangeInfo}
+      />
       <LoginBtn variant="contained" onClick={onClickLogin}>
         로그인
-      </LoginBtn> 
+      </LoginBtn>
       <FootArea>
         <span
           style={{ margin: '0 40px 0 92px', cursor: 'pointer' }}
           onClick={() => {
-            alert('단순 오류에 의하여 해결중에 있습니다. 불편을 끼쳐 죄송합니다.');
+            alert(
+              '단순 오류에 의하여 해결중에 있습니다. 불편을 끼쳐 죄송합니다.'
+            );
           }}
         >
           ID/PW 찾기
@@ -52,7 +63,7 @@ const LoginPage = (props: any) => {
         <span
           style={{ cursor: 'pointer' }}
           onClick={() => {
-            navigate('/regist');
+            navigate('/register');
           }}
         >
           회원가입
