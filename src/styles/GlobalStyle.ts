@@ -121,6 +121,11 @@ const GlobalStyle = createGlobalStyle`
   button{
     border: none;
     cursor: pointer;
+    color: black;
+    :active{
+        text-decoration: none;
+        color: black;
+    }
   }
 }
 `;

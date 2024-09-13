@@ -6,7 +6,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   max-width: 480px; /* 모바일에서 최대 너비 고정 */
   margin: 0 auto;
   box-sizing: border-box;

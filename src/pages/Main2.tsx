@@ -34,7 +34,7 @@ const Main2 = (props: any) => {
           <div style={{ textAlign: 'center', fontSize: '32px' }}>
             안녕? 나는 무너야
           </div>
-          <div style={{ textAlign: 'center', fontSize: '20px' }}>
+          <div style={{ textAlign: 'center', fontSize: '20px', fontWeight:'400' }}>
             내 이야기를 들어줄래?
           </div>
         </TextOverlay>
@@ -79,7 +79,7 @@ const TextOverlay = styled.div`
   display: flexbox;
   flex-direction: column;
   z-index: 2;
-  color: #292929; /* 텍스트 색상 */
+  color: #121212; /* 텍스트 색상 */
   font-size: 1.2rem;
   text-align: center;
   font-family: 'Cafe24Ssurround';
