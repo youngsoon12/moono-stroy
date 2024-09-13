@@ -35,7 +35,7 @@ const LoginPage = (props: any) => {
   return (
     <Container>
       <TitleArea>
-        <ColorSpan style={{ fontSize: '14px' }}>TMI</ColorSpan>
+        <ColorSpan style={{ fontSize: '0.6em' }}>TMI</ColorSpan>
         <br />
         <ColorSpan>무너</ColorSpan>의 고향은 용궁입니다.
       </TitleArea>
@@ -79,12 +79,13 @@ const TitleArea = styled.div`
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 1.4em;
   font-weight: bold;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
+  font-size: 1.1em;
   color: #e947ae;
 `;
 

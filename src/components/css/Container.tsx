@@ -12,5 +12,4 @@ const Container = styled.div`
   box-sizing: border-box;
   background-color: #ffffff;
 `;
-
 export default Container;

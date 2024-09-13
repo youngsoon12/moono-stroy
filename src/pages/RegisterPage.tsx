@@ -183,7 +183,7 @@ const TitleArea = styled.div`
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 1.4em;
   font-weight: 600;
 `;
 
@@ -203,7 +203,7 @@ const CheckInfo = styled.div`
 `;
 
 const StepFourInfo = styled.div`
-  font-size: 22px;
+  font-size: 1.3em;
   font-weight: 600;
   margin-bottom: 60px;
 `;

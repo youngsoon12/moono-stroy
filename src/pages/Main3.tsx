@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../components/css/Container';
 
-const Main = (props: any) => {
+const Main3 = (props: any) => {
   return (
     <Container
       style={{
@@ -17,12 +17,8 @@ const Main = (props: any) => {
     >
       {/* 첫 번째 섹션 */}
       <GradientDiv>
-        <div style={{ width: '100%', height: '7vh', zIndex: '2', display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)', alignContent:'center', border:"1px solid"}}>
-        
-          <div style={{gridColumn:'2',textAlign:'start'}}>제목</div>
-          <div>도장</div>
-          <div>이름</div>
+        <div style={{ width: '100%', height: '7vh', zIndex: '2' }}>
+          헤더
         </div>
         <img src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`} 
         style={{ position: 'absolute', height: '38vh', zIndex: '2', top: '4vh' }} />
@@ -37,15 +33,15 @@ const Main = (props: any) => {
 
       < ButtonContainer>
         {/* 상단 2개의 버튼 */}
-        <MenuButton>무너소개서</MenuButton>
+        <MenuButton>무너 네컷</MenuButton>
         <MenuButton>무 퀴즈~?!</MenuButton>
 
         {/* 가운데 큰 버튼 */}
         <LargeButton>무너를 응원해줘!</LargeButton>
 
         {/* 하단 2개의 버튼 */}
-        <MenuButton>무너네컷</MenuButton>
         <MenuButton>오늘의 운세</MenuButton>
+        <MenuButton>무너소개서</MenuButton>
 
       </ ButtonContainer>
       </MenuContainer>
@@ -53,7 +49,7 @@ const Main = (props: any) => {
   );
 };
 
-export default Main;
+export default Main3;
 
 // GradientDiv 스타일
 const GradientDiv = styled.div`
@@ -78,7 +74,7 @@ const GradientDiv = styled.div`
 `;
 const MenuContainer = styled.div`
   width: 100%;
-  height: 58vh;
+  height: 57vh;
   display: flex;
   flex-direction: column;`
 ;
@@ -113,9 +109,6 @@ background-color: #fff;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
   font-weight: bold;
-  &&:hover{
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.562);
-  }
 `;
 
 const LargeButton = styled(MenuButton)`
