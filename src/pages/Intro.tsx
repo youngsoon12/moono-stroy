@@ -1,12 +1,15 @@
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
+import Container from '../components/css/Container';
 const Intro = () => {
   const navigate = useNavigate();
+
   return (
-    <Container>
+    <Container
+      style={{ height: '100dvh', backgroundColor: '#171717', color: '#fff' }}
+    >
       <Toptext>
-        <span style={{ fontSize: '16px', fontWeight: '200', margin: '20px 0' }}>
+        <span style={{ fontSize: '16px', fontWeight: '200' }}>
           내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
         </span>
         <div
@@ -90,28 +93,31 @@ const bounceInTop = keyframes`
     `;
 
 // Container는 기본적으로 위치를 기준으로 삼기 위해 relative로 설정
-const Container = styled.div`
-  color: #fff;
-  max-width: 480px;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  background-color: #171717;
-  position: relative;
-  overflow: hidden; /* 자식 요소가 Container를 벗어나지 않도록 */
-`;
+// const Container = styled.div`
+//   color: #fff;
+//   max-width: 480px;
+//   width: 100%;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 auto;
+//   background-color: #171717;
+//   position: relative;
+//   overflow: hidden; /* 자식 요소가 Container를 벗어나지 않도록 */
+//   height: calc(var(--vh, 1vh) * 100);
+// `;
 
 // ImgContainer는 로고 이미지를 담는 컨테이너
 const ImgContainer = styled.div`
   position: relative; /* 이미지 겹치기 위한 기준점 */
   width: 400px; /* 필요한 경우 너비 조정 */
   height: 400px; /* 필요한 경우 높이 조정 */
+  max-width: 90dvw;
+  min-height: auto;
   flex: 1;
-  min-height: 400px; /* 최소 높이 지정 */
+  /* min-height: 400px; 최소 높이 지정 */
   img {
     position: absolute; /* 이미지가 겹치도록 설정 */
     width: 100%; /* 이미지를 같은 크기로 설정 */
@@ -130,6 +136,7 @@ const ImgContainer = styled.div`
   img:nth-child(2) {
     z-index: 2; /* 두 번째 이미지 위쪽 */
     width: 350px;
+    max-width: 85dvw;
     height: auto;
     left: 10%;
   }
@@ -138,7 +145,7 @@ const StartButton = styled.button`
   width: 100%;
   display: flex;
   background-color: #e947ae;
-  height: 100px;
+  height: 13%;
   border: none;
   border-radius: 30px 30px 0 0;
   font-size: 26px;
@@ -155,6 +162,6 @@ const StartButton = styled.button`
   }
 `;
 const Toptext = styled.div`
-  margin: 160px 0 0 0;
+  margin: 15% 0 0 0;
   text-align: center;
 `;
