@@ -11,6 +11,8 @@ const Container = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   background-color: #ffffff;
+  overflow-y: hidden;
 `;
 
 export default Container;
+

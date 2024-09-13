@@ -40,6 +40,7 @@ const Main = (props: any) => {
             width: 'auto',
             height: '113px', // 적당한 크기로 설정
           }}
+          alt="/"
         />
         <div
           style={{

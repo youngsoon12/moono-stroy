@@ -1,10 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
 const Intro = () => {
   const navigate = useNavigate();
   return (
-    <Container>
+    <Container
+      style={{ height: '100vh', backgroundColor: '#000', position: 'relative' }}
+    >
       <Toptext>
         <span style={{ fontSize: '16px', fontWeight: '200', margin: '20px 0' }}>
           내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?

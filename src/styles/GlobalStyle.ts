@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset}
+
+  :root{
+    --vh : 100%;
+  }
+
   @font-face {
     font-family: 'Pretendard';
     font-weight: 100;
@@ -115,6 +120,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-weight: 400;
     background-color: #f0f0f0;
+  }
   *:focus{
     outline: none;
   }
