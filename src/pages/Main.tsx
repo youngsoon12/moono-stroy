@@ -1,9 +1,14 @@
-import React from 'react';
+import { useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
 
 const Main = (props: any) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = (id: string) => {
+    navigate(`/contIntro/${id}`);
+  };
   return (
     <Container
       style={{
@@ -24,12 +29,21 @@ const Main = (props: any) => {
             height: '7vh',
             zIndex: '2',
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(5, 1fr)',
             alignContent: 'center',
             border: '1px solid',
+            fontWeight: '900',
           }}
         >
-          <div style={{ gridColumn: '2', textAlign: 'start' }}>제목</div>
+          <div
+            style={{
+              gridColumn: '3',
+              fontSize: '1.2em ',
+              fontWeight: '900',
+            }}
+          >
+            MOOS
+          </div>
           <div>도장</div>
           <div>이름</div>
         </MainHeaderStyle>
@@ -52,15 +66,25 @@ const Main = (props: any) => {
       <MenuContainer>
         <ButtonContainer>
           {/* 상단 2개의 버튼 */}
-          <MenuButton>무너소개서</MenuButton>
-          <MenuButton>무 퀴즈~?!</MenuButton>
+          <MenuButton onClick={() => handleButtonClick('introduce')}>
+            무너소개서
+          </MenuButton>
+          <MenuButton onClick={() => handleButtonClick('mooQuiz')}>
+            무 퀴즈~?!
+          </MenuButton>
 
           {/* 가운데 큰 버튼 */}
-          <LargeButton>무너를 응원해줘!</LargeButton>
+          <LargeButton onClick={() => handleButtonClick('cheerup')}>
+            무너를 응원해줘!
+          </LargeButton>
 
           {/* 하단 2개의 버튼 */}
-          <MenuButton>무너네컷</MenuButton>
-          <MenuButton>오늘의 운세</MenuButton>
+          <MenuButton onClick={() => handleButtonClick('fourcut')}>
+            무너네컷
+          </MenuButton>
+          <MenuButton onClick={() => handleButtonClick('fortune')}>
+            오늘의 운세
+          </MenuButton>
         </ButtonContainer>
       </MenuContainer>
     </Container>
@@ -142,15 +166,11 @@ const LargeButton = styled(MenuButton)`
 `;
 
 const MainHeaderStyle = styled.div`
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   display: flex;
-  /* align-items: center; */
-  /* width: 100%; */
-  /* min-height: 10dvh; */
-  /* max-width: 480px; 모바일에서 최대 너비 고정 */
-  /* padding: 20px 30px; */
-  box-sizing: border-box;
-  /* border: 1px solid #333333; */
+  /* box-sizing: border-box; */
   overflow: auto;
+  font-weight: 900;
+  align-items: flex-start;
 `;

@@ -7,9 +7,20 @@ const Intro = () => {
 
   return (
     <Container
-      style={{ height: '100dvh', backgroundColor: '#171717', color: '#fff', position: 'relative' }}
+      style={{
+        height: '100dvh',
+        backgroundColor: '#171717',
+        color: '#fff',
+        position: 'relative',
+      }}
     >
-      <div style={{ justifyContent:'center', alignItems:'center', height:'80%'}}>
+      <div
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80%',
+        }}
+      >
         <Toptext>
           <span style={{ fontSize: '16px', fontWeight: '200' }}>
             내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
@@ -100,8 +111,9 @@ const bounceInTop = keyframes`
 const ImgContainer = styled.div`
   position: relative;
   width: 90vw; /* 이미지를 뷰포트 너비의 60%로 설정 */
-  height: auto;
-  max-width: 460px; /* 최대 너비 400px */
+  /* height: 45dvh; */
+  max-height: auto;
+  max-width: 400px; /* 최대 너비 400px */
   margin: 0 auto; /* 가운데 정렬 */
 
   img {
@@ -131,6 +143,7 @@ const ImgContainer = styled.div`
 `;
 
 const StartButton = styled.button`
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -147,6 +160,7 @@ const StartButton = styled.button`
   align-items: center;
   letter-spacing: 3px;
   display: flex;
+  cursor: pointer;
   &&:hover {
     color: #9ffb4b;
     font-weight: 800;

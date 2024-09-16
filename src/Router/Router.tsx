@@ -7,18 +7,18 @@ import RegisterPage from 'pages/RegisterPage';
 import Main from 'pages/Main';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
-import Main2 from 'pages/Main2';
-import Main3 from 'pages/Main3';
+import { ContentIntro } from 'pages/ContentIntro';
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Intro />} />
         <Route path="/main" element={<Main />} />
-
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
+        <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
         <Route element={<ProtectedRoute />}>
