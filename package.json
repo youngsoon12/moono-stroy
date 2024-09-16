@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.108",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.7",
     "file-saver": "^2.0.5",
     "konva": "^9.3.14",
