@@ -57,8 +57,14 @@ const Main = (props: any) => {
           }}
         />
         <IntroText>
-          <span>안녕?</span>
-          <span>내 이야기를 들어줄래?</span>
+          <span>
+            <span style={{ color: `${theme.color.mainColor}` }}>안녕? </span>
+            나는 <span style={{ color: `${theme.color.mainColor}` }}>무너</span>
+            야
+          </span>
+          <span style={{ fontSize: '0.7em', fontWeight: 400 }}>
+            내 <span style={{ color: '#f7c111' }}>이야기</span>를 들어줄래?
+          </span>
         </IntroText>
       </GradientDiv>
 
@@ -126,10 +132,11 @@ const IntroText = styled.div`
   display: flex;
   flex-direction: column;
   top: 96%;
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-family: 'Cafe24Ssurround';
   text-align: center;
-  letter-spacing: -0.1em;
+  letter-spacing: -0.07em;
+  line-height: 1.05em;
 `;
 
 const ButtonContainer = styled.div`
