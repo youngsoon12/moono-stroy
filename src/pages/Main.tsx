@@ -26,34 +26,35 @@ const Main = (props: any) => {
         <MainHeaderStyle
           style={{
             width: '100%',
-            height: '7vh',
+            height: '7dvh',
             zIndex: '2',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
+            display: 'flex',
             alignContent: 'center',
             border: '1px solid',
             fontWeight: '900',
           }}
         >
-          <div
-            style={{
-              gridColumn: '3',
-              fontSize: '1.2em ',
-              fontWeight: '900',
-            }}
-          >
-            MOOS
+          <div>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/header/Logo.png`}
+              style={{ width: '25%' }}
+            />
           </div>
-          <div>도장</div>
+          <div>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/header/stamp.png`}
+              style={{ width: '25%' }}
+            />
+          </div>
           <div>이름</div>
         </MainHeaderStyle>
         <img
           src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`}
           style={{
             position: 'absolute',
-            height: '38vh',
+            height: '38dvh',
             zIndex: '2',
-            top: '4vh',
+            top: '4dvh',
           }}
         />
         <IntroText>
@@ -96,12 +97,12 @@ export default Main;
 // GradientDiv 스타일
 const GradientDiv = styled.div`
   width: 100%;
-  height: 38vh;
+  height: 38dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-bottom: 5dvh;
+  margin-bottom: 3dvh;
 
   &::before {
     content: '';
@@ -109,14 +110,14 @@ const GradientDiv = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 26vh;
+    height: 26dvh;
     background-color: ${theme.color.mainColor}; /* 상단 70% 분홍색 */
     z-index: 1; /* 상단 배경 요소의 z-index를 낮게 설정 */
   }
 `;
 const MenuContainer = styled.div`
   width: 100%;
-  height: 58vh;
+  height: 58dvh;
   display: flex;
   flex-direction: column;
 `;
@@ -125,7 +126,8 @@ const IntroText = styled.div`
   z-index: 2;
   display: flex;
   flex-direction: column;
-  top: 96%;
+  /* top: 37dvh; */
+  top: 95%;
   font-size: 1.5em;
   font-family: 'Cafe24Ssurround';
   text-align: center;
@@ -144,13 +146,14 @@ const ButtonContainer = styled.div`
 const MenuButton = styled.button`
   background-color: #fff;
   border-radius: 10px;
-  height: 12vh;
+  height: 13dvh;
   font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
   font-weight: bold;
+  color: #121212; /* 이렇게 설정해주지 않으면 모바일 웹에서 버튼 text색이 파란색으로 나옴 */
   &&:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.562);
   }

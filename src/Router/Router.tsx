@@ -5,6 +5,7 @@ import LoginPage from 'pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from 'pages/RegisterPage';
 import Main from 'pages/Main';
+import Main3 from 'pages/Main3';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
@@ -15,6 +16,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Intro />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/main3" element={<Main3 />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 

@@ -11,15 +11,15 @@ export const ContentIntro = (props: any) => {
   const getImageSrc = () => {
     switch (id) {
       case 'introduce':
-        return `${process.env.PUBLIC_URL}/images/intro/뭐라고.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/하이무너.png`;
       case 'mooQuiz':
-        return `${process.env.PUBLIC_URL}/images/intro/MOOSLogo.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/헤드셋무너.png`;
       case 'cheerup':
-        return `${process.env.PUBLIC_URL}/images/intro/LogoLess.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/축하무너.png`;
       case 'fourcut':
-        return `${process.env.PUBLIC_URL}/images/intro/LogoLess.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/심쿵무너.png`;
       case 'fortune':
-        return `${process.env.PUBLIC_URL}/images/intro/HotPink.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/머쓱무너.png`;
     }
   };
   const handleStartButton = () => {
@@ -29,7 +29,6 @@ export const ContentIntro = (props: any) => {
     <Container>
       <div
         style={{
-          backgroundColor: '#87fdaa',
           height: '100%',
           justifyContent: 'center',
           alignContent: 'center',
