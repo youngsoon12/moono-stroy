@@ -29,7 +29,6 @@ export const ContentIntro = (props: any) => {
     <Container>
       <div
         style={{
-          backgroundColor: '#87fdaa',
           height: '100%',
           justifyContent: 'center',
           alignContent: 'center',

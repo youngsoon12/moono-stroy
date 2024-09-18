@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
-
+import theme from 'styles/theme';
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
@@ -80,13 +80,14 @@ const TitleArea = styled.div`
   padding-left: 20px;
   margin-bottom: 20px;
   font-size: 1.4em;
-  font-weight: bold;
+  font-weight: 900;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
   font-size: 1.1em;
-  color: #e947ae;
+  color: ${theme.color.mainColor};
+  font-weight: 900;
 `;
 
 const FootArea = styled.div`
@@ -94,7 +95,7 @@ const FootArea = styled.div`
   flex-direction: row;
   gap: 0px;
   width: 350px;
-  font-weight: normal;
+  font-weight: 600;
   color: #6b6b6b;
   margin-top: 11px;
   font-size: 13px;
