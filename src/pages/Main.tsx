@@ -10,51 +10,29 @@ const Main = (props: any) => {
     navigate(`/contIntro/${id}`);
   };
   return (
-    <Container
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        flex: '1',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        overflow: 'hidden',
-      }}
-    >
+    <Container style={{}}>
       {/* 첫 번째 섹션 */}
+      <MainHeaderStyle>
+        <Logo
+          src={`${process.env.PUBLIC_URL}/images/header/Logo.png`}
+          alt="MOOS 로고"
+        />
+        <UserInfo>
+          <Stamp
+            src={`${process.env.PUBLIC_URL}/images/header/stamp.png`}
+            alt="스탬프"
+          />
+          <div>반가워요</div>
+          <div style={{ fontSize: '0.7em' }}>김찡찡님</div>
+        </UserInfo>
+      </MainHeaderStyle>
       <GradientDiv>
-        <MainHeaderStyle
-          style={{
-            width: '100%',
-            height: '7dvh',
-            zIndex: '2',
-            display: 'flex',
-            alignContent: 'center',
-            border: '1px solid',
-            fontWeight: '900',
-          }}
-        >
-          <div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/header/Logo.png`}
-              style={{ width: '25%' }}
-            />
-          </div>
-          <div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/header/stamp.png`}
-              style={{ width: '25%' }}
-            />
-          </div>
-          <div>이름</div>
-        </MainHeaderStyle>
         <img
           src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`}
           style={{
             position: 'absolute',
-            height: '38dvh',
+            height: '35dvh',
             zIndex: '2',
-            top: '4dvh',
           }}
         />
         <IntroText>
@@ -103,12 +81,13 @@ export default Main;
 // GradientDiv 스타일
 const GradientDiv = styled.div`
   width: 100%;
-  height: 38dvh;
+  height: 31dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   margin-bottom: 3dvh;
+  z-index: 1;
 
   &::before {
     content: '';
@@ -116,14 +95,14 @@ const GradientDiv = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 26dvh;
+    height: 19dvh;
     background-color: ${theme.color.mainColor}; /* 상단 70% 분홍색 */
     z-index: 1; /* 상단 배경 요소의 z-index를 낮게 설정 */
   }
 `;
 const MenuContainer = styled.div`
   width: 100%;
-  height: 58dvh;
+  height: 59dvh;
   display: flex;
   flex-direction: column;
 `;
@@ -175,11 +154,32 @@ const LargeButton = styled(MenuButton)`
 `;
 
 const MainHeaderStyle = styled.div`
-  /* position: absolute; */
-  top: 0;
+  width: 100;
+  height: 7vh; /* 상대적인 vh 단위를 사용하여 반응형으로 설정 */
   display: flex;
-  /* box-sizing: border-box; */
-  overflow: auto;
+  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: space-between; /* 좌우로 균등한 간격 배분 */
+  background-color: ${theme.color.mainColor}; /* 헤더 배경 색 */
+  z-index: 2;
+  padding: 0 5%;
+`;
+
+const Logo = styled.img`
+  width: 25%; /* 로고 크기 조정 */
+`;
+
+const Stamp = styled.img`
+  width: 25%; /* 스탬프 크기 고정 */
+  float: left;
+`;
+
+const UserInfo = styled.div`
+  text-align: right; /* 텍스트 오른쪽 정렬 */
+  font-size: 1.4em;
+  /* font-family: 'Cafe24Ssurround'; */
+  /* line-height: 1.2em; */
   font-weight: 900;
-  align-items: flex-start;
+  color: white;
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+  text-align: center;
 `;

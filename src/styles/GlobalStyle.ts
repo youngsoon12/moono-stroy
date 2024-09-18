@@ -3,16 +3,11 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  @font-face {
-    font-family: 'Pretendard';
-    font-weight: 600 !important;
+    @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
     font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf') format("truetype");
-    font-display: swap;
   }
   /* 다른 @font-face 정의 생략 */
   @font-face {
@@ -24,12 +19,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard-Regular';
     box-sizing: border-box;
     font-weight: 600;
     background-color: #f0f0f0;
   }
-
+*{
+  font-family: 'Pretendard-Regular';
+}
   *:focus {
     outline: none;
     -webkit-tap-highlight-color: transparent;
