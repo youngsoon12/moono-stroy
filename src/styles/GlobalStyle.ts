@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   @font-face {
     font-family: 'Pretendard';
-    font-weight: 600;
+    font-weight: 600 !important;
     font-style: normal;
     src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot');
     src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix') format('embedded-opentype'),
