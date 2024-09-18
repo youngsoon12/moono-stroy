@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Container from '../components/css/Container';
+import theme from '../styles/theme';
 
 const Intro = () => {
   const navigate = useNavigate();
@@ -35,10 +36,15 @@ const Intro = () => {
             }}
           >
             <div>
-              <span style={{ color: '#E947AE' }}>당신</span>에게 들려주는
+              <span style={{ color: `${theme.color.mainColor}` }}>당신</span>
+              에게 들려주는
             </div>
             <div
-              style={{ fontSize: '1.1em', color: '#E947AE', fontWeight: '800' }}
+              style={{
+                fontSize: '1.1em',
+                color: '${theme.color.mainColor}',
+                fontWeight: '800',
+              }}
             >
               무너 이야기
             </div>
@@ -148,7 +154,7 @@ const StartButton = styled.button`
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #e947ae;
+  background-color: ${theme.color.mainColor};
   height: 13%;
   border: none;
   border-radius: 30px 30px 0 0;

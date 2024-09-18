@@ -1,5 +1,7 @@
 import { Input } from '@mui/material';
 import styled from 'styled-components';
+import theme from 'styles/theme';
+
 const InfoInput = (props: any) => {
   return <InfoText {...props} />;
 };
@@ -23,6 +25,6 @@ const InfoText = styled(Input)`
   }
 
   &.MuiInput-underline:after {
-    border-bottom: 2px solid #e947ae; /* 포커스 상태 */
+    border-bottom: 2px solid ${theme.color.mainColor}; /* 포커스 상태 */
   }
 `;

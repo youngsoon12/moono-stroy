@@ -7,7 +7,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { useNavigate } from 'react-router-dom';
 import { IdDuplicateAPI } from 'api/IdDuplicatge';
 import { RegisterAPI } from 'api/RegisterAPI';
-
+import theme from 'styles/theme';
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -161,8 +161,10 @@ const RegisterPage = () => {
         <>
           <StepFourInfo>
             회원가입완료 👍🏻 <br />
-            <span style={{ color: '#e947ae' }}>무너의 이야기를</span> 들어
-            볼까요?!
+            <span style={{ color: '${theme.color.mainColor}' }}>
+              무너의 이야기를
+            </span>{' '}
+            들어 볼까요?!
           </StepFourInfo>
           <LoginBtn
             onClick={() => {
@@ -198,7 +200,7 @@ const CheckArea = styled.div`
 
 const CheckInfo = styled.div`
   font-size: 16px;
-  color: #e947ae;
+  color: ${theme.color.mainColor};
   font-weight: bold;
 `;
 
