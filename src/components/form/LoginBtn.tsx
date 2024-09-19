@@ -13,6 +13,6 @@ const Btn = styled(Button)`
   color: #121212 !important; /* 텍스트 색상 변경 */
   height: 50px;
   font-family: 'Pretendard';
-  font-size: 24px;
-  font-weight: 1200;
+  font-size: 1.6em;
+  /* font-weight: 600; */
 `;

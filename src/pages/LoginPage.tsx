@@ -47,7 +47,11 @@ const LoginPage = (props: any) => {
         name="pwd"
         onChange={onChangeInfo}
       />
-      <LoginBtn variant="contained" onClick={onClickLogin}>
+      <LoginBtn
+        variant="contained"
+        onClick={onClickLogin}
+        style={{ fontSize: '1.3em', fontWeight: '900' }}
+      >
         로그인
       </LoginBtn>
       <FootArea>

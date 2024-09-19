@@ -17,13 +17,15 @@ const Intro = () => {
     >
       <div
         style={{
+          display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '85%',
+          height: '70%',
         }}
       >
         <Toptext>
-          <span style={{ fontSize: '16px', fontWeight: '200' }}>
+          <span style={{ fontSize: '16px', fontWeight: '200', top: '10%' }}>
             내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
           </span>
           <div
@@ -44,7 +46,6 @@ const Intro = () => {
                 fontSize: '1.1em',
                 color: '${theme.color.mainColor}',
                 fontWeight: '800',
-                marginBottom: '20%',
               }}
             >
               무너 이야기
@@ -122,7 +123,7 @@ const ImgContainer = styled.div`
   /* max-height: auto; */
   max-width: 430px; /* 최대 너비 400px */
   margin: auto; /* 가운데 정렬 */
-  bottom: 5%;
+  /* bottom: 5%; */
 
   img {
     margin: 0 auto;
