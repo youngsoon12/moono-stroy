@@ -45,6 +45,7 @@ const ImgArea = styled.div`
   width: 400px;
   height: 260px;
   border: 1px solid black;
+  margin-top: 30px;
   margin-bottom: 30px;
 `;
 const BoardArea = styled.div`
