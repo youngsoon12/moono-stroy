@@ -6,11 +6,12 @@ import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from 'pages/RegisterPage';
 import Main from 'pages/Main';
 import PhotoPage from 'pages/PhotoPage';
-
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
 import QuizComponent from 'pages/QuizComponent';
+import BoardPage from 'pages/BoardPage';
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
+        <Route path="/board" element={<BoardPage />} />
         <Route element={<ProtectedRoute />}>
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
           <Route path="/main" element={<Main />} />
