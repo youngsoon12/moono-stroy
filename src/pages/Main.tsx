@@ -2,9 +2,15 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
+import { useRecoilState } from 'recoil';
+import { userAtom } from 'recoil/userAtom';
+import { useEffect } from 'react';
 
 const Main = (props: any) => {
   const navigate = useNavigate();
+  const [user] = useRecoilState(userAtom);
+
+  console.log(user);
 
   const handleButtonClick = (id: string) => {
     navigate(`/contIntro/${id}`);
