@@ -6,26 +6,27 @@ import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
+
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
+  const [inputInfo, setInputInfo] = useState({
     id: '',
     pwd: '',
   });
 
   const onChangeInfo = (e: any) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
   };
 
   const onClickLogin = async () => {
-    if (!userInfo.id || !userInfo.pwd) {
+    if (!inputInfo.id || !inputInfo.pwd) {
       alert('아이디, 비밀번호를 모두 입력하세요.');
       return;
     }
     try {
-      const data = await loginAPI(userInfo); // 로그인 API 호출
+      const data = await loginAPI(inputInfo); // 로그인 API 호출
       sessionStorage.setItem('token', data.token);
-      navigate('/success');
+      navigate('/main');
     } catch (error) {
       console.error('로그인 실패:', error);
       alert('로그인에 실패했습니다. 다시 시도해주세요.');

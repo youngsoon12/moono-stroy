@@ -17,6 +17,8 @@ const RegisterPage = () => {
     nickName: '',
   });
 
+  console.log(registInfo);
+
   // 입력값 핸들러
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegistInfo({
