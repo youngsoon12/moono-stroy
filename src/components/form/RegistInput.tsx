@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import styled from 'styled-components';
-
+import theme from 'styles/theme';
 const RegistInput = (props: any) => {
   return <RegistInputField {...props} />;
 };
@@ -39,7 +39,7 @@ const RegistInputField = styled(TextField)`
 
   /* 포커스 시 언더라인 색상 */
   & .MuiInput-underline:after {
-    border-bottom: 3px solid #e947ae; /* 포커스 시 핑크색 언더라인 */
+    border-bottom: 3px solid ${theme.color.mainColor}; /* 포커스 시 핑크색 언더라인 */
   }
 
   /* 언더라인에 마우스를 올렸을 때 */

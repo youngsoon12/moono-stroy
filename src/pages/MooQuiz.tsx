@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Comtainer from '../components/css/Container';
 import Header from '../components/css/Header';
 import Contents from '../components/css/Contents';
-
+import theme from 'styles/theme';
 const MooQuiz = () => {
   return (
     <Comtainer>
@@ -62,7 +62,7 @@ const MooQuiz = () => {
                 textAlign: 'center',
                 fontSize: '36px',
                 alignItems: 'flex-end',
-                color: '#e947ae',
+                color: `${theme.color.mainColor}`,
               }}
             >
               <span>01</span>
@@ -89,7 +89,12 @@ const MooQuiz = () => {
           />
           <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
             <QuizBtn>천국</QuizBtn>
-            <QuizBtn style={{ color: '#e947ae', backgroundColor: '#f7f7f7' }}>
+            <QuizBtn
+              style={{
+                color: `${theme.color.mainColor}`,
+                backgroundColor: '#f7f7f7',
+              }}
+            >
               용궁
             </QuizBtn>
           </div>
@@ -126,7 +131,7 @@ const QuizBtn = styled.button`
   color: white;
   font-size: 24px;
   font-weight: 800;
-  background-color: #e947ae;
+  background-color: ${theme.color.mainColor};
   &&:hover {
     box-shadow:
       0 10px 20px rgba(0, 0, 0, 0.2),

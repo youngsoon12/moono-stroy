@@ -14,6 +14,7 @@ const theme = {
     deepgreen: '#b3b3b3',
     logogreen: '#009b3d',
     primary: '#e947ae',
+    mainColor: '#E42727',
   },
 };
 export default theme;

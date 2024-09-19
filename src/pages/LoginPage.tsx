@@ -5,27 +5,28 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
+import theme from 'styles/theme';
 
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
+  const [inputInfo, setInputInfo] = useState({
     id: '',
     pwd: '',
   });
 
   const onChangeInfo = (e: any) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
   };
 
   const onClickLogin = async () => {
-    if (!userInfo.id || !userInfo.pwd) {
+    if (!inputInfo.id || !inputInfo.pwd) {
       alert('아이디, 비밀번호를 모두 입력하세요.');
       return;
     }
     try {
-      const data = await loginAPI(userInfo); // 로그인 API 호출
+      const data = await loginAPI(inputInfo); // 로그인 API 호출
       sessionStorage.setItem('token', data.token);
-      navigate('/success');
+      navigate('/main');
     } catch (error) {
       console.error('로그인 실패:', error);
       alert('로그인에 실패했습니다. 다시 시도해주세요.');
@@ -35,7 +36,7 @@ const LoginPage = (props: any) => {
   return (
     <Container>
       <TitleArea>
-        <ColorSpan style={{ fontSize: '14px' }}>TMI</ColorSpan>
+        <ColorSpan style={{ fontSize: '0.6em' }}>TMI</ColorSpan>
         <br />
         <ColorSpan>무너</ColorSpan>의 고향은 용궁입니다.
       </TitleArea>
@@ -79,13 +80,15 @@ const TitleArea = styled.div`
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.4em;
+  font-weight: 900;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
-  color: #e947ae;
+  font-size: 1.1em;
+  color: ${theme.color.mainColor};
+  font-weight: 900;
 `;
 
 const FootArea = styled.div`
@@ -93,7 +96,7 @@ const FootArea = styled.div`
   flex-direction: row;
   gap: 0px;
   width: 350px;
-  font-weight: normal;
+  font-weight: 600;
   color: #6b6b6b;
   margin-top: 11px;
   font-size: 13px;

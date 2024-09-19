@@ -1,82 +1,189 @@
-import Container from '../components/css/Container';
+import { useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from '../components/css/Header';
+import Container from '../components/css/Container';
+import theme from 'styles/theme';
+import { useRecoilState } from 'recoil';
+import { userAtom } from 'recoil/userAtom';
+import { useEffect } from 'react';
 
 const Main = (props: any) => {
+  const navigate = useNavigate();
+  const [user] = useRecoilState(userAtom);
+
+  console.log(user);
+
+  const handleButtonClick = (id: string) => {
+    navigate(`/contIntro/${id}`);
+  };
   return (
     <Container
       style={{
         display: 'flex',
         flexDirection: 'column',
-        position: 'relative',
-        backgroundColor: '#FAFAFA',
-        overflow: 'scroll',
+        flex: '1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        overflow: 'hidden',
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          display: 'flex',
-          zIndex: '2',
-          width: '100%',
-          height: '210px',
-          backgroundColor: '#e947ae',
-        }}
-      >
-        <Header>헤더입니다.</Header>
-      </div>
-
-      <div style={{ position: 'relative', marginTop: '80px' }}>
-        {/* 이미지가 분홍색과 흰색 경계에 위치하도록 조정 */}
-        <img
-          src={`${process.env.PUBLIC_URL}/images/main/둥둥무너2.png`}
+      {/* 첫 번째 섹션 */}
+      <GradientDiv>
+        <MainHeaderStyle
           style={{
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: '3', // 헤더보다 위에 배치
-            width: 'auto',
-            height: '113px', // 적당한 크기로 설정
-          }}
-          alt="/"
-        />
-        <div
-          style={{
-            textAlign: 'center',
-            margin: '100px 0',
-            fontFamily: 'Cafe24Ssurround',
+            width: '100%',
+            height: '7vh',
+            zIndex: '2',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            alignContent: 'center',
+            border: '1px solid',
+            fontWeight: '900',
           }}
         >
-          <div style={{ fontSize: '32px' }}>안녕? 나는 무너야</div>
-          <div style={{ fontSize: '20px' }}>내 이야기를 들어줄래?</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <span style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-            <MiddleMenu></MiddleMenu>
-            <MiddleMenu></MiddleMenu>
+          <div
+            style={{
+              gridColumn: '3',
+              fontSize: '1.2em ',
+              fontWeight: '900',
+            }}
+          >
+            MOOS
+          </div>
+          <div>도장</div>
+          <div>이름</div>
+        </MainHeaderStyle>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`}
+          style={{
+            position: 'absolute',
+            height: '38vh',
+            zIndex: '2',
+            top: '4vh',
+          }}
+        />
+        <IntroText>
+          <span>
+            <span style={{ color: `${theme.color.mainColor}` }}>안녕? </span>
+            나는 <span style={{ color: `${theme.color.mainColor}` }}>무너</span>
+            야
           </span>
-          <MiddleMenu style={{ width: '100%' }}></MiddleMenu>
-          <span style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-            <MiddleMenu></MiddleMenu>
-            <MiddleMenu></MiddleMenu>
+          <span style={{ fontSize: '0.7em', fontWeight: 400 }}>
+            내 <span style={{ color: '#f7c111' }}>이야기</span>를 들어줄래?
           </span>
-        </div>
-      </div>
+        </IntroText>
+      </GradientDiv>
+
+      {/* 두 번째 섹션 */}
+      <MenuContainer>
+        <ButtonContainer>
+          {/* 상단 2개의 버튼 */}
+          <MenuButton onClick={() => handleButtonClick('introduce')}>
+            무너소개서
+          </MenuButton>
+          <MenuButton onClick={() => handleButtonClick('mooQuiz')}>
+            무 퀴즈~?!
+          </MenuButton>
+
+          {/* 가운데 큰 버튼 */}
+          <LargeButton onClick={() => handleButtonClick('cheerup')}>
+            무너를 응원해줘!
+          </LargeButton>
+
+          {/* 하단 2개의 버튼 */}
+          <MenuButton onClick={() => handleButtonClick('fourcut')}>
+            무너네컷
+          </MenuButton>
+          <MenuButton onClick={() => handleButtonClick('fortune')}>
+            오늘의 운세
+          </MenuButton>
+        </ButtonContainer>
+      </MenuContainer>
     </Container>
   );
 };
 
 export default Main;
 
-const MiddleMenu = styled.button`
-  width: 180px;
-  height: 150px;
-  border-radius: 20px;
-  background-color: white;
-  color: #292929;
-  box-shadow:
-    0 10px 20px rgba(37, 37, 37, 0.05),
-    0 6px 10px rgba(0, 0, 0, 0.158);
+// GradientDiv 스타일
+const GradientDiv = styled.div`
+  width: 100%;
+  height: 38vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 5dvh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 26vh;
+    background-color: ${theme.color.mainColor}; /* 상단 70% 분홍색 */
+    z-index: 1; /* 상단 배경 요소의 z-index를 낮게 설정 */
+  }
+`;
+const MenuContainer = styled.div`
+  width: 100%;
+  height: 58vh;
+  display: flex;
+  flex-direction: column;
+`;
+const IntroText = styled.div`
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  top: 96%;
+  font-size: 1.8em;
+  font-family: 'Cafe24Ssurround';
+  text-align: center;
+  letter-spacing: -0.07em;
+  line-height: 1.05em;
+`;
+
+const ButtonContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2열로 구성 */
+  grid-gap: 2vh;
+  width: 100%;
+  padding: 10% 5%;
+  box-sizing: border-box;
+`;
+
+const MenuButton = styled.button`
+  background-color: #fff;
+  border-radius: 10px;
+  height: 12vh;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
+  font-weight: bold;
+  &&:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.562);
+  }
+`;
+
+const LargeButton = styled(MenuButton)`
+  grid-column: span 2; /* 2칸을 차지하도록 설정 */
+  background-color: ${theme.color.mainColor}; /* 핑크색 배경 */
+  color: #fff; /* 글자색 흰색 */
+  font-weight: bold;
+  height: 14vh;
+  font-size: 1.5em;
+`;
+
+const MainHeaderStyle = styled.div`
+  /* position: absolute; */
+  top: 0;
+  display: flex;
+  /* box-sizing: border-box; */
+  overflow: auto;
+  font-weight: 900;
+  align-items: flex-start;
 `;
