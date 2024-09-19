@@ -16,50 +16,56 @@ const Main = (props: any) => {
     navigate(`/contIntro/${id}`);
   };
   return (
-    <Container
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        flex: '1',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        overflow: 'hidden',
-      }}
-    >
+    <Container style={{ fontFamily: 'Pretendard-Regular ' }}>
       {/* 첫 번째 섹션 */}
-      <GradientDiv>
-        <MainHeaderStyle
-          style={{
-            width: '100%',
-            height: '7vh',
-            zIndex: '2',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            alignContent: 'center',
-            border: '1px solid',
-            fontWeight: '900',
-          }}
-        >
+      <MainHeaderStyle>
+        <Logo>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/header/Logo.png`}
+            alt="MOOS 로고"
+            style={{ width: '50%' }}
+          />
+        </Logo>
+        <UserInfo>
           <div
             style={{
-              gridColumn: '3',
-              fontSize: '1.2em ',
-              fontWeight: '900',
+              cursor: 'pointer',
+              flex: '1',
+              justifyContent: 'flex-end',
+              display: 'flex',
+            }}
+            // onClick={ff}
+          >
+            <img
+              src={`${process.env.PUBLIC_URL}/images/header/g.png`}
+              alt="스탬프"
+              style={{
+                display: 'flex',
+                width: '50%',
+                marginRight: '5%',
+              }}
+            />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.2em',
             }}
           >
-            MOOS
+            <div>반가워요</div>
+            <div style={{ fontSize: '0.7em' }}>김찡찡님</div>
           </div>
-          <div>도장</div>
-          <div>이름</div>
-        </MainHeaderStyle>
+        </UserInfo>
+      </MainHeaderStyle>
+      <GradientDiv>
         <img
           src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`}
           style={{
             position: 'absolute',
-            height: '38vh',
+            height: '35dvh',
             zIndex: '2',
-            top: '4vh',
           }}
         />
         <IntroText>
@@ -69,7 +75,7 @@ const Main = (props: any) => {
             야
           </span>
           <span style={{ fontSize: '0.7em', fontWeight: 400 }}>
-            내 <span style={{ color: '#f7c111' }}>이야기</span>를 들어줄래?
+            내 이야기를 들어줄래?
           </span>
         </IntroText>
       </GradientDiv>
@@ -108,12 +114,13 @@ export default Main;
 // GradientDiv 스타일
 const GradientDiv = styled.div`
   width: 100%;
-  height: 38vh;
+  height: 31dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-bottom: 5dvh;
+  margin-bottom: 3dvh;
+  z-index: 1;
 
   &::before {
     content: '';
@@ -121,14 +128,14 @@ const GradientDiv = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 26vh;
+    height: 15dvh;
     background-color: ${theme.color.mainColor}; /* 상단 70% 분홍색 */
     z-index: 1; /* 상단 배경 요소의 z-index를 낮게 설정 */
   }
 `;
 const MenuContainer = styled.div`
   width: 100%;
-  height: 58vh;
+  height: 59dvh;
   display: flex;
   flex-direction: column;
 `;
@@ -157,13 +164,14 @@ const ButtonContainer = styled.div`
 const MenuButton = styled.button`
   background-color: #fff;
   border-radius: 10px;
-  height: 12vh;
+  height: 13dvh;
   font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
   font-weight: bold;
+  color: #121212; /* 이렇게 설정해주지 않으면 모바일 웹에서 버튼 text색이 파란색으로 나옴 */
   &&:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.562);
   }
@@ -179,11 +187,29 @@ const LargeButton = styled(MenuButton)`
 `;
 
 const MainHeaderStyle = styled.div`
-  /* position: absolute; */
-  top: 0;
+  width: 100;
+  height: 7vh; /* 상대적인 vh 단위를 사용하여 반응형으로 설정 */
   display: flex;
-  /* box-sizing: border-box; */
-  overflow: auto;
+  align-items: center; /* 세로 가운데 정렬 */
+  /* justify-content: space-between; 좌우로 균등한 간격 배분 */
+  background-color: ${theme.color.mainColor}; /* 헤더 배경 색 */
+  z-index: 2;
+  padding: 0 5%;
+`;
+
+const Logo = styled.div`
+  flex: 1;
+  /* 로고 크기 조정 */
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+  flex: 1;
+  font-size: 1.4em;
   font-weight: 900;
-  align-items: flex-start;
+  color: white;
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
 `;

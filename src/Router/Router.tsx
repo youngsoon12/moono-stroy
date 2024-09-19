@@ -10,7 +10,7 @@ import PhotoPage from 'pages/PhotoPage';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
-
+import QuizComponent from 'pages/QuizComponent';
 const Router = () => {
   return (
     <BrowserRouter>

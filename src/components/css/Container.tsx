@@ -5,7 +5,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100dvw;
   height: 100dvh;
   max-width: 480px; /* 모바일에서 최대 너비 고정 */
   margin: 0 auto;

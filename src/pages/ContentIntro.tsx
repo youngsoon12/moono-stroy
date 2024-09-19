@@ -11,15 +11,42 @@ export const ContentIntro = (props: any) => {
   const getImageSrc = () => {
     switch (id) {
       case 'introduce':
-        return `${process.env.PUBLIC_URL}/images/intro/뭐라고.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/하이무너.png`;
       case 'mooQuiz':
-        return `${process.env.PUBLIC_URL}/images/intro/MOOSLogo.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/헤드셋무너.png`;
       case 'cheerup':
-        return `${process.env.PUBLIC_URL}/images/intro/LogoLess.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/축하무너.png`;
       case 'fourcut':
-        return `${process.env.PUBLIC_URL}/images/intro/LogoLess.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/심쿵무너.png`;
       case 'fortune':
-        return `${process.env.PUBLIC_URL}/images/intro/HotPink.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/머쓱무너.png`;
+    }
+  };
+
+  const getText = () => {
+    switch (id) {
+      case 'introduce':
+        return ['무너를 소개해줄게', '무너소개서', 'Say My Naaaaaameeeeema!'];
+      case 'mooQuiz':
+        return ['퀴즈를 풀어볼까?', '무 퀴즈~?!', 'MOO Quiz?'];
+      case 'cheerup':
+        return ['무너를 응원해줘!', '힘내 무너!', '힘내라힘!!!'];
+      case 'fourcut':
+        return ['무너의 네컷 사진', '무너네컷', 'like 찰칵'];
+      case 'fortune':
+        return [
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ marginBottom: '1%' }}>오늘의 운세가 궁금해?</span>
+            <span>
+              <span style={{ color: `${theme.color.mainColor}` }}>무너</span>가
+              알려줄게!
+            </span>
+          </div>,
+          '무너의 운세',
+          '쫄??쫄??',
+        ];
+      default:
+        return ['', ''];
     }
   };
   const handleStartButton = () => {
@@ -30,14 +57,40 @@ export const ContentIntro = (props: any) => {
       <div
         style={{
           height: '100%',
-          justifyContent: 'center',
-          alignContent: 'center',
+          justifyContent: 'flex-end',
+          alignContent: 'flex-end',
           width: '100%',
+          marginBottom: '10%',
         }}
       >
-        <BackImg src={getImageSrc()} alt="Logo" />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'center',
+            gap: '0.5em',
+          }}
+        >
+          <div>{getText()[0]}</div>
+          <div
+            style={{
+              fontFamily: 'pretendard',
+              fontSize: '2em',
+              fontWeight: '900',
+              marginBottom: '20%',
+            }}
+          >
+            {getText()[1]}
+          </div>
+          <div style={{ color: `${theme.color.mainColor}` }}>
+            {getText()[2]}
+          </div>
+        </div>
+        <BackImg>
+          <img src={getImageSrc()} alt="Logo" style={{ width: '80%' }} />
+        </BackImg>
         <ContentButtonStyle onClick={() => handleStartButton()}>
-          하이
+          시작하기
         </ContentButtonStyle>
       </div>
     </Container>
@@ -46,7 +99,7 @@ export const ContentIntro = (props: any) => {
 const ContentButtonStyle = styled.button`
   display: flex;
   width: 80%;
-  height: 10%;
+  height: 9%;
   background-color: ${theme.color.mainColor};
   /* border: 1px solid ${theme.color.mainColor}; */
   border-radius: 0.5em;
@@ -59,6 +112,8 @@ const ContentButtonStyle = styled.button`
   font-size: 1.5em;
   top: 10%;
 `;
-const BackImg = styled.img`
-  width: 100%;
+const BackImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
