@@ -9,7 +9,7 @@ import Main3 from 'pages/Main3';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
-
+import QuizComponent from 'pages/QuizComponent';
 const Router = () => {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ const Router = () => {
         <Route path="/main3" element={<Main3 />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/quizt" element={<QuizComponent />} />
 
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />

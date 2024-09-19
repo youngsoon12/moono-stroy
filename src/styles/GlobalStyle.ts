@@ -29,7 +29,6 @@ const GlobalStyle = createGlobalStyle`
 }
   *:focus {
     outline: none;
-    -webkit-tap-highlight-color: transparent;
   }
 
   button {

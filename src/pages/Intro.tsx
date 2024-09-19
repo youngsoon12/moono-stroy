@@ -19,7 +19,7 @@ const Intro = () => {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-          height: '80%',
+          height: '85%',
         }}
       >
         <Toptext>
@@ -44,6 +44,7 @@ const Intro = () => {
                 fontSize: '1.1em',
                 color: '${theme.color.mainColor}',
                 fontWeight: '800',
+                marginBottom: '20%',
               }}
             >
               무너 이야기
@@ -53,11 +54,11 @@ const Intro = () => {
 
         <ImgContainer>
           <img
-            src={`${process.env.PUBLIC_URL}/images/intro/HotPink.png`}
+            src={`${process.env.PUBLIC_URL}/images/intro/redlogo.png`}
             alt="Hot Pink"
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/intro/LogoLess2.png`}
+            src={`${process.env.PUBLIC_URL}/images/intro/deco.png`}
             alt="Logo"
           />
         </ImgContainer>
@@ -116,15 +117,18 @@ const bounceInTop = keyframes`
 // ImgContainer는 로고 이미지를 담는 컨테이너
 const ImgContainer = styled.div`
   position: relative;
-  width: 90vw; /* 이미지를 뷰포트 너비의 60%로 설정 */
+  width: 95dvw; /* 이미지를 뷰포트 너비의 60%로 설정 */
   /* height: 45dvh; */
-  max-height: auto;
-  max-width: 400px; /* 최대 너비 400px */
-  margin: 0 auto; /* 가운데 정렬 */
+  /* max-height: auto; */
+  max-width: 430px; /* 최대 너비 400px */
+  margin: auto; /* 가운데 정렬 */
+  bottom: 5%;
 
   img {
+    margin: 0 auto;
     position: absolute;
     width: 100%; /* 컨테이너의 100% 너비를 가짐 */
+    /* margin: auto; */
     height: auto;
     top: 0;
     left: 0;
@@ -133,18 +137,21 @@ const ImgContainer = styled.div`
   /* HotPink 이미지에 애니메이션 적용 */
   img:nth-child(1) {
     z-index: 1;
-    top: 15%;
+    /* top: 15%; */
+    width: 100%;
     animation: ${bounceInTop} 1.1s both;
+    mix-blend-mode: hard-light;
   }
 
   /* 로고 이미지 */
   img:nth-child(2) {
     position: relative;
     z-index: 2;
-    width: 87%; /* 로고 이미지는 컨테이너의 80% 너비로 설정 */
-    max-width: 460px; /* 최대 너비 300px */
+    width: 70%; /* 로고 이미지는 컨테이너의 80% 너비로 설정 */
+    max-width: 400px; /* 최대 너비 300px */
     height: auto;
-    left: 10%;
+    left: 5%;
+    margin-top: 11%;
   }
 `;
 
@@ -159,13 +166,15 @@ const StartButton = styled.button`
   border: none;
   border-radius: 30px 30px 0 0;
   font-size: 1.5em;
-  font-weight: 900;
+  font-family: 'Pretendard' !important;
+  font-weight: 900 !important;
   color: #171717;
   text-align: center;
   justify-content: center;
   align-items: center;
   letter-spacing: 3px;
   display: flex;
+
   cursor: pointer;
   &&:hover {
     color: #9ffb4b;
@@ -174,6 +183,6 @@ const StartButton = styled.button`
 `;
 
 const Toptext = styled.div`
-  margin: 5% 0;
+  margin: 3% 0;
   text-align: center;
 `;

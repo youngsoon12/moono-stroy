@@ -1,9 +1,31 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Comtainer from '../components/css/Container';
 import Header from '../components/css/Header';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
+import QuizData from '../assets/quiz.json';
+
 const MooQuiz = () => {
+  const [quizIndex, setQuizIndex] = useState(0); // 현재 퀴즈 인덱스
+  const [score, setScore] = useState(0); // 맞은 개수
+  const [showResult, setShowResult] = useState(false); // 결과 화면 여부
+  const quiz = QuizData.quiz;
+
+  const handleAnswerClick = (optionIndex: number) => {
+    // 정답인지 확인
+    if (optionIndex === quiz[quizIndex].answer) {
+      setScore(score + 1); // 정답일 경우 점수 증가
+    }
+
+    // 마지막 문제인지 확인
+    if (quizIndex < quiz.length - 1) {
+      setQuizIndex(quizIndex + 1); // 다음 문제로 이동
+    } else {
+      setShowResult(true); // 결과 화면 표시
+    }
+  };
+
   return (
     <Comtainer>
       <Header>
@@ -17,96 +39,91 @@ const MooQuiz = () => {
         >
           무퀴즈
         </span>
-        <span style={{ display: 'flex', gap: '10px' }}>
-          {/* <span
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <HeaderIcon
-              src={`${process.env.PUBLIC_URL}/images/header/stamp.png`}
-              style={{ width: '26px' }}
-            />
-          </span> */}
-          {/* <span
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div style={{ fontSize: '20px', fontWeight:'800' }}>반가워요.</div>
-            <div>퀸가비님</div>
-          </span> */}
-        </span>
+        <span style={{ display: 'flex', gap: '10px' }}></span>
       </Header>
       <Contents>
-        <MQuizContainer>
-          <div
-            style={{
-              margin: '0 auto',
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'center',
-              gap: '10px',
-            }}
-          >
+        {showResult ? (
+          <ResultContainer>
+            <div>퀴즈 종료!</div>
+            <div>
+              총 {quiz.length}문제 중 {score}문제를 맞췄어요!
+            </div>
+          </ResultContainer>
+        ) : (
+          <MQuizContainer>
             <div
               style={{
                 margin: '0 auto',
                 display: 'flex',
+                flexDirection: 'column',
                 textAlign: 'center',
-                fontSize: '36px',
-                alignItems: 'flex-end',
-                color: `${theme.color.mainColor}`,
+                gap: '10px',
               }}
             >
-              <span>01</span>
-              <span
+              <div
                 style={{
-                  fontSize: '14px',
-                  justifyContent: 'flex-end',
-                  marginBottom: '5px',
-                  color: '#afafaf',
+                  margin: '0 auto',
+                  display: 'flex',
+                  textAlign: 'center',
+                  fontSize: '36px',
+                  alignItems: 'flex-end',
+                  color: `${theme.color.mainColor}`,
                 }}
               >
-                /10
-              </span>
+                <span>{quizIndex + 1}</span>
+                <span
+                  style={{
+                    fontSize: '14px',
+                    justifyContent: 'flex-end',
+                    marginBottom: '5px',
+                    color: '#afafaf',
+                  }}
+                >
+                  / {quiz.length}
+                </span>
+              </div>
+              <div
+                style={{ fontSize: '24px', padding: '10px', margin: '0 auto' }}
+              >
+                {quiz[quizIndex].question}
+              </div>
             </div>
-            <div
-              style={{ fontSize: '24px', padding: '10px', margin: '0 auto' }}
-            >
-              무너의 고향은 어디일까요?
+            <img
+              src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
+              style={{ width: '183px', margin: '30px auto' }}
+              alt="quiz illustration"
+            />
+            <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
+              {quiz[quizIndex].options.map((option: string, index: number) => (
+                <QuizBtn
+                  key={index}
+                  onClick={() => handleAnswerClick(index)}
+                  style={{
+                    color:
+                      index === quiz[quizIndex].answer
+                        ? `${theme.color.mainColor}`
+                        : 'white',
+                    backgroundColor:
+                      index === quiz[quizIndex].answer
+                        ? '#f7f7f7'
+                        : `${theme.color.mainColor}`,
+                  }}
+                >
+                  {option}
+                </QuizBtn>
+              ))}
             </div>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
-            style={{ width: '183px', margin: '30px auto' }}
-          />
-          <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
-            <QuizBtn>천국</QuizBtn>
-            <QuizBtn
-              style={{
-                color: `${theme.color.mainColor}`,
-                backgroundColor: '#f7f7f7',
-              }}
-            >
-              용궁
-            </QuizBtn>
-          </div>
-        </MQuizContainer>
+          </MQuizContainer>
+        )}
       </Contents>
     </Comtainer>
   );
 };
+
 export default MooQuiz;
+
 const HeaderIcon = styled.img`
   width: 15px;
-  /* height: 30px; */
 `;
 
 const MQuizContainer = styled.div`
@@ -117,14 +134,12 @@ const MQuizContainer = styled.div`
   flex-direction: column;
   text-align: center;
 `;
+
 const QuizBtn = styled.button`
   font-family: Cafe24Ssurround;
   width: 150px;
   height: 200px;
   border-radius: 20px;
-  /* box-shadow:
-    inset 0px 0px 5px rgba(253, 253, 253, 0.753),
-    0px 4px 4px #00000025; */
   box-shadow:
     0 10px 20px rgba(37, 37, 37, 0.05),
     0 6px 10px rgba(0, 0, 0, 0.158);
@@ -137,4 +152,10 @@ const QuizBtn = styled.button`
       0 10px 20px rgba(0, 0, 0, 0.2),
       0 6px 4px rgba(0, 0, 0, 0.2);
   }
+`;
+
+const ResultContainer = styled.div`
+  text-align: center;
+  font-size: 24px;
+  color: ${theme.color.mainColor};
 `;
