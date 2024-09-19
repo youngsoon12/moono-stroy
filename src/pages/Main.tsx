@@ -55,7 +55,7 @@ const Main = (props: any) => {
             }}
           >
             <div>반가워요</div>
-            <div style={{ fontSize: '0.7em' }}>김찡찡님</div>
+            <div style={{ fontSize: '0.7em' }}>{user.nickName}님</div>
           </div>
         </UserInfo>
       </MainHeaderStyle>
