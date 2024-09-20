@@ -1,7 +1,9 @@
 // GlobalStyle.ts
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+// import  from '../assets/fonts/Pretendard.woff2';
 const GlobalStyle = createGlobalStyle`
+
   ${reset}
 
   :root{
@@ -9,9 +11,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
     @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard.woff2') format('woff2-variations');
+    font-weight: 400 600 900;
     font-style: normal;
   }
   /* 다른 @font-face 정의 생략 */
@@ -24,13 +26,13 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Pretendard-Regular';
+    /* font-family: 'Pretendard'; */
     box-sizing: border-box;
     font-weight: 600;
     background-color: #f0f0f0;
   }
 *{
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard';
 }
   *:focus {
     outline: none;

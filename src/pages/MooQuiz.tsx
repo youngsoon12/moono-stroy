@@ -83,7 +83,12 @@ const MooQuiz = () => {
                 </span>
               </div>
               <div
-                style={{ fontSize: '24px', padding: '10px', margin: '0 auto' }}
+                style={{
+                  fontSize: '24px',
+                  padding: '10px',
+                  margin: '0 auto',
+                  height: '8dvh',
+                }}
               >
                 {quiz[quizIndex].question}
               </div>
