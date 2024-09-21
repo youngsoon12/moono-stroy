@@ -172,6 +172,10 @@ const RegisterPage = () => {
             onClick={() => {
               navigate('/login');
             }}
+            style={{
+              fontWeight: '600',
+              letterSpacing: '3px',
+            }}
           >
             확인
           </LoginBtn>

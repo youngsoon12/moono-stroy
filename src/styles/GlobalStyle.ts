@@ -23,13 +23,26 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
   body {
+    /* font-size: 100%; */
     margin: 0;
     padding: 0;
     /* font-family: 'Pretendard'; */
     box-sizing: border-box;
     font-weight: 600;
     background-color: #f0f0f0;
+    /* Prevent font scaling in landscape */
+    -webkit-text-size-adjust: none; /*Chrome, Safari, newer versions of Opera*/
+    -moz-text-size-adjust: none; /*Firefox*/
+    -ms-text-size-adjust: none; /*Ie*/
+    -o-text-size-adjust: none; /*old versions of Opera*/
+    color: #4F2222;
   }
 *{
   font-family: 'Pretendard';

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Container from '../components/css/Container';
-import Header from '../components/css/Header';
+import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 
 const StartQuiz = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Comtainer from '../components/css/Container';
-import Header from '../components/css/Header';
+import Container from '../components/css/Container';
+import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
 import QuizData from '../assets/quiz.json';
@@ -27,20 +27,20 @@ const MooQuiz = () => {
   };
 
   return (
-    <Comtainer>
-      <Header>
-        <span style={{ flex: '0.5' }}>
+    <Container>
+      <Header>무퀴즈</Header>
+      {/* <span style={{ flex: '0.5' }}>
           <HeaderIcon
             src={`${process.env.PUBLIC_URL}/images/header/back.png`}
           />
         </span>
         <span
-          style={{ textAlign: 'center', fontSize: '20px', fontWeight: '700' }}
+          style={{ textAlign: 'center', fontSize: '1.4em', fontWeight: '700' }}
         >
           무퀴즈
-        </span>
-        <span style={{ display: 'flex', gap: '10px' }}></span>
-      </Header>
+        </span> */}
+      {/* </Header> */}
+
       <Contents>
         {showResult ? (
           <ResultContainer>
@@ -57,7 +57,7 @@ const MooQuiz = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'center',
-                gap: '10px',
+                gap: '6%',
               }}
             >
               <div
@@ -84,10 +84,10 @@ const MooQuiz = () => {
               </div>
               <div
                 style={{
-                  fontSize: '24px',
+                  fontSize: '1.5em',
                   padding: '10px',
                   margin: '0 auto',
-                  height: '8dvh',
+                  // height: '8dvh',
                 }}
               >
                 {quiz[quizIndex].question}
@@ -95,7 +95,7 @@ const MooQuiz = () => {
             </div>
             <img
               src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
-              style={{ width: '183px', margin: '30px auto' }}
+              style={{ width: '150px', margin: '7% auto' }}
               alt="quiz illustration"
             />
             <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
@@ -121,7 +121,7 @@ const MooQuiz = () => {
           </MQuizContainer>
         )}
       </Contents>
-    </Comtainer>
+    </Container>
   );
 };
 
@@ -133,7 +133,8 @@ const HeaderIcon = styled.img`
 
 const MQuizContainer = styled.div`
   width: 100%;
-  height: 550px;
+  height: 85%;
+  /* padding: 5% 0; */
   font-family: Cafe24Ssurround;
   display: flex;
   flex-direction: column;
