@@ -170,7 +170,7 @@ const StartButton = styled.button`
   height: 13%;
   border: none;
   border-radius: 30px 30px 0 0;
-  font-size: 1.8em;
+  font-size: 1.6em;
   font-weight: 900;
   color: #171717;
   text-align: center;
@@ -181,9 +181,8 @@ const StartButton = styled.button`
 
   cursor: pointer;
   &&:hover {
-    /* color: #ffffff; */
+    color: #ffffff;
     font-weight: 900;
-    font-size: 2em;
   }
 `;
 
