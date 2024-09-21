@@ -36,9 +36,19 @@ const LoginPage = (props: any) => {
   return (
     <Container>
       <TitleArea>
-        <ColorSpan style={{ fontSize: '0.6em' }}>TMI</ColorSpan>
+        <ColorSpan
+          style={{
+            fontSize: '0.6em',
+            marginLeft: '3%',
+          }}
+        >
+          TMI
+        </ColorSpan>
         <br />
-        <ColorSpan>무너</ColorSpan>의 고향은 용궁입니다.
+        <ColorSpan style={{ color: `${theme.color.mainColor}` }}>
+          무너
+        </ColorSpan>
+        의 고향은 용궁입니다.
       </TitleArea>
       <InfoInput placeholder="아이디" name="id" onChange={onChangeInfo} />
       <InfoInput
@@ -50,7 +60,7 @@ const LoginPage = (props: any) => {
       <LoginBtn
         variant="contained"
         onClick={onClickLogin}
-        style={{ fontSize: '1.3em', fontWeight: '900' }}
+        style={{ fontSize: '1.3em', fontWeight: '600', letterSpacing: 'px' }}
       >
         로그인
       </LoginBtn>
@@ -91,7 +101,7 @@ const TitleArea = styled.div`
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
   font-size: 1.1em;
-  color: ${theme.color.mainColor};
+  color: ${theme.color.pointColor};
   font-weight: 900;
 `;
 

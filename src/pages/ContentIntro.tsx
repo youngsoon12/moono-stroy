@@ -2,6 +2,7 @@ import Container from '../components/css/Container';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { useParams, useNavigate } from 'react-router-dom';
+import Header from '../components/form/Header';
 
 export const ContentIntro = (props: any) => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ export const ContentIntro = (props: any) => {
   };
   return (
     <Container>
+      <Header>{''}</Header>
       <div
         style={{
           height: '100%',
@@ -69,6 +71,7 @@ export const ContentIntro = (props: any) => {
             flexDirection: 'column',
             textAlign: 'center',
             gap: '0.5em',
+            marginTop: '20%',
           }}
         >
           <div>{getText()[0]}</div>
@@ -77,7 +80,7 @@ export const ContentIntro = (props: any) => {
               fontFamily: 'pretendard',
               fontSize: '2em',
               fontWeight: '900',
-              marginBottom: '20%',
+              marginBottom: '15%',
             }}
           >
             {getText()[1]}
@@ -87,7 +90,7 @@ export const ContentIntro = (props: any) => {
           </div>
         </div>
         <BackImg>
-          <img src={getImageSrc()} alt="Logo" style={{ width: '80%' }} />
+          <img src={getImageSrc()} alt="Logo" style={{ width: '70%' }} />
         </BackImg>
         <ContentButtonStyle onClick={() => handleStartButton()}>
           시작하기

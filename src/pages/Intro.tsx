@@ -26,8 +26,8 @@ const Intro = () => {
       >
         <div>
           <Toptext>
-            <span style={{ fontSize: '16px', fontWeight: '200', top: '10%' }}>
-              내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
+            <span style={{ fontSize: '16px', fontWeight: '500', top: '10%' }}>
+              내 <span style={{}}>이야기</span> 들어줄래?
             </span>
             <div
               style={{
@@ -35,7 +35,7 @@ const Intro = () => {
                 fontSize: '1.4em',
                 fontWeight: '500',
                 margin: '2vh 0',
-                lineHeight: '3vh',
+                lineHeight: '4vh',
               }}
             >
               <div>
@@ -144,12 +144,12 @@ const ImgContainer = styled.div`
     z-index: 1;
     /* top: 15%; */
     width: 100%;
+    animation: ${bounceInTop} 1.1s both;
     mix-blend-mode: hard-light;
   }
 
   /* 로고 이미지 */
   img:nth-child(2) {
-    animation: ${bounceInTop} 1.1s both;
     position: relative;
     z-index: 2;
     width: 70%; /* 로고 이미지는 컨테이너의 80% 너비로 설정 */
@@ -181,8 +181,9 @@ const StartButton = styled.button`
 
   cursor: pointer;
   &&:hover {
-    color: #9ffb4b;
+    /* color: #ffffff; */
     font-weight: 900;
+    font-size: 2em;
   }
 `;
 
