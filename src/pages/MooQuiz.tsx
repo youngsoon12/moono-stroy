@@ -53,7 +53,7 @@ const MooQuiz = () => {
           <MQuizContainer>
             <div
               style={{
-                margin: '0 auto',
+                margin: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'center',
@@ -139,6 +139,7 @@ const MQuizContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: auto;
 `;
 
 const QuizBtn = styled.button`
@@ -164,4 +165,5 @@ const ResultContainer = styled.div`
   text-align: center;
   font-size: 24px;
   color: ${theme.color.mainColor};
+  font-weight: 900;
 `;
