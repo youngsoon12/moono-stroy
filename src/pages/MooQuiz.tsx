@@ -72,10 +72,13 @@ const MooQuiz = () => {
               </div>
               <div
                 style={{
-                  fontSize: '1.5em',
+                  display: 'flex',
+                  fontSize: '1.4em',
                   padding: '10px',
                   margin: '0 auto',
-                  // height: '8dvh',
+                  height: '8dvh',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 {quiz[quizIndex].question}
@@ -114,10 +117,6 @@ const MooQuiz = () => {
 };
 
 export default MooQuiz;
-
-const HeaderIcon = styled.img`
-  width: 15px;
-`;
 
 const MQuizContainer = styled.div`
   width: 100%;

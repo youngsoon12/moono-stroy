@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userAtom } from 'recoil/userAtom';
 import styled from 'styled-components';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
+
 const Main3 = (props: any) => {
   const navigate = useNavigate();
   const [user] = useRecoilState(userAtom);
+  const popoverRef = useRef<HTMLDivElement | null>(null); // ref 생성
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   console.log(user);
 
@@ -18,6 +21,29 @@ const Main3 = (props: any) => {
   const hadleStampClick = () => {
     navigate('/stamp');
   };
+
+  const togglePopover = () => {
+    setIsOpen((prev) => !prev);
+  };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      popoverRef.current &&
+      !popoverRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
   return (
     <Container style={{ padding: '15px', overflowY: 'scroll' }}>
       <HederStyled>
@@ -33,12 +59,26 @@ const Main3 = (props: any) => {
           <img
             src={`${process.env.PUBLIC_URL}/images/main/bell.png`}
             alt="알람"
+            style={{ cursor: 'pointer' }}
           />
 
           <img
             src={`${process.env.PUBLIC_URL}/images/main/user.png`}
-            alt="알람"
+            alt="사용자"
+            style={{ cursor: 'pointer' }}
+            onClick={togglePopover}
           />
+          {isOpen && (
+            <Popover ref={popoverRef}>
+              <PopoverContent>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.4em' }}>반가워요</div>
+                  <div>{user.nickName}님</div>
+                </div>
+                <PopoverBtn>로그아웃</PopoverBtn>
+              </PopoverContent>
+            </Popover>
+          )}
         </LogoRightSection>
       </HederStyled>
       <IntroMoo>
@@ -88,9 +128,9 @@ const Main3 = (props: any) => {
                 src={`${process.env.PUBLIC_URL}/images/moono/2D하이.png`}
                 alt="무퀴즈"
                 style={{
-                  height:'190%',
+                  height: '190%',
                   display: 'flex',
-                  marginLeft:'10%'
+                  marginLeft: '10%',
                 }}
               />
             </div>
@@ -327,4 +367,33 @@ const IntroMooImg = styled.div`
   img {
     height: 100%;
   }
+`;
+const Popover = styled.div`
+  position: absolute;
+  top: 50px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  width: 25%;
+  height: 20%;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+`;
+
+const PopoverContent = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  width: 100%;
+`;
+
+const PopoverBtn = styled.button`
+  width: 100%;
+  padding: 7%;
+  color: #121212;
 `;
