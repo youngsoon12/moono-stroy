@@ -14,6 +14,10 @@ const Main3 = (props: any) => {
   const handleButtonClick = (id: string) => {
     navigate(`/contIntro/${id}`);
   };
+
+  const hadleStampClick = () => {
+    navigate('/stamp');
+  };
   return (
     <Container style={{ padding: '15px', overflowY: 'scroll' }}>
       <HederStyled>
@@ -22,6 +26,8 @@ const Main3 = (props: any) => {
           <img
             src={`${process.env.PUBLIC_URL}/images/main/stamp.png`}
             alt="스탬프"
+            onClick={() => hadleStampClick()}
+            style={{ cursor: 'pointer' }}
           />
 
           <img
@@ -82,8 +88,9 @@ const Main3 = (props: any) => {
                 src={`${process.env.PUBLIC_URL}/images/moono/2D하이.png`}
                 alt="무퀴즈"
                 style={{
-                  width: '90%',
+                  height:'190%',
                   display: 'flex',
+                  marginLeft:'10%'
                 }}
               />
             </div>
@@ -102,7 +109,7 @@ const Main3 = (props: any) => {
             <div
               style={{
                 letterSpacing: '-1px',
-                height: '30%',
+                height: '20%',
                 marginBottom: '5%',
               }}
             >
@@ -320,5 +327,4 @@ const IntroMooImg = styled.div`
   img {
     height: 100%;
   }
-  
 `;
