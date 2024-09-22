@@ -11,7 +11,7 @@ import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
 import { StampPage } from 'pages/StampPage';
-import QuizComponent from 'pages/QuizComponent';
+
 const Router = () => {
   return (
     <BrowserRouter>
