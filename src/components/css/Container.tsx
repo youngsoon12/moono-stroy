@@ -8,15 +8,14 @@ const Container = styled.div`
   width: 100dvw;
   height: 100dvh;
   min-width: 300px;
-  max-width: 480px; //바일에서 최대 너비 고정
+  max-width: 480px; // 모바일에서 최대 너비 고정
   margin: 0 auto;
   box-sizing: border-box;
-  /* background-color: #ffffff; */
-  /* background-color: #272727; */
   background-color: #ffffff;
-  overflow-y: scroll;
+  // 스크롤바가 자동으로 표시되도록 변경
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
   }
 `;
+
 export default Container;

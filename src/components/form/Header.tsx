@@ -15,9 +15,11 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
         <img
           src={`${process.env.PUBLIC_URL}/images/header/back.png`}
           alt="Back"
+          style={{ width: '80%' }}
         />
       </BackIcon>
-      <Title>{children}</Title> {/* children으로 타이틀을 받음 */}
+      <Title style={{ marginRight: '2%' }}>{children}</Title>{' '}
+      {/* children으로 타이틀을 받음 */}
     </HeaderStyle>
   );
 };
@@ -34,6 +36,7 @@ const HeaderStyle = styled.div`
   max-width: 480px;
   padding: 3%;
   box-sizing: border-box;
+  background-color: #fff;
 `;
 
 const BackIcon = styled.div`
@@ -43,8 +46,8 @@ const BackIcon = styled.div`
 
 const Title = styled.span`
   flex: 1;
-  font-size: 1.4em;
-  font-weight: 700;
+  font-size: 1.2em;
+  font-weight: 500;
   text-align: center;
   flex: 1;
 `;
