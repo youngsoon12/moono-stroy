@@ -375,7 +375,7 @@ const Popover = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 10;
-  width: 25%;
+  width: 200px;
   height: 20%;
   display: flex;
   align-items: center; /* 세로 중앙 정렬 */
