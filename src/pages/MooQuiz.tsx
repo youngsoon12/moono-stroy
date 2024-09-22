@@ -29,18 +29,6 @@ const MooQuiz = () => {
   return (
     <Container>
       <Header>무퀴즈</Header>
-      {/* <span style={{ flex: '0.5' }}>
-          <HeaderIcon
-            src={`${process.env.PUBLIC_URL}/images/header/back.png`}
-          />
-        </span>
-        <span
-          style={{ textAlign: 'center', fontSize: '1.4em', fontWeight: '700' }}
-        >
-          무퀴즈
-        </span> */}
-      {/* </Header> */}
-
       <Contents>
         {showResult ? (
           <ResultContainer>

@@ -10,7 +10,7 @@ import Main3 from 'pages/Main3';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
-import { Stamp } from 'pages/Stamp';
+import { StampPage } from 'pages/StampPage';
 import QuizComponent from 'pages/QuizComponent';
 const Router = () => {
   return (
@@ -22,7 +22,7 @@ const Router = () => {
         <Route path="/photo" element={<PhotoPage />} />
         <Route path="/main" element={<Main />} />
         <Route path="/main3" element={<Main3 />} />
-        <Route path="/stamp" element={<Stamp />} />
+        <Route path="/stamp" element={<StampPage />} />
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
