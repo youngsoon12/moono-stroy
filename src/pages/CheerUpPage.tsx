@@ -5,11 +5,15 @@ import React from 'react';
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import InfoInput from '../components/form/InfoInput';
+import BoardInput from '../components/form/BoardInput';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from 'recoil/userAtom';
 
-const BoardPage: React.FC = () => {
+const CheerUpPage: React.FC = () => {
   const navigate = useNavigate();
-
+  const [user] = useRecoilState(userAtom);
+  console.log(user);
   const onBackBtn = () => {
     // 뒤로 가기 함수
     navigate('/main');
@@ -25,15 +29,15 @@ const BoardPage: React.FC = () => {
         <ImgArea></ImgArea>
         <BoardArea></BoardArea>
         <InputArea>
-          <InputText />
-          <InputBtn>버튼</InputBtn>
+          <BoardInput />
+          <button>버튼</button>
         </InputArea>
       </Contents>
     </Container>
   );
 };
 
-export default BoardPage;
+export default CheerUpPage;
 
 const HeaderTitle = styled.span`
   position: sticky;
@@ -54,11 +58,11 @@ const BoardArea = styled.div`
   border: 1px solid black;
   margin-bottom: 30px;
 `;
-const InputText = styled(InfoInput)`
-  width: 300px;
-  height: 44px;
-  margin-right: 10px;
-`;
+// const InputText = styled(InfoInput)`
+//   width: 300px;
+//   height: 44px;
+//   margin-right: 10px;
+// `;
 
 const InputArea = styled.div``;
 
