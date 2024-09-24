@@ -5,10 +5,10 @@ export const userAtom = atom({
   default: {
     sub: '',
     nickName: '',
-    oneMission: '',
-    twoMission: '',
-    threeMission: '',
-    fourMission: '',
-    fiveMission: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
   },
 });
