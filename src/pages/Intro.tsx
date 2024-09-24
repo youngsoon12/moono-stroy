@@ -21,56 +21,60 @@ const Intro = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '70%',
+          height: '85%',
         }}
       >
-        <Toptext>
-          <span style={{ fontSize: '16px', fontWeight: '200', top: '10%' }}>
-            내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
-          </span>
-          <div
-            style={{
-              textAlign: 'center',
-              fontSize: '1.4em',
-              fontWeight: '500',
-              margin: '2vh 0',
-              lineHeight: '3vh',
-            }}
-          >
-            <div>
-              <span style={{ color: `${theme.color.mainColor}` }}>당신</span>
-              에게 들려주는
-            </div>
+        <div>
+          <Toptext>
+            <span style={{ fontSize: '16px', fontWeight: '500', top: '10%' }}>
+              내 <span style={{}}>이야기</span> 들어줄래?
+            </span>
             <div
               style={{
-                fontSize: '1.1em',
-                color: '${theme.color.mainColor}',
-                fontWeight: '800',
+                textAlign: 'center',
+                fontSize: '1.4em',
+                fontWeight: '500',
+                margin: '2vh 0',
+                lineHeight: '4vh',
               }}
             >
-              무너 이야기
+              <div>
+                <span style={{ color: `${theme.color.mainColor}` }}>당신</span>
+                에게 들려주는
+              </div>
+              <div
+                style={{
+                  fontSize: '1.1em',
+                  color: '${theme.color.mainColor}',
+                  fontWeight: '800',
+                }}
+              >
+                무너 이야기
+              </div>
             </div>
-          </div>
-        </Toptext>
+          </Toptext>
 
-        <ImgContainer>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/intro/redlogo.png`}
-            alt="Hot Pink"
-          />
-          <img
-            src={`${process.env.PUBLIC_URL}/images/intro/deco.png`}
-            alt="Logo"
-          />
-        </ImgContainer>
+          <ImgContainer>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/intro/redlogo.png`}
+              alt="Hot Pink"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/intro/deco.png`}
+              alt="Logo"
+            />
+          </ImgContainer>
+        </div>
       </div>
-      <StartButton
-        onClick={() => {
-          navigate('/login');
-        }}
-      >
-        로그인하기
-      </StartButton>
+      <div style={{ height: '15%' }}>
+        <StartButton
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          로그인하기
+        </StartButton>
+      </div>
     </Container>
   );
 };
@@ -166,20 +170,19 @@ const StartButton = styled.button`
   height: 13%;
   border: none;
   border-radius: 30px 30px 0 0;
-  font-size: 1.5em;
-  font-family: 'Pretendard' !important;
-  font-weight: 900 !important;
+  font-size: 1.6em;
+  font-weight: 900;
   color: #171717;
   text-align: center;
   justify-content: center;
   align-items: center;
-  letter-spacing: 3px;
+  /* letter-spacing: 3px; */
   display: flex;
 
   cursor: pointer;
   &&:hover {
-    color: #9ffb4b;
-    font-weight: 800;
+    color: #ffffff;
+    font-weight: 900;
   }
 `;
 
