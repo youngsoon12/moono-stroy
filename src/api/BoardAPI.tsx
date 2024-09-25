@@ -24,9 +24,7 @@ export const PostBoardAPI = async (textInfo: any) => {
 
 export const DeleteBoardAPI = async (e: any) => {
   try {
-    const response = await axios.delete(
-      `${apiUrl}/api/cheerup/${e.target.name}`
-    );
+    const response = await axios.delete(`${apiUrl}/api/cheerup/${e}`);
     return response.data; // 성공 시 데이터 반환
   } catch (error) {
     console.error('데이터 삭제 실패 : ', error);

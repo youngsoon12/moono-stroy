@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Intro from 'pages/Intro';
 import LoginPage from 'pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from 'pages/RegisterPage';
 import Main from 'pages/Main';
+import Main2 from 'pages/Main2';
 import PhotoPage from 'pages/PhotoPage';
 import { Fortune } from 'pages/Fortune';
 import MooQuiz from 'pages/MooQuiz';
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/photo" element={<PhotoPage />} />
+        <Route path="/main2" element={<Main2 />} />
         <Route path="/fourcut" element={<FourCutPage />} />
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />

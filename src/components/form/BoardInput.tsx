@@ -4,21 +4,27 @@ import { TextField } from '@mui/material';
 const BoardInput = (props: any) => {
   return (
     <TextField
-      variant="standard" // outlined가 아닌 standard로 변경하여 커스텀 스타일 적용
+      variant="standard"
       sx={{
         width: '350px',
         '& .MuiInput-underline:before': {
-          borderBottom: '2px solid', // bottom에만 border 적용
-          borderColor: 'black', // 원하는 색상 지정
+          borderBottom: '2px solid',
+          borderColor: '#8a8a8a',
         },
         '& .MuiInput-underline:after': {
-          borderBottom: '2px solid', // 선택 상태일 때도 bottom에만 border 적용
-          borderColor: '#EA3636', // 활성화 시 색상 지정
+          borderBottom: '2px solid',
+          borderColor: '#EA3636',
         },
         '& .MuiInput-underline:hover:before': {
-          borderBottom: '2px solid', // hover 시에도 하단 border 유지
+          borderBottom: '2px solid',
           borderColor: 'black',
         },
+        '& .MuiInputBase-input': {
+          color: '#fff', // 입력 텍스트 색상
+        },
+      }}
+      InputProps={{
+        style: { color: '#fff' }, // 이 부분 추가
       }}
       {...props}
     />
