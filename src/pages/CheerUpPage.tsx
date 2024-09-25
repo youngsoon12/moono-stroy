@@ -1,4 +1,4 @@
-import Header from '../components/css/HeaderArea';
+import Header from '../components/form/Header';
 import Container from '../components/css/Container';
 import Contents from '../components/css/Contents';
 import React from 'react';
@@ -65,12 +65,9 @@ const CheerUpPage: React.FC = () => {
   // ------------ 함수 존 끝 --------------------------------------------------------
 
   return (
-    <Container>
-      <Header style={{ position: 'relative' }}>
-        <ArrowBackIosNewSharpIcon onClick={onBackBtn} />
-        <HeaderTitle>무너 응원하기</HeaderTitle>
-      </Header>
-      <Contents>
+    <div>
+      <Header>{'무너 응원하기'}</Header>
+      <Container>
         <ImgArea>
           <img
             src={`${process.env.PUBLIC_URL}/images/moono/하이무너.png`}
@@ -116,8 +113,8 @@ const CheerUpPage: React.FC = () => {
           <BoardInput onChange={onChangeText} value={postText.content} />
           <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
         </InputArea>
-      </Contents>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
@@ -130,16 +127,16 @@ const HeaderTitle = styled.span`
 `;
 
 const ImgArea = styled.div`
-  width: 400px;
-  height: 260px;
+  width: 100%;
+  height: 50%;
   background-color: lightgrey;
   margin-top: 30px;
   margin-bottom: 30px;
 `;
 const BoardArea = styled.div`
-  width: 400px;
-  height: 220px;
-  background-color: lightgrey;
+  width: 90%;
+  height: 30%;
+  /* background-color: lightgrey; */
   margin-bottom: 30px;
   overflow: auto;
   /* 스크롤바 숨기기 (크롬, 사파리, 오페라) */

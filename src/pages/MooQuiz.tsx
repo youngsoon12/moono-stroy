@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
@@ -11,6 +11,11 @@ const MooQuiz = () => {
   const [score, setScore] = useState(0); // 맞은 개수
   const [showResult, setShowResult] = useState(false); // 결과 화면 여부
   const quiz = QuizData.quiz;
+
+  // useEffect(() => {
+  //   // 카카오톡 SDK 초기화
+  //   window.Kakao.init('YOUR_APP_KEY'); // 자신의 카카오 앱 키로 변경
+  // }, []);
 
   const handleAnswerClick = (optionIndex: number) => {
     // 정답인지 확인
@@ -25,6 +30,32 @@ const MooQuiz = () => {
       setShowResult(true); // 결과 화면 표시
     }
   };
+  // const handleShareClick = () => {
+  //   const shareUrl = 'https://yourwebsite.com/quiz'; // 공유할 URL
+  //   const shareText = `무퀴즈를 푸세요! 총 ${quiz.length}문제 중 ${score}문제를 맞췄어요!`;
+
+  //   window.Kakao.Share.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: '무퀴즈',
+  //       description: shareText,
+  //       imageUrl: `${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`,
+  //       link: {
+  //         webUrl: shareUrl,
+  //         mobileWebUrl: shareUrl,
+  //       },
+  //     },
+  //     buttons: [
+  //       {
+  //         title: '바로가기',
+  //         link: {
+  //           webUrl: shareUrl,
+  //           mobileWebUrl: shareUrl,
+  //         },
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <Container>
@@ -36,6 +67,7 @@ const MooQuiz = () => {
             <div>
               총 {quiz.length}문제 중 {score}문제를 맞췄어요!
             </div>
+            {/* <ShareButton onClick={handleShareClick}>공유하기</ShareButton> */}
           </ResultContainer>
         ) : (
           <MQuizContainer>

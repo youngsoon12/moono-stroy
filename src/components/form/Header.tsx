@@ -29,12 +29,14 @@ export default Header;
 const HeaderStyle = styled.div`
   position: absolute;
   top: 0;
+  left: 50%; /* 화면의 50% 위치 */
+  transform: translateX(-50%); /* 자신의 너비의 절반만큼 왼쪽으로 이동 */
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 480px;
   height: 10%;
   max-width: 480px;
-  padding: 3%;
+  padding: 2%;
   box-sizing: border-box;
   background-color: #fff;
 `;

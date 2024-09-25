@@ -15,7 +15,8 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400 600 900;
     font-style: normal;
   }
-
+  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+  font-family: nanumsquare;
   @font-face {
     font-family: 'Cafe24Ssurround';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
@@ -33,9 +34,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Pretendard';
+    /* font-family: 'nanumsquare'; */
     box-sizing: border-box;
-    font-weight: 600; /* 기본 폰트 굵기 */
+    font-weight: 500; /* 기본 폰트 굵기 */
+    font-size: 14px;
     background-color: #f0f0f0;
     -webkit-text-size-adjust: none;
     -moz-text-size-adjust: none;
@@ -44,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: "Pretendard", sans-serif;
+  /* font-family: 'nanumsquare'; */
   }
 
   *:focus {
