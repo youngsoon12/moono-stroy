@@ -17,6 +17,7 @@ const theme = {
     // mainColor: '#f8e077', //'#E42727',
     mainColor: '#ea3636', //'#E42727',
     pointColor: '#f8e077',
+    // pointColor: '#D60078',
     // pointColor: '#ea3636',
   },
 };

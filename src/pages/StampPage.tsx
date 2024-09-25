@@ -12,7 +12,7 @@ export const StampPage = (props: any) => {
   // 스탬프 상태 관리
   const [stamps, setStamps] = useState([
     { id: 1, title: '무너 소개', completed: true },
-    { id: 2, title: '무퀴즈', completed: false },
+    { id: 2, title: '무퀴즈', completed: true },
     { id: 3, title: '무너 응원', completed: false },
     { id: 4, title: '오늘 운세', completed: false },
     { id: 5, title: '무너 네컷', completed: false },

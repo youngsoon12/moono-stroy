@@ -286,7 +286,7 @@ const HederStyled = styled.div`
 
 const IntroMoo = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 25%;
 `;
 
