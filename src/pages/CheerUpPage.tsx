@@ -30,6 +30,7 @@ const CheerUpPage: React.FC = () => {
       });
     }
   }, [user]);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref for the last message
 
   useEffect(() => {
     const getData = async () => {
@@ -119,6 +120,68 @@ const CheerUpPage: React.FC = () => {
        </Contents>
      </Container>
    );
+  return (
+    <Container style={{ backgroundColor: 'black' }}>
+      <Header>{'무너 응원하기'}</Header>
+      <Contents
+        style={{
+          backgroundColor: '#121212',
+          color: '#fff',
+          paddingBottom: '3%',
+        }}
+      >
+        <ImgArea>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
+            alt="무퀴즈"
+            style={{ width: '100%' }}
+          />
+        </ImgArea>
+        <div
+          style={{ fontSize: '1.6em', fontWeight: '700', marginBottom: '2%' }}
+        >
+          <span style={{ color: '#ffd900' }}>응원</span>의 한마디
+        </div>
+        <BoardArea>
+          {textList.map((data: any, idx) => (
+            <TextLine
+              key={idx}
+              ref={idx === textList.length - 1 ? lastMessageRef : null}
+            >
+              <span>
+                <span
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    color: `${theme.color.pointColor}`,
+                  }}
+                >
+                  {data.title}{' '}
+                </span>
+                <span style={{ fontWeight: '500', fontSize: '12px' }}>
+                  : {data.content}{' '}
+                </span>
+              </span>
+              {data.userId === user.sub && (
+                <span>
+                  <InputBtn
+                    onClick={() => onClickDeleteBtn(data.postId)}
+                    style={{ fontSize: '10px' }}
+                  >
+                    삭제
+                  </InputBtn>
+                </span>
+              )}
+            </TextLine>
+          ))}
+        </BoardArea>
+        <InputArea style={{ color: '#fff' }}>
+          <BoardInput onChange={onChangeText} value={postText.content} />
+          <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
+        </InputArea>
+      </Contents>
+    </Container>
+  );
 };
 
 export default CheerUpPage;
