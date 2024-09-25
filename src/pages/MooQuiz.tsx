@@ -60,7 +60,7 @@ const MooQuiz = () => {
   return (
     <Container>
       <Header>무퀴즈</Header>
-      <Contents>
+      <Contents style={{ justifyContent: 'center' }}>
         {showResult ? (
           <ResultContainer>
             <div>퀴즈 종료!</div>

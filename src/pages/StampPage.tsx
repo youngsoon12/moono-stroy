@@ -7,6 +7,7 @@ import Stamp from '../components/css/Stamp';
 import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
+import Contents from '../components/css/Contents';
 
 export const StampPage = (props: any) => {
   const navigate = useNavigate();
@@ -41,14 +42,9 @@ export const StampPage = (props: any) => {
   };
 
   return (
-    <div>
-      <Header>{'미션진행도'}</Header>
-      <Container
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(255,255,255,1) 24%, rgba(243,224,136,1) 100%)',
-        }}
-      >
+    <StyledContainer>
+      <StyledHeader>{'미션진행도'}</StyledHeader>
+      <StyledContents>
         <CoffeImgSection>
           <CoffeText>
             <div>
@@ -59,7 +55,7 @@ export const StampPage = (props: any) => {
           </CoffeText>
           <img
             src={`${process.env.PUBLIC_URL}/images/stamp/coffeimga.png`}
-            style={{ width: '80%', height: '80%', margin: '0 auto' }}
+            style={{ width: '80%' }}
           />
         </CoffeImgSection>
         <StampSection>
@@ -93,18 +89,54 @@ export const StampPage = (props: any) => {
           </StampArea>
         </StampSection>
         <ApplyButton onClick={() => completeMission(1)}>응모하기</ApplyButton>
-      </Container>
-    </div>
+      </StyledContents>
+    </StyledContainer>
   );
 };
 
-const CoffeImgSection = styled.div`
-  width: 100%;
+// 스타일 수정 부분
+const StyledContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 24%,
+    rgba(243, 224, 136, 1) 100%
+  );
+  padding-top: 60px; /* Header와 Contents 간의 간격을 유지 */
+`;
 
+const StyledHeader = styled(Header)`
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8em;
+  background-color: ${theme.color.mainColor};
+  color: white;
+  position: relative;
+  z-index: 1;
+`;
+
+const StyledContents = styled(Contents)`
+  width: 100%;
+  /* padding-top: 20%; */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 24%,
+    rgba(243, 224, 136, 1) 100%
+  );
+  margin-top: 10%;
+  z-index: 0;
+`;
+
+const CoffeImgSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10%;
+  height: 50%;
+  min-height: 350px;
 `;
 
 const CoffeText = styled.div`
@@ -118,6 +150,9 @@ const StampSection = styled.div`
   width: 100%;
   font-weight: 400;
   align-items: center;
+  height: 45%;
+  min-height: 310px;
+  /* margin-bottom: 10%; */
 `;
 
 const StampText = styled.div`
@@ -127,7 +162,6 @@ const StampText = styled.div`
 `;
 
 const StampArea = styled.div`
-  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,8 +178,8 @@ const StampRow = styled.div`
 const ApplyButton = styled.button`
   width: 100%;
   height: 10%;
+  min-height: 60px;
   background-color: ${theme.color.mainColor};
   color: #fff;
   font-size: 1.4em;
-  /* margin-top: 40%; */
 `;

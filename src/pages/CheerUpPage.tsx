@@ -66,7 +66,13 @@ const CheerUpPage: React.FC = () => {
   return (
     <Container style={{ backgroundColor: 'black' }}>
       <Header>{'무너 응원하기'}</Header>
-      <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
+      <Contents
+        style={{
+          backgroundColor: '#121212',
+          color: '#fff',
+          paddingBottom: '3%',
+        }}
+      >
         <ImgArea>
           <img
             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
