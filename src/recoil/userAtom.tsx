@@ -3,12 +3,12 @@ import { atom } from 'recoil';
 export const userAtom = atom({
   key: 'userInfo',
   default: {
-    id: '',
+    sub: '',
     nickName: '',
-    oneMission: '',
-    twoMission: '',
-    threeMission: '',
-    fourMission: '',
-    fiveMission: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
   },
 });

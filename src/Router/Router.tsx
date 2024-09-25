@@ -11,6 +11,7 @@ import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
 import { StampPage } from 'pages/StampPage';
+import CheerUpPage from 'pages/CheerUpPage';
 
 const Router = () => {
   return (
@@ -21,14 +22,16 @@ const Router = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/photo" element={<PhotoPage />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/main3" element={<Main3 />} />
-        <Route path="/stamp" element={<StampPage />} />
+
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
         <Route element={<ProtectedRoute />}>
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
           <Route path="/main" element={<Main />} />
+          <Route path="/cheerup" element={<CheerUpPage />} />
+          <Route path="/main3" element={<Main3 />} />
+          <Route path="/stamp" element={<StampPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
