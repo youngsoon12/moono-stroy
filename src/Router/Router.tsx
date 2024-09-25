@@ -13,6 +13,7 @@ import { ContentIntro } from 'pages/ContentIntro';
 import { StampPage } from 'pages/StampPage';
 import CheerUpPage from 'pages/CheerUpPage';
 import FourCutPage from 'pages/FourCutPage';
+import KonvaTextOnImage from '../components/KonvaTextOnImage';
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
         <Route element={<ProtectedRoute />}>
+          <Route path="/a" element={<KonvaTextOnImage />} />
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
           <Route path="/main" element={<Main />} />
           <Route path="/cheerup" element={<CheerUpPage />} />
