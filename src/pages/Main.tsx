@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
 import { useEffect } from 'react';
+import { Height } from '@mui/icons-material';
 
 const Main = (props: any) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Main = (props: any) => {
     navigate(`/contIntro/${id}`);
   };
   return (
-    <Container style={{ fontFamily: 'Pretendard-Regular ' }}>
+    <Container>
       {/* 첫 번째 섹션 */}
       <MainHeaderStyle>
         <Logo>
@@ -61,10 +62,10 @@ const Main = (props: any) => {
       </MainHeaderStyle>
       <GradientDiv>
         <img
-          src={`${process.env.PUBLIC_URL}/images/main/HiMoono.png`}
+          src={`${process.env.PUBLIC_URL}/images/main/안뇽무너.png`}
           style={{
             position: 'absolute',
-            height: '35dvh',
+            height: '90%',
             zIndex: '2',
           }}
         />
@@ -135,7 +136,7 @@ const GradientDiv = styled.div`
 `;
 const MenuContainer = styled.div`
   width: 100%;
-  height: 59dvh;
+  height: 58fffffffffffffffffffffffffffffffffffff%;
   display: flex;
   flex-direction: column;
 `;
@@ -162,6 +163,8 @@ const ButtonContainer = styled.div`
 `;
 
 const MenuButton = styled.button`
+  font-family: 'Paperlogy-8ExtraBold';
+  font-weight: 800;
   background-color: #fff;
   border-radius: 10px;
   height: 13dvh;
@@ -170,8 +173,8 @@ const MenuButton = styled.button`
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
-  font-weight: bold;
-  color: #121212; /* 이렇게 설정해주지 않으면 모바일 웹에서 버튼 text색이 파란색으로 나옴 */
+  font-weight: 600;
+  color: #4f2222; /* 이렇게 설정해주지 않으면 모바일 웹에서 버튼 text색이 파란색으로 나옴 */
   &&:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.562);
   }
@@ -181,20 +184,20 @@ const LargeButton = styled(MenuButton)`
   grid-column: span 2; /* 2칸을 차지하도록 설정 */
   background-color: ${theme.color.mainColor}; /* 핑크색 배경 */
   color: #fff; /* 글자색 흰색 */
-  font-weight: bold;
+  font-weight: 600;
   height: 14vh;
   font-size: 1.5em;
 `;
 
 const MainHeaderStyle = styled.div`
   width: 100;
-  height: 7vh; /* 상대적인 vh 단위를 사용하여 반응형으로 설정 */
+  height: 10vh; /* 상대적인 vh 단위를 사용하여 반응형으로 설정 */
   display: flex;
   align-items: center; /* 세로 가운데 정렬 */
   /* justify-content: space-between; 좌우로 균등한 간격 배분 */
   background-color: ${theme.color.mainColor}; /* 헤더 배경 색 */
   z-index: 2;
-  padding: 0 5%;
+  padding: 2% 5%;
 `;
 
 const Logo = styled.div`

@@ -2,6 +2,7 @@ import Container from '../components/css/Container';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { useParams, useNavigate } from 'react-router-dom';
+import Header from '../components/form/Header';
 
 export const ContentIntro = (props: any) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const ContentIntro = (props: any) => {
       case 'mooQuiz':
         return `${process.env.PUBLIC_URL}/images/moono/헤드셋무너.png`;
       case 'cheerup':
-        return `${process.env.PUBLIC_URL}/images/moono/축하무너.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/눕무너2.png`;
       case 'fourcut':
         return `${process.env.PUBLIC_URL}/images/moono/심쿵무너.png`;
       case 'fortune':
@@ -54,6 +55,7 @@ export const ContentIntro = (props: any) => {
   };
   return (
     <Container>
+      <Header>{''}</Header>
       <div
         style={{
           height: '100%',
@@ -69,6 +71,7 @@ export const ContentIntro = (props: any) => {
             flexDirection: 'column',
             textAlign: 'center',
             gap: '0.5em',
+            marginTop: '20%',
           }}
         >
           <div>{getText()[0]}</div>
@@ -77,7 +80,7 @@ export const ContentIntro = (props: any) => {
               fontFamily: 'pretendard',
               fontSize: '2em',
               fontWeight: '900',
-              marginBottom: '20%',
+              marginBottom: '15%',
             }}
           >
             {getText()[1]}
@@ -87,7 +90,11 @@ export const ContentIntro = (props: any) => {
           </div>
         </div>
         <BackImg>
-          <img src={getImageSrc()} alt="Logo" style={{ width: '80%' }} />
+          <img
+            src={getImageSrc()}
+            alt="Logo"
+            style={{ width: '50%', margin: '10%' }}
+          />
         </BackImg>
         <ContentButtonStyle onClick={() => handleStartButton()}>
           시작하기
@@ -98,11 +105,11 @@ export const ContentIntro = (props: any) => {
 };
 const ContentButtonStyle = styled.button`
   display: flex;
-  width: 80%;
+  width: 90%;
   height: 9%;
   background-color: ${theme.color.mainColor};
   /* border: 1px solid ${theme.color.mainColor}; */
-  border-radius: 0.5em;
+  border-radius: 10px;
   color: white;
   z-index: 2;
   margin: 0 auto;

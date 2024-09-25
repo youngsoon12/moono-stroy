@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from '../components/css/Container';
-import Header from '../components/css/Header';
 import Contents from '../components/css/Contents';
 import styled from 'styled-components';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
@@ -9,7 +8,7 @@ import LoginBtn from '../components/form/LoginBtn';
 import useImage from 'use-image';
 import { saveAs } from 'file-saver';
 import { Stage, Layer, Text, Image as KonvaImage, Image } from 'react-konva';
-
+import Header from '../components/form/Header';
 const choiceList = [
   '육지가 넘무너무 궁금해',
   '순탄한 인생 싫어! 신나는 일 없나?',
@@ -45,12 +44,12 @@ const PhotoPage = () => {
 
   return (
     <Container>
-      <CustomHeader>
+      {/* <Header title="무너네컷">
         <ArrowBackIosRoundedIcon
           sx={{ fontSize: '5vw', position: 'absolute' }}
         />
         <HeaderTitle>무너네컷</HeaderTitle>
-      </CustomHeader>
+      </Header> */}
 
       <CustomContents>
         <TitleQuestion>

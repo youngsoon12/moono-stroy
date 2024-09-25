@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Comtainer from '../components/css/Container';
-import Header from '../components/css/Header';
+import Container from '../components/css/Container';
+import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
 import QuizData from '../assets/quiz.json';
@@ -27,20 +27,8 @@ const MooQuiz = () => {
   };
 
   return (
-    <Comtainer>
-      <Header>
-        <span style={{ flex: '0.5' }}>
-          <HeaderIcon
-            src={`${process.env.PUBLIC_URL}/images/header/back.png`}
-          />
-        </span>
-        <span
-          style={{ textAlign: 'center', fontSize: '20px', fontWeight: '700' }}
-        >
-          무퀴즈
-        </span>
-        <span style={{ display: 'flex', gap: '10px' }}></span>
-      </Header>
+    <Container>
+      <Header>무퀴즈</Header>
       <Contents>
         {showResult ? (
           <ResultContainer>
@@ -53,11 +41,11 @@ const MooQuiz = () => {
           <MQuizContainer>
             <div
               style={{
-                margin: '0 auto',
+                margin: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'center',
-                gap: '10px',
+                gap: '6%',
               }}
             >
               <div
@@ -83,14 +71,22 @@ const MooQuiz = () => {
                 </span>
               </div>
               <div
-                style={{ fontSize: '24px', padding: '10px', margin: '0 auto' }}
+                style={{
+                  display: 'flex',
+                  fontSize: '1.4em',
+                  padding: '10px',
+                  margin: '0 auto',
+                  height: '8dvh',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
                 {quiz[quizIndex].question}
               </div>
             </div>
             <img
               src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
-              style={{ width: '183px', margin: '30px auto' }}
+              style={{ width: '150px', margin: '7% auto' }}
               alt="quiz illustration"
             />
             <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
@@ -116,23 +112,21 @@ const MooQuiz = () => {
           </MQuizContainer>
         )}
       </Contents>
-    </Comtainer>
+    </Container>
   );
 };
 
 export default MooQuiz;
 
-const HeaderIcon = styled.img`
-  width: 15px;
-`;
-
 const MQuizContainer = styled.div`
   width: 100%;
-  height: 550px;
+  height: 85%;
+  /* padding: 5% 0; */
   font-family: Cafe24Ssurround;
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: auto;
 `;
 
 const QuizBtn = styled.button`
@@ -158,4 +152,5 @@ const ResultContainer = styled.div`
   text-align: center;
   font-size: 24px;
   color: ${theme.color.mainColor};
+  font-weight: 900;
 `;
