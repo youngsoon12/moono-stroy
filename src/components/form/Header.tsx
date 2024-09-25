@@ -1,14 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
 interface HeaderProps {
   children: React.ReactNode;
 }
-
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const navigate = useNavigate();
-
   return (
     <HeaderStyle>
       <BackIcon onClick={() => navigate(-1)}>
@@ -23,9 +20,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
     </HeaderStyle>
   );
 };
-
 export default Header;
-
 const HeaderStyle = styled.div`
   position: absolute;
   top: 0;
@@ -40,12 +35,10 @@ const HeaderStyle = styled.div`
   box-sizing: border-box;
   background-color: #fff;
 `;
-
 const BackIcon = styled.div`
   /* flex: 0.5; */
   cursor: pointer;
 `;
-
 const Title = styled.span`
   flex: 1;
   font-size: 1.2em;
