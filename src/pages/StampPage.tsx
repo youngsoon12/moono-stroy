@@ -19,6 +19,7 @@ export const StampPage = (props: any) => {
     { id: 3, title: '무너 응원', completed: true },
     { id: 4, title: '오늘 운세', completed: true },
     { id: 5, title: '무너 네컷', completed: true },
+
   ]);
 
   useEffect(() => {
