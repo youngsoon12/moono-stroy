@@ -92,8 +92,8 @@ export const StampPage = (props: any) => {
             </StampRow>
           </StampArea>
         </StampSection>
+        <ApplyButton onClick={() => completeMission(1)}>응모하기</ApplyButton>
       </Container>
-      <ApplyButton onClick={() => completeMission(1)}>응모하기</ApplyButton>
     </div>
   );
 };
@@ -104,7 +104,7 @@ const CoffeImgSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 0 auto 0; */
+  margin-top: 10%;
 `;
 
 const CoffeText = styled.div`
@@ -116,7 +116,6 @@ const CoffeText = styled.div`
 
 const StampSection = styled.div`
   width: 100%;
-  height: 30%;
   font-weight: 400;
   align-items: center;
 `;
@@ -143,14 +142,10 @@ const StampRow = styled.div`
 `;
 
 const ApplyButton = styled.button`
-  width: 480px;
-  height: 30%;
-  /* align-items: flex-end; */
-  justify-content: center;
+  width: 100%;
+  height: 10%;
   background-color: ${theme.color.mainColor};
   color: #fff;
   font-size: 1.4em;
-  left: 50%;
-  margin: 0 auto;
-  /* transform: translateX(-50%); 자신의 너비의 절반만큼 왼쪽으로 이동 */
+  /* margin-top: 40%; */
 `;
