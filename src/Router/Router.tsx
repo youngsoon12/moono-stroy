@@ -11,7 +11,8 @@ import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
 import { StampPage } from 'pages/StampPage';
-import CheerUpPage from 'pages/CheerUpPage';
+import CheerUpPage from 'pages/CheerUpPage';
+import FourCutPage from 'pages/FourCutPage';
 
 const Router = () => {
   return (
@@ -22,7 +23,7 @@ const Router = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/photo" element={<PhotoPage />} />
         <Route path="/main" element={<Main />} />
-
+        <Route path="/fourcut" element={<FourCutPage />} />
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
