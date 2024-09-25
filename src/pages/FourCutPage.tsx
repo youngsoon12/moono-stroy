@@ -7,7 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { Stage, Layer, Text, Image } from 'react-konva';
+import useImage from 'use-image';
 
 const backgroundList = [
   {
@@ -66,6 +68,8 @@ const FourCutPage = () => {
   const [currentBg, setCurrentBg] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [text, setText] = useState('');
+  const [mainImage] = useImage(mainChar[currentChar]);
+  const stageRef = useRef(null);
 
   const onBackBtn = () => {
     navigate('/main');
@@ -104,7 +108,22 @@ const FourCutPage = () => {
           나만의 무너를 만들고 <br /> 자랑해 보세요!
         </div>
         <ImgArea style={{ background: `${mainImg[currentBg]}` }}>
-          <img src={`${mainChar[currentChar]}`} alt="무생 네컷" />
+          <Stage width={420} height={360} ref={stageRef}>
+            <Layer width={420} height={360}>
+              <Text
+                text={text}
+                width={380}
+                fontSize={24}
+                x={50}
+                y={50}
+                wrap="word"
+                fill="black" // 텍스트 색상
+                draggable // 텍스트를 드래그할 수 있도록 설정
+              />
+              <Image image={mainImage} x={70} y={90} draggable />
+              {/* <img src={`${mainChar[currentChar]}`} alt="무생 네컷" /> */}
+            </Layer>
+          </Stage>
         </ImgArea>
         <InputArea>
           <TextInput onChange={onChangeText} />
