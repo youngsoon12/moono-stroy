@@ -83,6 +83,9 @@ const Main = (props: any) => {
       </HederStyled>
       <IntroMoo>
         <IntroText style={{ fontFamily: 'Pretendard' }}>
+          <div style={{ color: `${theme.color.mainColor}` }}>
+            용궁에서 찾아온 무너
+          </div>
           <div style={{ fontSize: '1.6em', letterSpacing: '-1px' }}>안녕?</div>
           <div style={{ fontSize: '1.6em', letterSpacing: '-1px' }}>
             나는 무너야 : )
