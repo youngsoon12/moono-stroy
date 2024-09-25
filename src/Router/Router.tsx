@@ -6,14 +6,14 @@ import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from 'pages/RegisterPage';
 import Main from 'pages/Main';
 import PhotoPage from 'pages/PhotoPage';
-import Main3 from 'pages/Main3';
+import { Fortune } from 'pages/Fortune';
 import MooQuiz from 'pages/MooQuiz';
 import StartQuiz from 'pages/StartQuiz';
 import { ContentIntro } from 'pages/ContentIntro';
 import { StampPage } from 'pages/StampPage';
 import CheerUpPage from 'pages/CheerUpPage';
 import FourCutPage from 'pages/FourCutPage';
-
+import { Introduce } from 'pages/Introduce';
 const Router = () => {
   return (
     <BrowserRouter>
@@ -27,11 +27,13 @@ const Router = () => {
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/startQuiz" element={<StartQuiz />} />
+        <Route path="/introduce" element={<Introduce />} />
+        <Route path="/fortune" element={<Fortune />} />
+
         <Route element={<ProtectedRoute />}>
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
           <Route path="/main" element={<Main />} />
           <Route path="/cheerup" element={<CheerUpPage />} />
-          <Route path="/main3" element={<Main3 />} />
           <Route path="/stamp" element={<StampPage />} />
         </Route>
       </Routes>
