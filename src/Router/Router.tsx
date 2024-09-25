@@ -23,8 +23,6 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/photo" element={<PhotoPage />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/main2" element={<Main2 />} />
         <Route path="/fourcut" element={<FourCutPage />} />
         <Route path="/contIntro/:id" element={<ContentIntro />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />

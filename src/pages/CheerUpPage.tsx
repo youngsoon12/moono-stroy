@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Header from '../components/form/Header';
@@ -9,6 +9,7 @@ import { userAtom } from 'recoil/userAtom';
 import { GetBoardAPI, PostBoardAPI, DeleteBoardAPI } from 'api/BoardAPI';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
+
 const CheerUpPage: React.FC = () => {
   const navigate = useNavigate();
   const [user] = useRecoilState(userAtom);
@@ -19,6 +20,7 @@ const CheerUpPage: React.FC = () => {
     title: user.nickName,
   });
   const [refresh, setRefresh] = useState(false);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref for the last message
 
   useEffect(() => {
     const getData = async () => {
@@ -27,6 +29,13 @@ const CheerUpPage: React.FC = () => {
     };
     getData();
   }, [refresh]);
+
+  useEffect(() => {
+    // Focus the last message after textList updates
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [textList]);
 
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPostText({
@@ -62,7 +71,7 @@ const CheerUpPage: React.FC = () => {
           <img
             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
             alt="무퀴즈"
-            style={{ width: '100%' }} // 이미지 크기 조정
+            style={{ width: '100%' }}
           />
         </ImgArea>
         <div
@@ -72,7 +81,10 @@ const CheerUpPage: React.FC = () => {
         </div>
         <BoardArea>
           {textList.map((data: any, idx) => (
-            <TextLine key={idx}>
+            <TextLine
+              key={idx}
+              ref={idx === textList.length - 1 ? lastMessageRef : null}
+            >
               <span>
                 <span
                   style={{
@@ -119,12 +131,12 @@ const ImgArea = styled.div`
 const BoardArea = styled.div`
   width: 90%;
   height: 40%;
-  max-height: 300px; /* 최대 높이 설정 */
-  overflow-y: auto; /* 세로 스크롤 추가 */
+  max-height: 300px;
+  overflow-y: auto;
   margin-bottom: 20px;
 
   &::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨기기 */
+    display: none;
   }
 `;
 
