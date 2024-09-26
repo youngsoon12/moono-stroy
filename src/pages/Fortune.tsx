@@ -5,6 +5,7 @@ import Container from '../components/css/Container';
 import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 
+import Stamp from '../components/css/Stamp';
 export const Fortune = (props: any) => {
   const [birthDate, setBirthDate] = useState(''); // 생년월일 상태
   const [gender, setGender] = useState(''); // 성별 상태

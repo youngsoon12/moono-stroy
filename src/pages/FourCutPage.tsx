@@ -14,6 +14,7 @@ import { saveAs } from 'file-saver';
 import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
 import { StampAPI } from 'api/StampAPI';
+import { UserInfoAPI } from 'api/UserInfoAPI';
 
 const backgroundList = [
   {
@@ -73,28 +74,37 @@ const FourCutPage = () => {
   const [imagePosition, setImagePosition] = useState({ x: 80, y: 90 });
   const [textPosition, setTextPosition] = useState({ x: 50, y: 20 });
 
-  const [userInfo] = useRecoilState(userAtom);
-  const [postStamp, setPostStamp] = useState({
+  const [user, setUser] = useRecoilState(userAtom);
+  const [stampStatus, setStampStatus] = useState({
     id: '',
+    nickName: '',
     oneMission: false,
     twoMission: false,
     threeMission: false,
     fourMission: false,
-    fiveMission: true,
+    fiveMission: false,
   });
 
   useEffect(() => {
-    if (userInfo) {
-      setPostStamp({
-        id: userInfo.sub,
-        oneMission: userInfo.oneMission,
-        twoMission: userInfo.twoMission,
-        threeMission: userInfo.threeMission,
-        fourMission: userInfo.fourMission,
-        fiveMission: true,
-      });
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: data.twoMission,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: true,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
     }
-  }, [userInfo]);
+  }, [user]);
 
   const handleTextDragMove = (e: any) => {
     setTextPosition({
@@ -136,22 +146,20 @@ const FourCutPage = () => {
     if (newY > 250) newY = 52;
     setImagePosition({ x: newX, y: newY });
   };
- // 이미지 저장 겸 스탬프 저장하는 함수 있는 함수
+  // 이미지 저장 겸 스탬프 저장하는 함수 있는 함수
   const saveImageFIle = () => {
     const uri = stageRef.current.toDataURL(); // Stage에서 데이터 URL 생성
     saveAs(uri, 'moono_image.png');
-    // API 호출 (postStamp)
-    const postData = async () => {
-      if (userInfo?.sub) {
-        try {
-          const data = await StampAPI(postStamp);
-          alert('무너의 사진만들기 미션 성공 !');
-        } catch (error) {
-          console.error('데이터 가져오기 실패:', error);
-        }
-      }
-    };
-    postData();
+    // 스템 API 호출
+    StampAPI(stampStatus)
+      .then((data) => {
+        console.log('스템 API 호출 성공:', data);
+        alert('무너 소개 미션 완료 !');
+        window.location.href = '/main';
+      })
+      .catch((error) => {
+        console.error('스템 API 호출 실패:', error);
+      });
   };
 
   // Konva zone endLine

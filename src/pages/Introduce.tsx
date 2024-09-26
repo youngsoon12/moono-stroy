@@ -7,11 +7,46 @@ import IntroduceBtn from '../components/form/IntroduceBtn';
 import { useTypingEffect } from '../components/hook/useTypingEffect';
 import data from '../assets/introduce.json';
 import theme from 'styles/theme';
+import { userAtom } from 'recoil/userAtom';
+import { useRecoilState } from 'recoil';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
 
 export const Introduce = (props: any) => {
   const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
   const [currentData, setCurrentData] = useState(data[pageIndex]); // 현재 페이지 데이터 상태
   const [isDataLoaded, setIsDataLoaded] = useState(false); // 데이터 로드 여부 추가
+  const [user, setUser] = useRecoilState(userAtom);
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+
+  useEffect(() => {
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: true,
+            twoMission: data.twoMission,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     // 데이터가 로드되었음을 표시
@@ -47,6 +82,19 @@ export const Introduce = (props: any) => {
       document.removeEventListener('click', handleGlobalClick);
     };
   }, [handleClick]);
+
+  const goToMain = () => {
+    // 스템 API 호출
+    StampAPI(stampStatus)
+      .then((data) => {
+        console.log('스템 API 호출 성공:', data);
+        alert('무너 소개 미션 완료 !');
+        window.location.href = '/main';
+      })
+      .catch((error) => {
+        console.error('스템 API 호출 실패:', error);
+      });
+  };
 
   return (
     <Container>
@@ -114,9 +162,7 @@ export const Introduce = (props: any) => {
               </ContentsStyle>
             </ContentSection>
           </div>
-          <IntroduceBtn onClick={() => (window.location.href = '/main')}>
-            메인으로
-          </IntroduceBtn>
+          <IntroduceBtn onClick={goToMain}>메인으로</IntroduceBtn>
         </StyledContents>
       )}
     </Container>
