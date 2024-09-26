@@ -15,8 +15,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400 600 900;
     font-style: normal;
   }
-  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-  font-family: nanumsquare;
+
   @font-face {
     font-family: 'Cafe24Ssurround';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
@@ -24,12 +23,6 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
-  @font-face {
-    font-family: 'Paperlogy-8ExtraBold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-    font-weight: 800;
-    font-style: normal;
-  }
 
   body {
     margin: 0;

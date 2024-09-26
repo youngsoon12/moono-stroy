@@ -66,7 +66,12 @@ export const Introduce = (props: any) => {
           </IntroduceBtn>
         </StyledContents>
       ) : (
-        <StyledContents>
+        <StyledContents
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,212,93,1) 100%)',
+          }}
+        >
           <ContentSection>
             <ContentsStyle>
               <SemiTitle style={{ fontSize: '1.6em' }}>Skill</SemiTitle>
@@ -129,8 +134,9 @@ const StyledContents = styled(Contents)`
 `;
 
 const TextSection = styled.div`
-  font-size: 1.2em;
+  font-size: 1.3em;
   height: 80px;
+  font-weight: 700;
   text-align: center;
   line-height: 1.5;
 `;

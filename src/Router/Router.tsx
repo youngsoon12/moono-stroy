@@ -29,6 +29,8 @@ const Router = () => {
         <Route path="/startQuiz" element={<StartQuiz />} />
         <Route path="/introduce" element={<Introduce />} />
         <Route path="/fortune" element={<Fortune />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/cheerup" element={<CheerUpPage />} />
 
         <Route element={<ProtectedRoute />}>
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
