@@ -28,12 +28,12 @@ const Router = () => {
         <Route path="/main2" element={<Main2 />} />
 
         <Route path="/contIntro/:id" element={<ContentIntro />} />
-        <Route path="/mooQuiz" element={<MooQuiz />} />
+
         <Route path="/startQuiz" element={<StartQuiz />} />
 
         <Route path="/fortune" element={<Fortune />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/cheerup" element={<CheerUpPage />} />
+        {/* <Route path="/main" element={<Main />} /> */}
+        {/* <Route path="/cheerup" element={<CheerUpPage />} /> */}
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />
@@ -43,6 +43,7 @@ const Router = () => {
           <Route path="/stamp" element={<StampPage />} />
           <Route path="/fourcut" element={<FourCutPage />} />
           <Route path="/introduce" element={<Introduce />} />
+          <Route path="/mooQuiz" element={<MooQuiz />} />
         </Route>
       </Routes>
     </BrowserRouter>
