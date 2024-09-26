@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Header from '../components/form/Header';
@@ -40,31 +40,31 @@ const CheerUpPage: React.FC = () => {
     getData();
   }, [refresh]);
 
-   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setPostText({
-       ...postText,
-       content: e.target.value,
-     });
-   };
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostText({
+      ...postText,
+      content: e.target.value,
+    });
+  };
 
-   const onClickInputBtn = async () => {
-     try {
-       await PostBoardAPI(postText);
-       setRefresh(!refresh);
-       setPostText({ ...postText, content: '' });
-     } catch (error) {
-       console.error('에러입니다:', error);
-     }
-   };
+  const onClickInputBtn = async () => {
+    try {
+      await PostBoardAPI(postText);
+      setRefresh(!refresh);
+      setPostText({ ...postText, content: '' });
+    } catch (error) {
+      console.error('에러입니다:', error);
+    }
+  };
 
-   const onClickDeleteBtn = async (postId: any) => {
-     try {
-       await DeleteBoardAPI(postId);
-       setRefresh(!refresh);
-     } catch (error) {
-       console.error('에러입니다:', error);
-     }
-   };
+  const onClickDeleteBtn = async (postId: any) => {
+    try {
+      await DeleteBoardAPI(postId);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('에러입니다:', error);
+    }
+  };
 
    return (
      <Container style={{ backgroundColor: 'black' }}>
