@@ -14,9 +14,8 @@ const GlobalStyle = createGlobalStyle`
     src: url('/fonts/Pretendard.woff2') format('woff2-variations');
     font-weight: 400 600 900;
     font-style: normal;
-  }
-  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-  font-family: nanumsquare;
+  }  
+
   @font-face {
     font-family: 'Cafe24Ssurround';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');

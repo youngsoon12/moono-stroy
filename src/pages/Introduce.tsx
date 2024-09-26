@@ -4,8 +4,53 @@ import { useNavigate } from 'react-router-dom';
 import Contents from '../components/css/Contents';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
+import { useEffect, useState } from 'react';
+import { StampAPI } from 'api/StampAPI';
+import { UserInfoAPI } from 'api/UserInfoAPI';
+import { userAtom } from 'recoil/userAtom';
+import { useRecoilState } from 'recoil';
 
 export const Introduce = (props: any) => {
+  const [userInfo] = useRecoilState(userAtom);
+  const [postStamp, setPostStamp] = useState({
+    id: '',
+    oneMission: true,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+  useEffect(() => {
+    const data = UserInfoAPI(userInfo.sub);
+    console.log(data);
+    // if (userInfo) {
+    //   console.log('userInfo가 업데이트 되었습니다:', userInfo); // 확인용 콘솔 로그 추가
+    //   setPostStamp({
+    //     id: userInfo.sub,
+    //     oneMission: true,
+    //     twoMission: userInfo.twoMission,
+    //     threeMission: userInfo.threeMission,
+    //     fourMission: userInfo.fourMission,
+    //     fiveMission: userInfo.fiveMission,
+    //   });
+    // }
+  }, [userInfo]);
+  // postStamp 변경 시 API 호출
+  useEffect(() => {
+    const postData = async () => {
+      if (postStamp.id) {
+        // postStamp가 업데이트된 후에만 실행
+        try {
+          const data = await StampAPI(postStamp);
+          alert('무너의 소개 미션 성공!');
+        } catch (error) {
+          console.error('데이터 가져오기 실패:', error);
+        }
+      }
+    };
+
+    postData();
+  }, [postStamp]); // postStamp가 업데이트될 때마다 실행
   return (
     <div
       style={{
