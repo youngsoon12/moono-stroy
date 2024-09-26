@@ -43,7 +43,7 @@ export const ContentIntro = (props: any) => {
               알려줄게!
             </span>
           </div>,
-          '무너의 운세',
+          '무너보살',
           '쫄??쫄??',
         ];
       default:
