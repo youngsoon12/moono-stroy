@@ -9,7 +9,6 @@ import { userAtom } from 'recoil/userAtom';
 import { GetBoardAPI, PostBoardAPI, DeleteBoardAPI } from 'api/BoardAPI';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
-
 const CheerUpPage: React.FC = () => {
   const navigate = useNavigate();
   const [user] = useRecoilState(userAtom);
@@ -20,6 +19,17 @@ const CheerUpPage: React.FC = () => {
     title: user.nickName,
   });
   const [refresh, setRefresh] = useState(false);
+  console.log(user);
+  useEffect(() => {
+    // user 값이 변경될 때 postText 업데이트
+    if (user && user.nickName) {
+      setPostText({
+        ...postText,
+        title: user.nickName,
+        userId: user.sub,
+      });
+    }
+  }, [user]);
   const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref for the last message
 
   useEffect(() => {
@@ -29,13 +39,6 @@ const CheerUpPage: React.FC = () => {
     };
     getData();
   }, [refresh]);
-
-  useEffect(() => {
-    // Focus the last message after textList updates
-    if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [textList]);
 
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPostText({
@@ -54,7 +57,7 @@ const CheerUpPage: React.FC = () => {
     }
   };
 
-  const onClickDeleteBtn = async (postId: string) => {
+  const onClickDeleteBtn = async (postId: any) => {
     try {
       await DeleteBoardAPI(postId);
       setRefresh(!refresh);
@@ -63,6 +66,60 @@ const CheerUpPage: React.FC = () => {
     }
   };
 
+   return (
+     <Container style={{ backgroundColor: 'black' }}>
+       <Header>{'무너 응원하기'}</Header>
+       <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
+         <ImgArea>
+           <img
+             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
+             alt="무퀴즈"
+             style={{ width: '100%' }} // 이미지 크기 조정
+           />
+         </ImgArea>
+         <div
+           style={{ fontSize: '1.6em', fontWeight: '700', marginBottom: '2%' }}
+         >
+           <span style={{ color: '#ffd900' }}>응원</span>의 한마디
+         </div>
+         <BoardArea>
+           {textList.map((data: any, idx) => (
+             <TextLine key={idx}>
+               <span>
+                 <span
+                   style={{
+                     fontWeight: 'bold',
+                     fontSize: '14px',
+                     color: `${theme.color.pointColor}`,
+                   }}
+                 >
+                   {data.title}{' '}
+                 </span>
+                 <span style={{ fontWeight: '500', fontSize: '12px' }}>
+                   : {data.content}{' '}
+                 </span>
+               </span>
+               {data.userId === user.sub && (
+                 <span>
+                   <InputBtn
+                     onClick={() => onClickDeleteBtn(data.postId)}
+                     style={{ fontSize: '10px' }}
+                     name={data.postId}
+                   >
+                     삭제
+                   </InputBtn>
+                 </span>
+               )}
+             </TextLine>
+           ))}
+         </BoardArea>
+         <InputArea style={{ color: '#fff' }}>
+           <BoardInput onChange={onChangeText} value={postText.content} />
+           <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
+         </InputArea>
+       </Contents>
+     </Container>
+   );
   return (
     <Container style={{ backgroundColor: 'black', color: '#fff' }}>
       <Header
@@ -142,12 +199,12 @@ const ImgArea = styled.div`
 const BoardArea = styled.div`
   width: 90%;
   height: 40%;
-  max-height: 300px;
-  overflow-y: auto;
+  max-height: 300px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 추가 */
   margin-bottom: 20px;
 
   &::-webkit-scrollbar {
-    display: none;
+    display: none; /* 스크롤바 숨기기 */
   }
 `;
 

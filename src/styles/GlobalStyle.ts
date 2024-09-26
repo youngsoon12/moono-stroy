@@ -14,7 +14,11 @@ const GlobalStyle = createGlobalStyle`
     src: url('/fonts/Pretendard.woff2') format('woff2-variations');
     font-weight: 400 600 900;
     font-style: normal;
+<<<<<<< HEAD
+  }  
+=======
   }
+>>>>>>> main
 
   @font-face {
     font-family: 'Cafe24Ssurround';
