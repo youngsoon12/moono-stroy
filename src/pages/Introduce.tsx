@@ -6,6 +6,7 @@ import Contents from '../components/css/Contents';
 import IntroduceBtn from '../components/form/IntroduceBtn';
 import { useTypingEffect } from '../components/hook/useTypingEffect';
 import data from '../assets/introduce.json';
+import theme from 'styles/theme';
 
 export const Introduce = (props: any) => {
   const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
@@ -52,7 +53,7 @@ export const Introduce = (props: any) => {
       <Header>{'무너 소개서'}</Header>
       {pageIndex >= 0 ? (
         <StyledContents>
-          <ContentSection>
+          <ContentSection style={{ height: '70%' }}>
             <TextSection style={{ whiteSpace: 'pre-wrap' }}>
               {displayedText && <span>{displayedText}</span>}{' '}
               {/* 타이핑된 텍스트 */}
@@ -68,45 +69,51 @@ export const Introduce = (props: any) => {
       ) : (
         <StyledContents
           style={{
-            background:
-              'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,212,93,1) 100%)',
+            backgroundColor: '#f3f3f3',
           }}
         >
-          <ContentSection>
-            <ContentsStyle>
-              <SemiTitle style={{ fontSize: '1.6em' }}>Skill</SemiTitle>
-              <ImgSection>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/intro/무너능력.png`}
-                  alt="무너 능력치"
-                  style={{
-                    width: '65%',
-                    marginTop: '10%',
-                    justifyContent: 'center',
-                  }}
-                />
-                <div style={{ textAlign: 'start' }}>
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              marginTop: '17%',
+            }}
+          >
+            <ContentSection style={{ textAlign: 'center' }}>
+              <ContentsStyle>
+                <ImgSection>
+                  <SemiTitle>SKILL</SemiTitle>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/무너능력.png`}
+                    alt="무너 능력치"
+                  />
+                </ImgSection>
+                <SkillText>
                   인내심 말고는 못하는게 없는 <br />
                   <span style={{ fontSize: '0.7em' }}>(거의)</span> 꽉 찬 오각형
-                </div>
-              </ImgSection>
-            </ContentsStyle>
-            <ContentsStyle
-              style={{
-                display: 'flex',
-                justifyContent: 'start',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}
-            >
-              <SemiTitle
-                style={{ fontSize: '1.6em', marginRight: '10px', width: '20%' }}
-              >
-                MBTI
-              </SemiTitle>
-              <div style={{ fontSize: '1.2em' }}>ENTJ</div>
-            </ContentsStyle>
-          </ContentSection>
+                </SkillText>
+              </ContentsStyle>
+              <ContentsStyle>
+                <TMIStyle>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/alien.png`}
+                  />
+                  무너의 MBTI는 ENTJ이다.
+                </TMIStyle>
+                <ImgSection style={{ margin: 'auto' }}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/moo3.png`}
+                    style={{
+                      width: '170px',
+                    }}
+                  />
+                </ImgSection>
+              </ContentsStyle>
+            </ContentSection>
+          </div>
           <IntroduceBtn onClick={() => (window.location.href = '/main')}>
             메인으로
           </IntroduceBtn>
@@ -120,7 +127,6 @@ export const Introduce = (props: any) => {
 const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80%;
   justify-content: center;
   align-items: center;
 `;
@@ -129,40 +135,70 @@ const StyledContents = styled(Contents)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 10%;
 `;
 
 const TextSection = styled.div`
-  font-size: 1.3em;
   height: 80px;
-  font-weight: 700;
+  font-size: 1.2em;
+  font-weight: 600;
   text-align: center;
+  margin-bottom: 10%;
   line-height: 1.5;
 `;
 
 const ImgSection = styled.div`
+  /* width: 100%; */
   img {
-    width: 270px;
+    width: 290px;
+    max-width: 90%;
     height: auto;
+    margin: 5% 0;
   }
   display: flex;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
-  width: 90%;
 `;
 
 const SemiTitle = styled.div`
-  width: 100%;
+  font-size: 1em;
+  text-align: center;
   display: flex;
+  font-family: 'RixInooAriDuriR';
+  font-weight: 900;
+  color: #fff;
+  background-color: ${theme.color.mainColor};
+  margin: auto;
+  padding: 5px 10px;
+  border-radius: 20px;
 `;
 
 const ContentsStyle = styled.div`
-  width: 80%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
+`;
+
+const SkillText = styled.div`
+  width: 100%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 0 20px 0 20px;
+  padding: 7% 0;
+  text-align: center;
+  margin: 3% 0;
+`;
+
+const TMIStyle = styled.div`
+  display: flex;
+  text-align: center;
+  color: #6d6d6d;
+  font-size: 0.9em;
+  justify-content: center;
+
+  img {
+    width: 1.3em;
+    margin-right: 5px;
+  }
 `;

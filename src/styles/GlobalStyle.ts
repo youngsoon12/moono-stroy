@@ -22,12 +22,16 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
-
+  font-face {
+    font-family: 'RixInooAriDuriR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
   body {
     margin: 0;
     padding: 0;
-    /* font-family: 'nanumsquare'; */
     box-sizing: border-box;
     font-weight: 500; /* 기본 폰트 굵기 */
     font-size: 14px;
@@ -39,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-  /* font-family: 'nanumsquare'; */
+
   }
 
   *:focus {
