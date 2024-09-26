@@ -10,7 +10,7 @@ export default LoginBtn;
 const Btn = styled(Button)`
   width: 350px;
   background-color: ${theme.color.mainColor} !important; /* 배경색 변경 */
-  color: #000 !important; //텍스트 색상 변경
+  color: #fff !important; //텍스트 색상 변경
   /* height: 50px; */
   font-family: 'Pretendard';
   font-size: 1.3rem !important;

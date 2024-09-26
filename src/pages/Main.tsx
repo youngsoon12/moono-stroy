@@ -260,7 +260,7 @@ const Main = (props: any) => {
                     fontWeight: '800',
                   }}
                 >
-                  오늘의 운세
+                  무너보살
                 </span>
               </div>
             </div>

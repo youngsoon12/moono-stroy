@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import theme from 'styles/theme';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
-import Stamp from '@components/css/Stamp';
+import Contents from '../components/css/Contents';
+
 export const Fortune = (props: any) => {
   return (
-    <div>
+    <Container>
       <Header>무너보살</Header>
-      <Container></Container>
-    </div>
+    </Container>
   );
 };
