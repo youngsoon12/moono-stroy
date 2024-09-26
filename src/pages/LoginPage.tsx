@@ -40,11 +40,12 @@ const LoginPage = (props: any) => {
           style={{
             alignItems: 'center',
             fontSize: '0.6em',
-            width: '10%',
             backgroundColor: `${theme.color.mainColor}`,
-            padding: '3px 5px',
-            borderRadius: '15px',
             color: '#fff',
+            padding: '1% 3%',
+            borderRadius: '30px',
+            width: '10%',
+            textAlign: 'center',
             margin: '10px auto',
           }}
         >
@@ -109,11 +110,14 @@ const TitleArea = styled.div`
   font-size: 1.4em;
   font-weight: 900;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
   font-size: 1.1em;
+  /* color: #fff; */
   font-weight: 900;
 `;
 

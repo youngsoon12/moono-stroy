@@ -8,11 +8,37 @@ import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
 import Contents from '../components/css/Contents';
+import { UserInfoAPI } from 'api/UserInfoAPI';
 
 export const StampPage = (props: any) => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userAtom);
+  const [stampStatus, setStampStatus] = useState({
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
 
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const getData = async () => {
+      if (user?.sub) {
+        try {
+          const data = await UserInfoAPI(user.sub);
+          setStampStatus(data);
+          setLoading(false); // 데이터 로딩 완료
+        } catch (error) {
+          console.error('데이터 가져오기 실패:', error);
+          setLoading(false); // 에러 발생 시에도 로딩을 멈춤
+        }
+      }
+    };
+    getData();
+  }, [user]);
+
+  console.log(stampStatus);
   // 스탬프 상태 관리
   const [stamps, setStamps] = useState([
     { id: 1, title: '무너 소개', completed: true },
@@ -24,13 +50,13 @@ export const StampPage = (props: any) => {
 
   useEffect(() => {
     setStamps([
-      { id: 1, title: '무너 소개', completed: user.oneMission },
-      { id: 2, title: '무퀴즈', completed: user.twoMission },
-      { id: 3, title: '무너 응원', completed: user.threeMission },
-      { id: 4, title: '오늘 운세', completed: user.fourMission },
-      { id: 5, title: '무너 네컷', completed: user.fiveMission },
+      { id: 1, title: '무너 소개', completed: stampStatus.oneMission },
+      { id: 2, title: '무퀴즈', completed: stampStatus.twoMission },
+      { id: 3, title: '무너 응원', completed: stampStatus.threeMission },
+      { id: 4, title: '오늘 운세', completed: stampStatus.fourMission },
+      { id: 5, title: '무너 네컷', completed: stampStatus.fiveMission },
     ]);
-  }, []);
+  }, [stampStatus]);
 
   // 미션 완료 함수
   const completeMission = (id: number) => {
@@ -40,6 +66,22 @@ export const StampPage = (props: any) => {
       )
     );
   };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100vw',
+          height: '100vh',
+        }}
+      >
+        안녕 난 로딩 중...
+      </div>
+    ); // 로딩 상태를 표시
+  }
 
   return (
     <StyledContainer>

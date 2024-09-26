@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 interface HeaderProps {
   children: React.ReactNode;
   bgColor?: string;
@@ -12,6 +13,7 @@ const Header: React.FC<HeaderProps> = ({
   iconSrc = `${process.env.PUBLIC_URL}/images/header/blackBack.png`,
 }) => {
   const navigate = useNavigate();
+
   return (
     <HeaderStyle bgColor={bgColor}>
       {iconSrc && (
@@ -24,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({
     </HeaderStyle>
   );
 };
+
 export default Header;
 const HeaderStyle = styled.div<{ bgColor: string }>`
   position: absolute;
@@ -39,15 +42,20 @@ const HeaderStyle = styled.div<{ bgColor: string }>`
   box-sizing: border-box;
   background-color: ${({ bgColor }) => bgColor}; // Use bgColor prop
 `;
+
 const BackIcon = styled.div`
   /* flex: 0.5; */
   width: 5%;
   cursor: pointer;
 `;
+
 const Title = styled.span`
   flex: 1;
   font-size: 1.2em;
   font-weight: 500;
   text-align: center;
-  flex: 1;
+`;
+
+const Placeholder = styled.div`
+  width: 5%; /* BackIcon과 동일한 너비로 레이아웃 균형 맞춤 */
 `;

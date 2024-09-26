@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/css/HeaderArea';
+import Header from '../components/form/Header';
 import Container from '../components/css/Container';
 import Contents from '../components/css/Contents';
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
@@ -7,9 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
-import { useState, useRef } from 'react';
-import { Stage, Layer, Text, Image } from 'react-konva';
+import { useState, useRef, useEffect } from 'react';
+import { Stage, Layer, Text, Image, Rect } from 'react-konva';
 import useImage from 'use-image';
+import { saveAs } from 'file-saver';
+import { useRecoilState } from 'recoil';
+import { userAtom } from 'recoil/userAtom';
+import { StampAPI } from 'api/StampAPI';
 
 const backgroundList = [
   {
@@ -49,12 +53,7 @@ const charList = [
   },
 ];
 
-const mainImg = [
-  'linear-gradient(180deg, #FFDF53 17%, #FFFFFF 85%)',
-  'linear-gradient(180deg, #68CCFF 17%, #FFFFFF 85%)',
-  'linear-gradient(180deg, #EA3636 17%, #FFFFFF 85%)',
-  'linear-gradient(180deg, #EBEBEB 17%, #FFFFFF 85%)',
-];
+const mainImg = ['#FFDF53', '#68CCFF', '#EA3636', '#EBEBEB'];
 
 const mainChar = [
   `${process.env.PUBLIC_URL}/images/moono/무생네컷무너1.png`,
@@ -69,8 +68,93 @@ const FourCutPage = () => {
   const [currentChar, setCurrentChar] = useState(0);
   const [text, setText] = useState('');
   const [mainImage] = useImage(mainChar[currentChar]);
-  const stageRef = useRef(null);
+  // Konva zone startLine
+  const stageRef: any = useRef(null);
+  const [imagePosition, setImagePosition] = useState({ x: 80, y: 90 });
+  const [textPosition, setTextPosition] = useState({ x: 50, y: 20 });
 
+  const [userInfo] = useRecoilState(userAtom);
+  const [postStamp, setPostStamp] = useState({
+    id: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: true,
+  });
+
+  useEffect(() => {
+    if (userInfo) {
+      setPostStamp({
+        id: userInfo.sub,
+        oneMission: userInfo.oneMission,
+        twoMission: userInfo.twoMission,
+        threeMission: userInfo.threeMission,
+        fourMission: userInfo.fourMission,
+        fiveMission: true,
+      });
+    }
+  }, [userInfo]);
+
+  const handleTextDragMove = (e: any) => {
+    setTextPosition({
+      x: e.target.x(),
+      y: e.target.y(),
+    });
+  };
+
+  const handleImageDragMove = (e: any) => {
+    setImagePosition({
+      x: e.target.x(),
+      y: e.target.y(),
+    });
+  };
+
+  const handleTextDragEnd = (e: any) => {
+    console.log('Image position after drag:', {
+      x: e.target.x(),
+      y: e.target.y(),
+    });
+    let newX = e.target.x();
+    let newY = e.target.y();
+    if (newX < -223) newX = -56;
+    if (newY < -223) newY = -24;
+    if (newX > 358) newX = 182;
+    if (newY > 250) newY = 52;
+
+    setTextPosition({ x: newX, y: newY });
+  };
+
+  const handleImageDragEnd = (e: any) => {
+    let newX = e.target.x();
+    let newY = e.target.y();
+
+    // 화면 경계에 맞춰 위치를 제한하는 로직
+    if (newX < -223) newX = -56;
+    if (newY < -223) newY = -24;
+    if (newX > 358) newX = 182;
+    if (newY > 250) newY = 52;
+    setImagePosition({ x: newX, y: newY });
+  };
+  // 이미지 저장 겸 스탬프 저장하는 함수 있는 함수
+  const saveImageFIle = () => {
+    const uri = stageRef.current.toDataURL(); // Stage에서 데이터 URL 생성
+    saveAs(uri, 'moono_image.png');
+    // API 호출 (postStamp)
+    const postData = async () => {
+      if (userInfo?.sub) {
+        try {
+          const data = await StampAPI(postStamp);
+          alert('무너의 사진만들기 미션 성공 !');
+        } catch (error) {
+          console.error('데이터 가져오기 실패:', error);
+        }
+      }
+    };
+    postData();
+  };
+
+  // Konva zone endLine
   const onBackBtn = () => {
     navigate('/main');
   };
@@ -88,17 +172,17 @@ const FourCutPage = () => {
 
   return (
     <Container style={{ minWidth: '425px' }}>
-      <Header style={{ position: 'relative', height: '9vh' }}>
-        <ArrowBackIosNewSharpIcon
-          onClick={onBackBtn}
-          sx={{ fontSize: '16px', cursor: 'pointer' }}
-        />
-        <HeaderTitle>무생 네컷</HeaderTitle>
-      </Header>
-      <Contents style={{ display: 'inline-block', height: '91vh' }}>
+      <Header>{'무생네컷'}</Header>
+      <Contents
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         <div
           style={{
-            marginTop: '2vh',
+            // marginTop: '2vh',
             fontSize: '2.5vh',
             fontWeight: '600',
             textAlign: 'center',
@@ -107,27 +191,55 @@ const FourCutPage = () => {
         >
           나만의 무너를 만들고 <br /> 자랑해 보세요!
         </div>
-        <ImgArea style={{ background: `${mainImg[currentBg]}` }}>
-          <Stage width={420} height={360} ref={stageRef}>
-            <Layer width={420} height={360}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Stage width={420} height={280} ref={stageRef}>
+            <Layer>
+              <Rect
+                width={420}
+                height={280}
+                fillLinearGradientStartPoint={{ x: 0, y: 0 }}
+                fillLinearGradientEndPoint={{ x: 0, y: 280 }}
+                fillLinearGradientColorStops={[
+                  0.17,
+                  mainImg[currentBg],
+                  0.85,
+                  '#FFFFFF',
+                ]}
+              />
               <Text
                 text={text}
-                width={380}
+                width={340}
                 fontSize={24}
-                x={50}
-                y={50}
+                x={textPosition.x}
+                y={textPosition.y}
                 wrap="word"
                 fill="black" // 텍스트 색상
-                draggable // 텍스트를 드래그할 수 있도록 설정
+                draggable
+                onDragMove={handleTextDragMove}
+                onDragEnd={handleTextDragEnd}
               />
-              <Image image={mainImage} x={70} y={90} draggable />
-              {/* <img src={`${mainChar[currentChar]}`} alt="무생 네컷" /> */}
+              <Image
+                image={mainImage}
+                x={imagePosition.x}
+                y={imagePosition.y}
+                draggable
+                onDragMove={handleImageDragMove}
+                onDragEnd={handleImageDragEnd}
+              />
             </Layer>
           </Stage>
-        </ImgArea>
+        </div>
         <InputArea>
           <TextInput onChange={onChangeText} />
-          <TextRegistBtn variant="contained">저장</TextRegistBtn>
+          <TextRegistBtn variant="contained" onClick={saveImageFIle}>
+            저장
+          </TextRegistBtn>
         </InputArea>
         <AlbumArea>
           <AlbumTitle>배경</AlbumTitle>
@@ -174,42 +286,13 @@ const FourCutPage = () => {
 
 export default FourCutPage;
 
-const HeaderTitle = styled.span`
-  position: sticky;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.3vh;
-  font-weight: 300;
-`;
-
-const ImgArea = styled.div`
-  width: 75vw;
-  max-width: 425px;
-  height: 40vh;
-  margin: 0 auto;
-  margin-bottom: 2.5vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 8px solid #c53232;
-  position: relative;
-
-  img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-35%);
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-`;
-
 const InputArea = styled.div`
   width: 100%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* margin-top: 1.5vh; */
 `;
 
 const AlbumArea = styled.div`
@@ -229,7 +312,7 @@ const TextRegistBtn = styled(Button)`
 `;
 
 const TextInput = styled(TextField)`
-  width: 320px;
+  width: 75%;
 
   & .MuiInputBase-root {
     height: 100%;
