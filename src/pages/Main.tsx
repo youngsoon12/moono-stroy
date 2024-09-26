@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 
 const Main = (props: any) => {
   const navigate = useNavigate();
-  const [user] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const popoverRef = useRef<HTMLDivElement | null>(null); // ref 생성
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -25,6 +25,23 @@ const Main = (props: any) => {
   const togglePopover = () => {
     setIsOpen((prev) => !prev);
   };
+
+  // 로그아웃 처리 함수
+  const handleLogout = () => {
+    // 사용자 상태 초기화
+    setUser({
+      sub: '',
+      nickName: '',
+      oneMission: false,
+      twoMission: false,
+      threeMission: false,
+      fourMission: false,
+      fiveMission: false,
+    });
+    // 로그인 페이지로 이동
+    navigate('/login');
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       popoverRef.current &&
@@ -44,6 +61,7 @@ const Main = (props: any) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+
   return (
     <Container style={{ padding: '15px', overflowY: 'scroll' }}>
       <HederStyled>
@@ -75,7 +93,7 @@ const Main = (props: any) => {
                   <div style={{ fontSize: '1.4em' }}>반가워요</div>
                   <div>{user.nickName}님</div>
                 </div>
-                <PopoverBtn>로그아웃</PopoverBtn>
+                <PopoverBtn onClick={handleLogout}>로그아웃</PopoverBtn>
               </PopoverContent>
             </Popover>
           )}
@@ -111,13 +129,11 @@ const Main = (props: any) => {
         <FirstColButon>
           <Menubutton
             style={{
-              // backgroundColor: '#6b6b6b',
               backgroundColor: '#72dcfc',
               textAlign: 'left',
               flexDirection: 'column',
               fontSize: '1.2em',
               color: '#fff',
-              // border: '1px solid #0000007b',
             }}
             onClick={() => handleButtonClick('introduce')}
           >
@@ -216,7 +232,7 @@ const Main = (props: any) => {
             style={{
               backgroundColor: `${theme.color.pointColor}`,
               textAlign: 'left',
-              fontWeight: '700', // 여기서 font-weight를 설정
+              fontWeight: '700',
               display: 'inline-block',
             }}
             onClick={() => handleButtonClick('fortune')}
@@ -281,6 +297,7 @@ export default Main;
 interface MenubuttonProps {
   bgImage?: string; // 배경 이미지 프로퍼티 추가
 }
+
 const HederStyled = styled.div`
   display: flex;
   width: 100%;
@@ -301,6 +318,7 @@ const MenuContanier = styled.div`
   width: 100%;
   overflow: hidden;
 `;
+
 const FirstColButon = styled.div`
   display: flex;
   flex: 1;
@@ -308,6 +326,7 @@ const FirstColButon = styled.div`
   width: 100%; /* 전체 너비 사용 */
   height: 40%;
 `;
+
 const Menubutton = styled.button<MenubuttonProps>`
   flex: 1;
   border-radius: 15px;
@@ -321,12 +340,13 @@ const Menubutton = styled.button<MenubuttonProps>`
   background-size: contain; /* 배경 이미지 크기 조정 */
   background-repeat: no-repeat;
   background-position: 105% 50%; // 위치 조정
-  /* background-position: top right; // 위치 조정 */
 `;
+
 const LargeButton = styled(Menubutton)`
   flex: 0.6;
   margin: auto 0;
 `;
+
 const ThirdButton = styled.div`
   display: flex;
   flex: 0.6;
@@ -336,13 +356,13 @@ const ThirdButton = styled.div`
 `;
 
 const LogoStyled = styled.div`
-  /* font-family: Pretendard; */
   font-weight: 900;
   color: ${theme.color.mainColor};
   font-size: 2em;
   letter-spacing: -4px;
   width: 60%;
 `;
+
 const LogoRightSection = styled.div`
   width: 40%;
   display: flex;
@@ -352,6 +372,7 @@ const LogoRightSection = styled.div`
     margin-left: 10%;
   }
 `;
+
 const IntroText = styled.div`
   width: 50%;
   display: flex;
@@ -362,15 +383,16 @@ const IntroText = styled.div`
   font-weight: bold;
   margin-left: 5%;
 `;
+
 const IntroMooImg = styled.div`
   width: 50%;
   display: flex;
   justify-content: flex-end;
-  /* margin-left: 5%; */
   img {
     height: 100%;
   }
 `;
+
 const Popover = styled.div`
   position: absolute;
   top: 50px;
