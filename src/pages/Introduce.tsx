@@ -1,168 +1,204 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import theme from 'styles/theme';
-import { useNavigate } from 'react-router-dom';
-import Contents from '../components/css/Contents';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
-import { useEffect, useState } from 'react';
-import { StampAPI } from 'api/StampAPI';
-import { UserInfoAPI } from 'api/UserInfoAPI';
-import { userAtom } from 'recoil/userAtom';
-import { useRecoilState } from 'recoil';
+import Contents from '../components/css/Contents';
+import IntroduceBtn from '../components/form/IntroduceBtn';
+import { useTypingEffect } from '../components/hook/useTypingEffect';
+import data from '../assets/introduce.json';
+import theme from 'styles/theme';
 
 export const Introduce = (props: any) => {
-  const [userInfo] = useRecoilState(userAtom);
-  const [postStamp, setPostStamp] = useState({
-    id: '',
-    oneMission: true,
-    twoMission: false,
-    threeMission: false,
-    fourMission: false,
-    fiveMission: false,
-  });
+  const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
+  const [currentData, setCurrentData] = useState(data[pageIndex]); // 현재 페이지 데이터 상태
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // 데이터 로드 여부 추가
+
   useEffect(() => {
-    const data = UserInfoAPI(userInfo.sub);
-    console.log(data);
-    // if (userInfo) {
-    //   console.log('userInfo가 업데이트 되었습니다:', userInfo); // 확인용 콘솔 로그 추가
-    //   setPostStamp({
-    //     id: userInfo.sub,
-    //     oneMission: true,
-    //     twoMission: userInfo.twoMission,
-    //     threeMission: userInfo.threeMission,
-    //     fourMission: userInfo.fourMission,
-    //     fiveMission: userInfo.fiveMission,
-    //   });
-    // }
-  }, [userInfo]);
-  // postStamp 변경 시 API 호출
+    // 데이터가 로드되었음을 표시
+    if (pageIndex >= 0) {
+      setCurrentData(data[pageIndex]);
+      setIsDataLoaded(true); // 데이터 로드 완료
+    }
+  }, [pageIndex]);
+
+  // 타이핑 효과를 위한 훅 호출 (데이터 로드 후에만 실행)
+  const { displayedText, handleClick } = useTypingEffect(
+    isDataLoaded ? currentData.text : '', // 데이터 로드 후에 텍스트 전달
+    100 // 타이핑 속도
+  );
+
+  const handleNextPage = () => {
+    if (pageIndex < data.length - 1) {
+      setPageIndex(pageIndex + 1); // 페이지 인덱스 증가
+      setIsDataLoaded(false); // 페이지 이동 시 데이터 로드 초기화
+    } else {
+      setPageIndex(-1); // 마지막 페이지 이후 다른 화면으로 전환
+    }
+  };
+
   useEffect(() => {
-    const postData = async () => {
-      if (postStamp.id) {
-        // postStamp가 업데이트된 후에만 실행
-        try {
-          const data = await StampAPI(postStamp);
-          alert('무너의 소개 미션 성공!');
-        } catch (error) {
-          console.error('데이터 가져오기 실패:', error);
-        }
-      }
+    const handleGlobalClick = () => {
+      handleClick(); // 클릭 시 전체 텍스트 보여주기
     };
 
-    postData();
-  }, [postStamp]); // postStamp가 업데이트될 때마다 실행
-  return (
-    <div
-      style={{
-        margin: '0 auto',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Header>{'무너 소개서'}</Header>
+    document.addEventListener('click', handleGlobalClick);
 
-      <Container
-        style={{
-          overflowY: 'scroll',
-          background:
-            'linear-gradient(180deg, rgba(255,255,255,1) 24%, rgba(243,224,136,1) 100dvh)',
-          padding: '5% 0',
-        }}
-      >
-        <CenterImg>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/moono/하이무너.png`}
-            style={{ height: '100%', margin: 'auto' }}
-          />
-        </CenterImg>
-        <TextSection>
-          <ListConta>
-            <ListTitle>직업</ListTitle>
-            <ListText>회사원,크리에이터,스트릿 아티스트</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>출생지</ListTitle>
-            <ListText>용궁</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>신체</ListTitle>
-            <ListText>50cm,10kg</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>좋아하는 것</ListTitle>
-            <ListText>
-              무말랭이,정시퇴근,업무칭찬,댄스, 무너굿즈 외 41만 가지
-            </ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>싫어하는 것</ListTitle>
-            <ListText>
-              해신탕, 타코야끼, 팩트폭행, 홀맨이 더 관심받는 것
-            </ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>MBTI</ListTitle>
-            <ListText>ENTJ</ListText>
-          </ListConta>
-          <p style={{ margin: '20px 10px', lineHeight: '1.5' }}>
-            갓생을 꿈꾸는 엘리트 신입 사원 무너 그리고 홀맨 크루 거대한 용궁에서
-            유복한 삶을 살다가, 용궁에서의 금수저 무너생을 뒤로하고 육지로
-            올라와 현생을 살던 중 슈퍼스타 홀맨을 만나게 된다.
-            <br /> 홀맨보다 유명해져서 홀맨을 짓밟고자 여러 번 도전했지만,
-            현재까지 이긴 적은 한번도 없다고 알려져 있다. 슈퍼스타 홀맨의 바쁜
-            스케줄로 무너가 트렌드 잘.알로서 새롭게 인스타그램 운영을 맡으며
-            사회생활을 시작하게 되었다. 넘치는 상상력으로 팀장님께 건의하는
-            아이디어 대부분이 반려되지만 때론, 현실이 되어 일상을 바꾸기도 한다.
-            <br />
-            "내가 쟤보다 낫다.”라는 마인드로 눈치보지 않고 할말은 다 하는 성격의
-            소유자이다. 현재 도전하는 일마다 성공하며 점점 무너의 진가를
-            발휘하고 있으며, “나의 라이벌은 오직 나 자신뿐.. 오늘도 내가 나를
-            이긴다.”는 발언을 한 바가 있다.
-            <br /> "무너지지마"를 외치다 최근에는 ‘아무너케’, ‘걍생 라이프’를
-            즐기고 있다.
-          </p>
-        </TextSection>
-      </Container>
-    </div>
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+    };
+  }, [handleClick]);
+
+  return (
+    <Container>
+      <Header>{'무너 소개서'}</Header>
+      {pageIndex >= 0 ? (
+        <StyledContents>
+          <ContentSection style={{ height: '70%' }}>
+            <TextSection style={{ whiteSpace: 'pre-wrap' }}>
+              {displayedText && <span>{displayedText}</span>}{' '}
+              {/* 타이핑된 텍스트 */}
+            </TextSection>
+            <ImgSection>
+              <img src={currentData.img} alt="무너 이미지" />
+            </ImgSection>
+          </ContentSection>
+          <IntroduceBtn onClick={handleNextPage}>
+            {currentData.buttonText} {/* 버튼 텍스트 */}
+          </IntroduceBtn>
+        </StyledContents>
+      ) : (
+        <StyledContents
+          style={{
+            backgroundColor: '#f3f3f3',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              marginTop: '17%',
+            }}
+          >
+            <ContentSection style={{ textAlign: 'center' }}>
+              <ContentsStyle>
+                <ImgSection>
+                  <SemiTitle>SKILL</SemiTitle>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/무너능력.png`}
+                    alt="무너 능력치"
+                  />
+                </ImgSection>
+                <SkillText>
+                  인내심 말고는 못하는게 없는 <br />
+                  <span style={{ fontSize: '0.7em' }}>(거의)</span> 꽉 찬 오각형
+                </SkillText>
+              </ContentsStyle>
+              <ContentsStyle>
+                <TMIStyle>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/alien.png`}
+                  />
+                  무너의 MBTI는 ENTJ이다.
+                </TMIStyle>
+                <ImgSection style={{ margin: 'auto' }}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/intro/moo3.png`}
+                    style={{
+                      width: '170px',
+                    }}
+                  />
+                </ImgSection>
+              </ContentsStyle>
+            </ContentSection>
+          </div>
+          <IntroduceBtn onClick={() => (window.location.href = '/main')}>
+            메인으로
+          </IntroduceBtn>
+        </StyledContents>
+      )}
+    </Container>
   );
 };
-const CenterImg = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  height: 40%;
 
-  margin-top: 50%;
-`;
-const TextSection = styled.div`
-  width: 90%;
-  /* height: 50%; */
+// 스타일 정의
+const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers items horizontally */
-  margin: 0 auto;
-  line-height: 1.7;
-  background-color: rgba(187, 13, 13, 0.1); /* 요소를 반투명 처리 해준 후 */
-  backdrop-filter: blur(15px);
-  /* 요소 뒤에서 효과 적용 */
-  padding: 5% 0;
+  justify-content: center;
+  align-items: center;
 `;
 
-const ListConta = styled.div`
+const StyledContents = styled(Contents)`
   display: flex;
-  width: 100%;
-  justify-content: center; /* Centers the items in the ListConta */
-  margin: 0 auto;
-  align-items: center; /* Centers items vertically */
+  flex-direction: column;
+  align-items: center;
 `;
-const ListTitle = styled.div`
-  width: 100px;
-  text-align: left;
+
+const TextSection = styled.div`
+  height: 80px;
+  font-size: 1.2em;
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 10%;
+  line-height: 1.5;
 `;
-const ListText = styled.div`
-  width: 250px;
-  text-align: left;
-  font-size: 12px;
+
+const ImgSection = styled.div`
+  /* width: 100%; */
+  img {
+    width: 290px;
+    max-width: 90%;
+    height: auto;
+    margin: 5% 0;
+  }
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const SemiTitle = styled.div`
+  font-size: 1em;
+  text-align: center;
+  display: flex;
+  font-family: 'RixInooAriDuriR';
+  font-weight: 900;
+  color: #fff;
+  background-color: ${theme.color.mainColor};
+  margin: auto;
+  padding: 5px 10px;
+  border-radius: 20px;
+`;
+
+const ContentsStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3%;
+`;
+
+const SkillText = styled.div`
+  width: 100%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 0 20px 0 20px;
+  padding: 7% 0;
+  text-align: center;
+  margin: 3% 0;
+`;
+
+const TMIStyle = styled.div`
+  display: flex;
+  text-align: center;
+  color: #6d6d6d;
+  font-size: 0.9em;
+  justify-content: center;
+
+  img {
+    width: 1.3em;
+    margin-right: 5px;
+  }
 `;

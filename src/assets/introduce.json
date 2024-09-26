@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "text": "안녕? 나는 무너야!",
+    "img": "/images/moono/하이무너.png",
+    "buttonText": "반가워 무너야!"
+  },
+  {
+    "id": 2,
+    "text": "내 이야기를 들어줄래?",
+    "img": "/images/moono/헤드셋무너.png",
+    "buttonText": "얼마든지"
+  },
+  {
+    "id": 3,
+    "text": "나는 용궁에서 금수저로 살다가\n더 큰 세상을 경험하려고 육지로 왔어!",
+    "img": "/images/moono/하이무너.png",
+    "buttonText": "정말??"
+  },
+
+  {
+    "id": 4,
+    "text": "지금은 K-직장인이자 크리에이터야",
+    "img": "/images/moono/눕무너.png",
+    "buttonText": "멋진걸?"
+  },
+  {
+    "id": 5,
+    "text": "나도 가끔은 실수하고 넘어지거든",
+    "img": "/images/moono/머쓱무너.png",
+    "buttonText": "저런"
+  },
+  {
+    "id": 6,
+    "text": "그래도 우리 무너지지말자! \n 다시 해보는거야",
+    "img": "/images/moono/심쿵무너.png",
+    "buttonText": "TMI 보러가기"
+  }
+]

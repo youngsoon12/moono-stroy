@@ -32,6 +32,8 @@ const Router = () => {
         <Route path="/startQuiz" element={<StartQuiz />} />
 
         <Route path="/fortune" element={<Fortune />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/cheerup" element={<CheerUpPage />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />

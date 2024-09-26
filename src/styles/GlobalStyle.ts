@@ -14,7 +14,11 @@ const GlobalStyle = createGlobalStyle`
     src: url('/fonts/Pretendard.woff2') format('woff2-variations');
     font-weight: 400 600 900;
     font-style: normal;
+<<<<<<< HEAD
   }  
+=======
+  }
+>>>>>>> main
 
   @font-face {
     font-family: 'Cafe24Ssurround';
@@ -22,18 +26,16 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
-
-  @font-face {
-    font-family: 'Paperlogy-8ExtraBold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-    font-weight: 800;
+  font-face {
+    font-family: 'RixInooAriDuriR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
-  }
+}
 
   body {
     margin: 0;
     padding: 0;
-    /* font-family: 'nanumsquare'; */
     box-sizing: border-box;
     font-weight: 500; /* 기본 폰트 굵기 */
     font-size: 14px;
@@ -45,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-  /* font-family: 'nanumsquare'; */
+
   }
 
   *:focus {
