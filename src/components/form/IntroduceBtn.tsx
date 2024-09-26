@@ -18,11 +18,12 @@ const BtnStyle = styled.button`
   width: 90%;
   color: #fff;
   height: 10%;
-  max-height: 70px;
-  border-radius: 40px ;
+  max-height: 60px;
+  border-radius: 40px;
   font-size: 1.4em;
   font-weight: 700;
-  /* letter-spacing: 30px; */
+  justify-content: flex-end;
+  margin-bottom: 5%;
   background-color: #969696;
   text-align: center;
   cursor: pointer; // 버튼에 마우스 커서 적용
