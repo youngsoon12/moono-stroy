@@ -1,123 +1,162 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import theme from 'styles/theme';
-import { useNavigate } from 'react-router-dom';
-import Contents from '../components/css/Contents';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
+import Contents from '../components/css/Contents';
+import IntroduceBtn from '../components/form/IntroduceBtn';
+import { useTypingEffect } from '../components/hook/useTypingEffect';
+import data from '../assets/introduce.json';
 
 export const Introduce = (props: any) => {
-  return (
-    <div
-      style={{
-        margin: '0 auto',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Header>{'무너 소개서'}</Header>
+  const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
+  const [currentData, setCurrentData] = useState(data[pageIndex]); // 현재 페이지 데이터 상태
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // 데이터 로드 여부 추가
 
-      <Container
-        style={{
-          overflowY: 'scroll',
-          background:
-            'linear-gradient(180deg, rgba(255,255,255,1) 24%, rgba(243,224,136,1) 100dvh)',
-          padding: '5% 0',
-        }}
-      >
-        <CenterImg>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/moono/하이무너.png`}
-            style={{ height: '100%', margin: 'auto' }}
-          />
-        </CenterImg>
-        <TextSection>
-          <ListConta>
-            <ListTitle>직업</ListTitle>
-            <ListText>회사원,크리에이터,스트릿 아티스트</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>출생지</ListTitle>
-            <ListText>용궁</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>신체</ListTitle>
-            <ListText>50cm,10kg</ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>좋아하는 것</ListTitle>
-            <ListText>
-              무말랭이,정시퇴근,업무칭찬,댄스, 무너굿즈 외 41만 가지
-            </ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>싫어하는 것</ListTitle>
-            <ListText>
-              해신탕, 타코야끼, 팩트폭행, 홀맨이 더 관심받는 것
-            </ListText>
-          </ListConta>
-          <ListConta>
-            <ListTitle>MBTI</ListTitle>
-            <ListText>ENTJ</ListText>
-          </ListConta>
-          <p style={{ margin: '20px 10px', lineHeight: '1.5' }}>
-            갓생을 꿈꾸는 엘리트 신입 사원 무너 그리고 홀맨 크루 거대한 용궁에서
-            유복한 삶을 살다가, 용궁에서의 금수저 무너생을 뒤로하고 육지로
-            올라와 현생을 살던 중 슈퍼스타 홀맨을 만나게 된다.
-            <br /> 홀맨보다 유명해져서 홀맨을 짓밟고자 여러 번 도전했지만,
-            현재까지 이긴 적은 한번도 없다고 알려져 있다. 슈퍼스타 홀맨의 바쁜
-            스케줄로 무너가 트렌드 잘.알로서 새롭게 인스타그램 운영을 맡으며
-            사회생활을 시작하게 되었다. 넘치는 상상력으로 팀장님께 건의하는
-            아이디어 대부분이 반려되지만 때론, 현실이 되어 일상을 바꾸기도 한다.
-            <br />
-            "내가 쟤보다 낫다.”라는 마인드로 눈치보지 않고 할말은 다 하는 성격의
-            소유자이다. 현재 도전하는 일마다 성공하며 점점 무너의 진가를
-            발휘하고 있으며, “나의 라이벌은 오직 나 자신뿐.. 오늘도 내가 나를
-            이긴다.”는 발언을 한 바가 있다.
-            <br /> "무너지지마"를 외치다 최근에는 ‘아무너케’, ‘걍생 라이프’를
-            즐기고 있다.
-          </p>
-        </TextSection>
-      </Container>
-    </div>
+  useEffect(() => {
+    // 데이터가 로드되었음을 표시
+    if (pageIndex >= 0) {
+      setCurrentData(data[pageIndex]);
+      setIsDataLoaded(true); // 데이터 로드 완료
+    }
+  }, [pageIndex]);
+
+  // 타이핑 효과를 위한 훅 호출 (데이터 로드 후에만 실행)
+  const { displayedText, handleClick } = useTypingEffect(
+    isDataLoaded ? currentData.text : '', // 데이터 로드 후에 텍스트 전달
+    100 // 타이핑 속도
+  );
+
+  const handleNextPage = () => {
+    if (pageIndex < data.length - 1) {
+      setPageIndex(pageIndex + 1); // 페이지 인덱스 증가
+      setIsDataLoaded(false); // 페이지 이동 시 데이터 로드 초기화
+    } else {
+      setPageIndex(-1); // 마지막 페이지 이후 다른 화면으로 전환
+    }
+  };
+
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      handleClick(); // 클릭 시 전체 텍스트 보여주기
+    };
+
+    document.addEventListener('click', handleGlobalClick);
+
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+    };
+  }, [handleClick]);
+
+  return (
+    <Container>
+      <Header>{'무너 소개서'}</Header>
+      {pageIndex >= 0 ? (
+        <StyledContents>
+          <ContentSection>
+            <TextSection style={{ whiteSpace: 'pre-wrap' }}>
+              {displayedText && <span>{displayedText}</span>}{' '}
+              {/* 타이핑된 텍스트 */}
+            </TextSection>
+            <ImgSection>
+              <img src={currentData.img} alt="무너 이미지" />
+            </ImgSection>
+          </ContentSection>
+          <IntroduceBtn onClick={handleNextPage}>
+            {currentData.buttonText} {/* 버튼 텍스트 */}
+          </IntroduceBtn>
+        </StyledContents>
+      ) : (
+        <StyledContents>
+          <ContentSection>
+            <ContentsStyle>
+              <SemiTitle style={{ fontSize: '1.6em' }}>Skill</SemiTitle>
+              <ImgSection>
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/intro/무너능력.png`}
+                  alt="무너 능력치"
+                  style={{
+                    width: '65%',
+                    marginTop: '10%',
+                    justifyContent: 'center',
+                  }}
+                />
+                <div style={{ textAlign: 'start' }}>
+                  인내심 말고는 못하는게 없는 <br />
+                  <span style={{ fontSize: '0.7em' }}>(거의)</span> 꽉 찬 오각형
+                </div>
+              </ImgSection>
+            </ContentsStyle>
+            <ContentsStyle
+              style={{
+                display: 'flex',
+                justifyContent: 'start',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}
+            >
+              <SemiTitle
+                style={{ fontSize: '1.6em', marginRight: '10px', width: '20%' }}
+              >
+                MBTI
+              </SemiTitle>
+              <div style={{ fontSize: '1.2em' }}>ENTJ</div>
+            </ContentsStyle>
+          </ContentSection>
+          <IntroduceBtn onClick={() => (window.location.href = '/main')}>
+            메인으로
+          </IntroduceBtn>
+        </StyledContents>
+      )}
+    </Container>
   );
 };
-const CenterImg = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  height: 40%;
 
-  margin-top: 50%;
-`;
-const TextSection = styled.div`
-  width: 90%;
-  /* height: 50%; */
+// 스타일 정의
+const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers items horizontally */
-  margin: 0 auto;
-  line-height: 1.7;
-  background-color: rgba(187, 13, 13, 0.1); /* 요소를 반투명 처리 해준 후 */
-  backdrop-filter: blur(15px);
-  /* 요소 뒤에서 효과 적용 */
-  padding: 5% 0;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
 `;
 
-const ListConta = styled.div`
+const StyledContents = styled(Contents)`
   display: flex;
-  width: 100%;
-  justify-content: center; /* Centers the items in the ListConta */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+`;
+
+const TextSection = styled.div`
+  font-size: 1.2em;
+  height: 80px;
+  text-align: center;
+  line-height: 1.5;
+`;
+
+const ImgSection = styled.div`
+  img {
+    width: 270px;
+    height: auto;
+  }
+  display: flex;
   margin: 0 auto;
-  align-items: center; /* Centers items vertically */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
 `;
-const ListTitle = styled.div`
-  width: 100px;
-  text-align: left;
-  font-weight: 600;
+
+const SemiTitle = styled.div`
+  width: 100%;
+  display: flex;
 `;
-const ListText = styled.div`
-  width: 250px;
-  text-align: left;
-  font-size: 12px;
+
+const ContentsStyle = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
 `;
