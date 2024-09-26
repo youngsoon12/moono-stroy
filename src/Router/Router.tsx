@@ -1,4 +1,4 @@
- import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Intro from 'pages/Intro';
 import LoginPage from 'pages/LoginPage';
@@ -32,6 +32,11 @@ const Router = () => {
         <Route path="/startQuiz" element={<StartQuiz />} />
         <Route path="/introduce" element={<Introduce />} />
         <Route path="/fortune" element={<Fortune />} />
+
+        {/* 테스트용 */}
+        <Route path="/main" element={<Main />} />
+        <Route path="/cheerup" element={<CheerUpPage />} />
+        <Route path="/stamp" element={<StampPage />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Header from '../components/form/Header';
@@ -40,86 +40,91 @@ const CheerUpPage: React.FC = () => {
     getData();
   }, [refresh]);
 
-   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setPostText({
-       ...postText,
-       content: e.target.value,
-     });
-   };
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostText({
+      ...postText,
+      content: e.target.value,
+    });
+  };
 
-   const onClickInputBtn = async () => {
-     try {
-       await PostBoardAPI(postText);
-       setRefresh(!refresh);
-       setPostText({ ...postText, content: '' });
-     } catch (error) {
-       console.error('에러입니다:', error);
-     }
-   };
+  const onClickInputBtn = async () => {
+    try {
+      await PostBoardAPI(postText);
+      setRefresh(!refresh);
+      setPostText({ ...postText, content: '' });
+    } catch (error) {
+      console.error('에러입니다:', error);
+    }
+  };
 
-   const onClickDeleteBtn = async (postId: any) => {
-     try {
-       await DeleteBoardAPI(postId);
-       setRefresh(!refresh);
-     } catch (error) {
-       console.error('에러입니다:', error);
-     }
-   };
+  const onClickDeleteBtn = async (postId: any) => {
+    try {
+      await DeleteBoardAPI(postId);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('에러입니다:', error);
+    }
+  };
 
-   return (
-     <Container style={{ backgroundColor: 'black' }}>
-       <Header>{'무너 응원하기'}</Header>
-       <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
-         <ImgArea>
-           <img
-             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
-             alt="무퀴즈"
-             style={{ width: '100%' }} // 이미지 크기 조정
-           />
-         </ImgArea>
-         <div
-           style={{ fontSize: '1.6em', fontWeight: '700', marginBottom: '2%' }}
-         >
-           <span style={{ color: '#ffd900' }}>응원</span>의 한마디
-         </div>
-         <BoardArea>
-           {textList.map((data: any, idx) => (
-             <TextLine key={idx}>
-               <span>
-                 <span
-                   style={{
-                     fontWeight: 'bold',
-                     fontSize: '14px',
-                     color: `${theme.color.pointColor}`,
-                   }}
-                 >
-                   {data.title}{' '}
-                 </span>
-                 <span style={{ fontWeight: '500', fontSize: '12px' }}>
-                   : {data.content}{' '}
-                 </span>
-               </span>
-               {data.userId === user.sub && (
-                 <span>
-                   <InputBtn
-                     onClick={() => onClickDeleteBtn(data.postId)}
-                     style={{ fontSize: '10px' }}
-                     name={data.postId}
-                   >
-                     삭제
-                   </InputBtn>
-                 </span>
-               )}
-             </TextLine>
-           ))}
-         </BoardArea>
-         <InputArea style={{ color: '#fff' }}>
-           <BoardInput onChange={onChangeText} value={postText.content} />
-           <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
-         </InputArea>
-       </Contents>
-     </Container>
-   );
+  return (
+    <Container style={{ backgroundColor: 'black', color: '#fff' }}>
+      <Header
+        bgColor="#121212"
+        iconSrc={`${process.env.PUBLIC_URL}/images/header/whiteBack.png`}
+      >
+        {'무너 응원하기'}
+      </Header>
+      <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
+        <ImgArea>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
+            alt="무퀴즈"
+            style={{ width: '100%' }} // 이미지 크기 조정
+          />
+        </ImgArea>
+        <div
+          style={{ fontSize: '1.6em', fontWeight: '700', marginBottom: '2%' }}
+        >
+          <span style={{ color: '#ffd900' }}>응원</span>의 한마디
+        </div>
+        <BoardArea>
+          {textList.map((data: any, idx) => (
+            <TextLine key={idx}>
+              <span>
+                <span
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    color: `${theme.color.pointColor}`,
+                  }}
+                >
+                  {data.title}{' '}
+                </span>
+                <span style={{ fontWeight: '500', fontSize: '12px' }}>
+                  : {data.content}{' '}
+                </span>
+              </span>
+              {data.userId === user.sub && (
+                <span>
+                  <InputBtn
+                    onClick={() => onClickDeleteBtn(data.postId)}
+                    style={{ fontSize: '10px' }}
+                    name={data.postId}
+                  >
+                    삭제
+                  </InputBtn>
+                </span>
+              )}
+            </TextLine>
+          ))}
+        </BoardArea>
+        <InputArea style={{ color: '#fff' }}>
+          <BoardInput onChange={onChangeText} value={postText.content} />
+          <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
+        </InputArea>
+      </Contents>
+    </Container>
+  );
   return (
     <Container style={{ backgroundColor: 'black' }}>
       <Header>{'무너 응원하기'}</Header>

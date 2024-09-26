@@ -38,17 +38,22 @@ const LoginPage = (props: any) => {
       <TitleArea>
         <ColorSpan
           style={{
+            alignItems: 'center',
             fontSize: '0.6em',
-            marginLeft: '3%',
+            width: '10%',
+            backgroundColor: `${theme.color.mainColor}`,
+            padding: '3px 5px',
+            borderRadius: '15px',
+            color: '#fff',
+            margin: '10px auto',
           }}
         >
           TMI
         </ColorSpan>
-        <br />
-        <ColorSpan style={{ color: `${theme.color.mainColor}` }}>
-          무너
+        <ColorSpan>
+          <span style={{ color: `${theme.color.mainColor}` }}>무너</span>의
+          고향은 용궁입니다.
         </ColorSpan>
-        의 고향은 용궁입니다.
       </TitleArea>
       <InfoInput placeholder="아이디" name="id" onChange={onChangeInfo} />
       <InfoInput
@@ -60,7 +65,12 @@ const LoginPage = (props: any) => {
       <LoginBtn
         variant="contained"
         onClick={onClickLogin}
-        style={{ fontSize: '1.3em', fontWeight: '600', letterSpacing: 'px' }}
+        style={{
+          fontSize: '1.3em',
+          fontWeight: '600',
+          letterSpacing: 'px',
+          color: '#fff',
+        }}
       >
         로그인
       </LoginBtn>
@@ -91,17 +101,19 @@ const LoginPage = (props: any) => {
 export default LoginPage;
 
 const TitleArea = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
   font-size: 1.4em;
   font-weight: 900;
+  text-align: center;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
   font-size: 1.1em;
-  color: ${theme.color.pointColor};
   font-weight: 900;
 `;
 

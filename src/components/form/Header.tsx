@@ -3,25 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 interface HeaderProps {
   children: React.ReactNode;
+  bgColor?: string;
+  iconSrc?: string;
 }
-const Header: React.FC<HeaderProps> = ({ children }) => {
+const Header: React.FC<HeaderProps> = ({
+  children,
+  bgColor = '#fff',
+  iconSrc = `${process.env.PUBLIC_URL}/images/header/blackBack.png`,
+}) => {
   const navigate = useNavigate();
   return (
-    <HeaderStyle>
-      <BackIcon onClick={() => navigate(-1)}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/header/back.png`}
-          alt="Back"
-          style={{ width: '80%' }}
-        />
-      </BackIcon>
-      <Title style={{ marginRight: '2%' }}>{children}</Title>{' '}
+    <HeaderStyle bgColor={bgColor}>
+      {iconSrc && (
+        <BackIcon onClick={() => navigate(-1)}>
+          <img src={iconSrc} alt="Back" style={{ width: '100%' }} />
+        </BackIcon>
+      )}
+      <Title style={{ marginRight: '5%' }}>{children}</Title>{' '}
       {/* children으로 타이틀을 받음 */}
     </HeaderStyle>
   );
 };
 export default Header;
-const HeaderStyle = styled.div`
+const HeaderStyle = styled.div<{ bgColor: string }>`
   position: absolute;
   top: 0;
   left: 50%; /* 화면의 50% 위치 */
@@ -33,10 +37,11 @@ const HeaderStyle = styled.div`
   max-width: 480px;
   padding: 2% 3%;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: ${({ bgColor }) => bgColor}; // Use bgColor prop
 `;
 const BackIcon = styled.div`
   /* flex: 0.5; */
+  width: 5%;
   cursor: pointer;
 `;
 const Title = styled.span`
