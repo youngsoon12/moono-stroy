@@ -5,9 +5,8 @@ import Header from '../components/form/Header';
 import Stamp from '../components/css/Stamp';
 export const Fortune = (props: any) => {
   return (
-    <div>
+    <Container>
       <Header>무너보살</Header>
-      <Container></Container>
-    </div>
+    </Container>
   );
 };

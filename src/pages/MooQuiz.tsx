@@ -63,9 +63,24 @@ const MooQuiz = () => {
       <Contents style={{ justifyContent: 'center' }}>
         {showResult ? (
           <ResultContainer>
-            <div>퀴즈 종료!</div>
-            <div>
-              총 {quiz.length}문제 중 {score}문제를 맞췄어요!
+            <div
+              style={{
+                fontSize: '1.4em',
+                marginBottom: '10px',
+                padding: '3% 5%',
+                backgroundColor: `${theme.color.mainColor}`,
+                color: '#fff',
+              }}
+            >
+              퀴즈 종료
+            </div>
+            <div style={{ color: '#121212', fontWeight: '700' }}>
+              총 {quiz.length}문제 중{' '}
+              <span style={{ color: `${theme.color.mainColor}` }}>
+                {score}
+                문제
+              </span>
+              를 맞췄어요!
             </div>
             {/* <ShareButton onClick={handleShareClick}>공유하기</ShareButton> */}
           </ResultContainer>
@@ -105,10 +120,10 @@ const MooQuiz = () => {
               <div
                 style={{
                   display: 'flex',
-                  fontSize: '1.4em',
+                  fontSize: '1.5em',
                   padding: '10px',
                   margin: '0 auto',
-                  height: '8dvh',
+                  height: '50px',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -182,7 +197,7 @@ const QuizBtn = styled.button`
 
 const ResultContainer = styled.div`
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   color: ${theme.color.mainColor};
   font-weight: 900;
 `;
