@@ -178,9 +178,11 @@ const ContentSection = styled.div`
 `;
 
 const StyledContents = styled(Contents)`
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+
   align-items: center;
+  justify-content: flex-end;
+  height: calc(100dvh);
 `;
 
 const TextSection = styled.div`
