@@ -27,7 +27,7 @@ const Router = () => {
         <Route path="/photo" element={<PhotoPage />} />
 
         <Route path="/contIntro/:id" element={<ContentIntro />} />
-        <Route path="/mooQuiz" element={<MooQuiz />} />
+
         <Route path="/startQuiz" element={<StartQuiz />} />
 
         <Route path="/fortune" element={<Fortune />} />
@@ -45,6 +45,7 @@ const Router = () => {
           <Route path="/stamp" element={<StampPage />} />
           <Route path="/fourcut" element={<FourCutPage />} />
           <Route path="/introduce" element={<Introduce />} />
+          <Route path="/mooQuiz" element={<MooQuiz />} />
         </Route>
       </Routes>
     </BrowserRouter>

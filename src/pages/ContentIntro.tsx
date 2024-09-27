@@ -27,7 +27,7 @@ export const ContentIntro = (props: any) => {
   const getText = () => {
     switch (id) {
       case 'introduce':
-        return ['무너를 소개해줄게', '무너소개서', 'Say My Naaaaaameeeeema!'];
+        return ['무너를 소개해줄게', '무너소개서', '나를 소개할게✋🏻'];
       case 'mooQuiz':
         return ['퀴즈를 풀어볼까?', '무 퀴즈~?!', 'MOO Quiz?'];
       case 'cheerup':
@@ -43,7 +43,7 @@ export const ContentIntro = (props: any) => {
               알려줄게!
             </span>
           </div>,
-          '무너의 운세',
+          '무너보살',
           '쫄??쫄??',
         ];
       default:
@@ -85,7 +85,7 @@ export const ContentIntro = (props: any) => {
           >
             {getText()[1]}
           </div>
-          <div style={{ color: `${theme.color.mainColor}` }}>
+          <div style={{ color: `${theme.color.mainColor}`, marginTop: '10%' }}>
             {getText()[2]}
           </div>
         </div>
@@ -106,7 +106,8 @@ export const ContentIntro = (props: any) => {
 const ContentButtonStyle = styled.button`
   display: flex;
   width: 90%;
-  height: 9%;
+  height: 7%;
+  min-height: 60px;
   background-color: ${theme.color.mainColor};
   /* border: 1px solid ${theme.color.mainColor}; */
   border-radius: 10px;

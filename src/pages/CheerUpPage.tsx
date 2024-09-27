@@ -9,8 +9,20 @@ import { userAtom } from 'recoil/userAtom';
 import { GetBoardAPI, PostBoardAPI, DeleteBoardAPI } from 'api/BoardAPI';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
 
 const CheerUpPage: React.FC = () => {
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+  const [st, setSt] = useState(false);
   const navigate = useNavigate();
   const [user] = useRecoilState(userAtom);
   const [textList, setTextList] = useState([]);
@@ -22,6 +34,41 @@ const CheerUpPage: React.FC = () => {
   const [refresh, setRefresh] = useState(false);
   const lastMessageRef = useRef<HTMLDivElement | null>(null); // 마지막 메시지에 대한 Ref
 
+  useEffect(() => {
+    console.log('나 실행되고 있니 ..?');
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: data.twoMission,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, [st]);
+  useEffect(() => {
+    // 스템 API 호출
+    if (st) {
+      StampAPI(stampStatus)
+        .then((data) => {
+          console.log('스템 API 호출 성공:', data);
+          alert('무너응원하기 미션 완료 !');
+        })
+        .catch((error) => {
+          console.error('스템 API 호출 실패:', error);
+        });
+    }
+  }, [st]);
+  console.log(stampStatus);
   useEffect(() => {
     if (user && user.nickName) {
       setPostText({
@@ -55,6 +102,10 @@ const CheerUpPage: React.FC = () => {
   };
 
   const onClickInputBtn = async () => {
+    if (stampStatus.threeMission === false) {
+      setStampStatus({ ...stampStatus, threeMission: true });
+      setSt(true);
+    }
     try {
       await PostBoardAPI(postText);
       setRefresh(!refresh);

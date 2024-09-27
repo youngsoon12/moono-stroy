@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const Main = (props: any) => {
   const navigate = useNavigate();
@@ -74,12 +76,25 @@ const Main = (props: any) => {
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
           />
 
-          <img
+          {/* <img
             src={`${process.env.PUBLIC_URL}/images/main/bell.png`}
             alt="알람"
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
+          /> */}
+          <DarkModeIcon
+            sx={{
+              cursor: 'pointer',
+              fontSize: '26px',
+              marginLeft: '10%',
+            }}
           />
-
+          <LightModeIcon
+            sx={{
+              cursor: 'pointer',
+              fontSize: '26px',
+              marginLeft: '10%',
+            }}
+          />
           <img
             src={`${process.env.PUBLIC_URL}/images/main/user.png`}
             alt="사용자"
@@ -260,7 +275,7 @@ const Main = (props: any) => {
                     fontWeight: '800',
                   }}
                 >
-                  오늘의 운세
+                  무너보살
                 </span>
               </div>
             </div>
