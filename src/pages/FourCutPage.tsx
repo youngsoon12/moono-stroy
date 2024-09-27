@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/css/HeaderArea';
+import Header from '../components/form/Header';
 import Container from '../components/css/Container';
 import Contents from '../components/css/Contents';
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
@@ -180,17 +180,17 @@ const FourCutPage = () => {
 
   return (
     <Container style={{ minWidth: '425px' }}>
-      <Header style={{ position: 'relative', height: '9vh' }}>
-        <ArrowBackIosNewSharpIcon
-          onClick={onBackBtn}
-          sx={{ fontSize: '16px', cursor: 'pointer' }}
-        />
-        <HeaderTitle>무생 네컷</HeaderTitle>
-      </Header>
-      <Contents style={{ display: 'inline-block', height: '91vh' }}>
+      <Header>{'무생네컷'}</Header>
+      <Contents
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         <div
           style={{
-            marginTop: '2vh',
+            // marginTop: '2vh',
             fontSize: '2.5vh',
             fontWeight: '600',
             textAlign: 'center',
@@ -294,21 +294,13 @@ const FourCutPage = () => {
 
 export default FourCutPage;
 
-const HeaderTitle = styled.span`
-  position: sticky;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.3vh;
-  font-weight: 300;
-`;
-
 const InputArea = styled.div`
   width: 100%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1.5vh;
+  /* margin-top: 1.5vh; */
 `;
 
 const AlbumArea = styled.div`
@@ -328,7 +320,8 @@ const TextRegistBtn = styled(Button)`
 `;
 
 const TextInput = styled(TextField)`
-  width: 320px;
+  width: 75%;
+
   & .MuiInputBase-root {
     height: 100%;
     border-radius: 7px 0px 0px 7px !important;

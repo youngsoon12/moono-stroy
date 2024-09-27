@@ -38,6 +38,7 @@ const LoginPage = (props: any) => {
       <TitleArea>
         <ColorSpan
           style={{
+            alignItems: 'center',
             fontSize: '0.6em',
             backgroundColor: `${theme.color.mainColor}`,
             color: '#fff',
@@ -65,7 +66,12 @@ const LoginPage = (props: any) => {
       <LoginBtn
         variant="contained"
         onClick={onClickLogin}
-        style={{ fontSize: '1.3em', fontWeight: '600', letterSpacing: 'px' }}
+        style={{
+          fontSize: '1.3em',
+          fontWeight: '600',
+          letterSpacing: 'px',
+          color: '#fff',
+        }}
       >
         로그인
       </LoginBtn>
@@ -96,6 +102,8 @@ const LoginPage = (props: any) => {
 export default LoginPage;
 
 const TitleArea = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
