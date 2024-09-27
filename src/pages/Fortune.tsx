@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
@@ -7,14 +7,41 @@ import theme from 'styles/theme';
 import styled, { keyframes } from 'styled-components';
 import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
+
 const Fortune: React.FC = () => {
   // const [user, setUser] = useRecoilState(userAtom);
   const [fortune, setFortune] = useState('');
   const [gender, setGender] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [isResultPage, setIsResultPage] = useState(false); // 화면 전환을 위한 상태 추가
+  const [randomImage, setRandomImage] = useState(''); // 랜덤 이미지 상태
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
-  const user = { nickName: '히잉' };// 임시
+  // 이미지 배열 준비 (임시 경로 예시)
+  const images = [
+    '/images/fortune/alien.png',
+    '/images/fortune/Flower.png',
+    '/images/fortune/clover.png',
+    '/images/fortune/heart1.png',
+    '/images/fortune/gheart.png',
+    '/images/fortune/rhearts.png',
+    '/images/fortune/whale.png',
+    '/images/fortune/T-Rex.png',
+  ];
+
+  // 랜덤 이미지 선택 함수
+  const getRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  };
+
+  // 컴포넌트가 마운트될 때마다 랜덤 이미지를 설정
+  useEffect(() => {
+    const selectedImage = getRandomImage();
+    setRandomImage(selectedImage);
+  }, []);
+
+  const user = { nickName: '히잉' }; // 임시
   console.log(user);
   // 현재 날짜를 "YYYY년 MM월 DD일" 형식으로 포맷하는 함수
   const getCurrentDate = () => {
@@ -27,6 +54,17 @@ const Fortune: React.FC = () => {
   };
 
   const getFortune = async () => {
+    if (gender === '') {
+      alert('성별을 선택해주세요.');
+      return;
+    }
+
+    if (!/^\d{8}$/.test(birthdate)) {
+      alert('생년월일은 숫자로 8자를 입력해주세요.');
+      return;
+    }
+    setIsLoading(true); // 로딩 시작
+
     const currentDate = getCurrentDate(); // 현재 날짜 계산
 
     try {
@@ -40,7 +78,7 @@ const Fortune: React.FC = () => {
               content: `성별은 ${gender}이고, 생년월일은 ${birthdate}야. 오늘은 ${currentDate}인데, 오늘의 운세를 알려줘! 말투는 반말로하고, 운세 다음 줄바꿈하고 행운 점수를 표시해`,
             },
           ],
-          max_tokens: 300,
+          max_tokens: 180,
         },
         {
           headers: {
@@ -55,6 +93,8 @@ const Fortune: React.FC = () => {
     } catch (error) {
       console.error('운세를 가져오는 중 오류 발생:', error);
       setFortune('운세를 가져오는 데 문제가 발생했습니다. 다시 시도해 주세요.');
+    } finally {
+      setIsLoading(false); // 로딩 종료
     }
   };
 
@@ -64,6 +104,39 @@ const Fortune: React.FC = () => {
     setIsResultPage(false); // 입력 화면으로 전환
   };
 
+  // 공유하기 버튼 클릭 시 호출되는 함수
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: '오늘의 운세',
+          text: `내 운세: ${fortune}`,
+          url: window.location.href,
+        })
+        .then(() => console.log('공유 성공'))
+        .catch((error) => console.log('공유 실패:', error));
+    } else {
+      alert('공유하기 기능이 지원되지 않는 브라우저입니다.');
+    }
+  };
+
+  // 메인으로 가기 버튼 클릭 시 호출되는 함수
+  const handleGoToMain = () => {
+    // 메인으로 이동 (React Router를 사용할 경우 useNavigate 사용)
+    window.location.href = '/main'; // 메인 페이지 경로
+  };
+  const handleGenderSelect = (selectedGender: string) => {
+    setGender(selectedGender);
+  };
+
+  const handleBirthdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    if (/^\d*$/.test(input)) {
+      setBirthdate(input);
+    } else {
+      alert('숫자만 입력할 수 있습니다.');
+    }
+  };
   // 운세 결과 화면
   if (isResultPage) {
     return (
@@ -77,18 +150,26 @@ const Fortune: React.FC = () => {
             paddingBottom: '5%',
           }}
         >
-          <ResultCard>
-            <InnerCard>
-              <CardImage src="/path-to-heart-image.png" alt="Heart" />
-              <CardTitle>{user.nickName}님의 운세</CardTitle>
-              <CardDescription
-                style={{ whiteSpace: 'pre-line', textAlign: 'left' }}
-              >
-                {fortune}
-              </CardDescription>
-            </InnerCard>
-          </ResultCard>
-          <FortuneSubmit onClick={resetForm}>다시 보기</FortuneSubmit>
+          <div style={{ height: '600px', maxHeight: '78%' }}>
+            <ResultCard>
+              <InnerCard>
+                <CardImage src={randomImage} alt="icon" />
+                <CardTitle>{user.nickName}님의 운세</CardTitle>
+                <CardDescription
+                  style={{ whiteSpace: 'pre-line', textAlign: 'left' }}
+                >
+                  {fortune}
+                </CardDescription>
+              </InnerCard>
+            </ResultCard>
+            <ButtonContainer>
+              <RetryStyle onClick={resetForm}>♻️ 다시 해볼까요??</RetryStyle>
+            </ButtonContainer>
+          </div>
+          <ButtonContainer style={{ width: '90%' }}>
+            <ShareButton onClick={handleShare}>공유하기</ShareButton>
+            <MainButton onClick={handleGoToMain}>메인으로 가기</MainButton>
+          </ButtonContainer>
         </Contents>
       </Container>
     );
@@ -124,7 +205,9 @@ const Fortune: React.FC = () => {
         </div>
         <div style={{ fontSize: '0.9em', lineHeight: '1.7' }}>
           간단한 입력으로{' '}
-          <span style={{ color: `${theme.color.mainColor} ` }}>
+          <span
+            style={{ color: `${theme.color.mainColor} `, fontWeight: '600' }}
+          >
             오늘의 운세
           </span>
           를 알아보세요.
@@ -132,23 +215,37 @@ const Fortune: React.FC = () => {
         <div style={{ width: '100%', margin: '20px auto 30px' }}>
           <InputContainer>
             <MiniTitle>성별</MiniTitle>
-            <input
-              type="text"
-              placeholder="성별 입력 (예: 남성, 여성)"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            />
+            <GenderButtonContainer>
+              <GenderButton
+                isSelected={gender === '남성'}
+                onClick={() => handleGenderSelect('남성')}
+              >
+                남성
+              </GenderButton>
+              <GenderButton
+                isSelected={gender === '여성'}
+                onClick={() => handleGenderSelect('여성')}
+              >
+                여성
+              </GenderButton>
+            </GenderButtonContainer>
           </InputContainer>
           <InputContainer>
             <MiniTitle>생년월일</MiniTitle>
             <input
               type="text"
               value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
+              onChange={handleBirthdateChange}
+              placeholder="생년월일 8자를 입력해주세요"
+              maxLength={8} // 입력 글자 수를 8자로 제한
             />
           </InputContainer>
         </div>
-        <FortuneSubmit onClick={getFortune}>운세 보기</FortuneSubmit>
+        {isLoading ? (
+          <LoadingMessage>운세를 불러오는 중...</LoadingMessage>
+        ) : (
+          <FortuneSubmit onClick={getFortune}>운세 보기</FortuneSubmit>
+        )}
       </Contents>
     </Container>
   );
@@ -211,28 +308,32 @@ const InputContainer = styled.div`
     border: none;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.49);
+    &::placeholder {
+      font-size: 0.9em;
+    }
   }
 `;
 const MiniTitle = styled.div`
-  font-size: 1em;
+  font-size: 1.1em;
   color: #fff;
   margin-left: 10px;
 `;
 const FortuneSubmit = styled.button`
   font-family: 'Pretendard';
-  width: 90%;
+  width: 80%;
   color: ${theme.color.mainColor};
   background-color: #fff;
   font-size: 1.4em;
   font-weight: 900;
   padding: 3%;
   border-radius: 10px;
+  margin: 0 auto;
 `;
 const ResultCard = styled.div`
   position: relative;
   width: 65%;
   max-width: 400px;
-  padding: 20px;
+  padding: 10px;
   margin: 20px auto;
   background-color: #fff;
   border-radius: 20px;
@@ -252,9 +353,9 @@ const InnerCard = styled.div`
 `;
 
 const CardImage = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
 `;
 
 const CardTitle = styled.div`
@@ -267,4 +368,86 @@ const CardDescription = styled.div`
   font-size: 0.9em;
   line-height: 1.6;
   color: #555;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+`;
+
+const ShareButton = styled.button`
+  background-color: #fff; /* 검정색 배경 */
+  color: ${theme.color.mainColor};
+  font-size: 1.2em;
+  padding: 3%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  width: 49%;
+  text-align: center;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 900;
+`;
+
+const MainButton = styled.button`
+  font-weight: 900;
+  background-color: #e74c3c; /* 빨간색 배경 */
+  color: white;
+  font-size: 1.2em;
+  padding: 3%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  width: 49%;
+  text-align: center;
+  font-family: 'Pretendard', sans-serif;
+`;
+const RetryStyle = styled.div`
+  font-family: 'Pretendard', sans-serif;
+  width: 100%;
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  &:hover {
+    color: #1c1c1c;
+  }
+`;
+const GenderButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+`;
+
+const GenderButton = styled.button<{ isSelected: boolean }>`
+  background-color: ${(props) => (props.isSelected ? `#000` : '#fff')};
+  color: ${(props) =>
+    props.isSelected ? `${theme.color.pointColor}` : '#555'};
+  padding: 2%;
+  font-size: 1.2em;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 47%;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.isSelected ? '#000000' : `${theme.color.pointColor}`};
+    color: ${(props) =>
+      props.isSelected ? `${theme.color.pointColor}` : '#000'};
+  }
+`;
+// 로딩 메시지 스타일
+const LoadingMessage = styled.div`
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
 `;

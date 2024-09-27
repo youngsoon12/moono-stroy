@@ -5,12 +5,50 @@ import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
 import QuizData from '../assets/quiz.json';
+import { useNavigate } from 'react-router-dom';
+import { userAtom } from 'recoil/userAtom';
+import { useRecoilState } from 'recoil';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
 
 const MooQuiz = () => {
+  const navigate = useNavigate();
   const [quizIndex, setQuizIndex] = useState(0); // 현재 퀴즈 인덱스
   const [score, setScore] = useState(0); // 맞은 개수
   const [showResult, setShowResult] = useState(false); // 결과 화면 여부
   const quiz = QuizData.quiz;
+
+  const [user, setUser] = useRecoilState(userAtom);
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+
+  useEffect(() => {
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: true,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, []);
 
   // useEffect(() => {
   //   // 카카오톡 SDK 초기화
@@ -56,6 +94,18 @@ const MooQuiz = () => {
   //     ],
   //   });
   // };
+  const goToMain = () => {
+    // 스템 API 호출
+    StampAPI(stampStatus)
+      .then((data) => {
+        console.log('스템 API 호출 성공:', data);
+        alert('무퀴즈 미션 완료 !');
+        window.location.href = '/main';
+      })
+      .catch((error) => {
+        console.error('스템 API 호출 실패:', error);
+      });
+  };
 
   return (
     <Container>
@@ -70,7 +120,9 @@ const MooQuiz = () => {
                 padding: '3% 5%',
                 backgroundColor: `${theme.color.mainColor}`,
                 color: '#fff',
+                cursor: 'pointer',
               }}
+              onClick={goToMain}
             >
               퀴즈 종료
             </div>
