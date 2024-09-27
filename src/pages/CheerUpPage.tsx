@@ -9,7 +9,20 @@ import { userAtom } from 'recoil/userAtom';
 import { GetBoardAPI, PostBoardAPI, DeleteBoardAPI } from 'api/BoardAPI';
 import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
+
 const CheerUpPage: React.FC = () => {
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+  const [st, setSt] = useState(false);
   const navigate = useNavigate();
   const [user] = useRecoilState(userAtom);
   const [textList, setTextList] = useState([]);
@@ -19,9 +32,44 @@ const CheerUpPage: React.FC = () => {
     title: user.nickName,
   });
   const [refresh, setRefresh] = useState(false);
-  console.log(user);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null); // 마지막 메시지에 대한 Ref
+
   useEffect(() => {
-    // user 값이 변경될 때 postText 업데이트
+    console.log('나 실행되고 있니 ..?');
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: data.twoMission,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, [st]);
+  useEffect(() => {
+    // 스템 API 호출
+    if (st) {
+      StampAPI(stampStatus)
+        .then((data) => {
+          console.log('스템 API 호출 성공:', data);
+          alert('무너응원하기 미션 완료 !');
+        })
+        .catch((error) => {
+          console.error('스템 API 호출 실패:', error);
+        });
+    }
+  }, [st]);
+  console.log(stampStatus);
+  useEffect(() => {
     if (user && user.nickName) {
       setPostText({
         ...postText,
@@ -30,7 +78,6 @@ const CheerUpPage: React.FC = () => {
       });
     }
   }, [user]);
-  const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref for the last message
 
   useEffect(() => {
     const getData = async () => {
@@ -40,6 +87,13 @@ const CheerUpPage: React.FC = () => {
     getData();
   }, [refresh]);
 
+  useEffect(() => {
+    // 메시지가 업데이트될 때마다 스크롤을 마지막 메시지로 이동
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [textList]); // textList가 업데이트될 때 실행
+
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPostText({
       ...postText,
@@ -48,6 +102,10 @@ const CheerUpPage: React.FC = () => {
   };
 
   const onClickInputBtn = async () => {
+    if (stampStatus.threeMission === false) {
+      setStampStatus({ ...stampStatus, threeMission: true });
+      setSt(true);
+    }
     try {
       await PostBoardAPI(postText);
       setRefresh(!refresh);
@@ -66,60 +124,6 @@ const CheerUpPage: React.FC = () => {
     }
   };
 
-   return (
-     <Container style={{ backgroundColor: 'black' }}>
-       <Header>{'무너 응원하기'}</Header>
-       <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
-         <ImgArea>
-           <img
-             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
-             alt="무퀴즈"
-             style={{ width: '100%' }} // 이미지 크기 조정
-           />
-         </ImgArea>
-         <div
-           style={{ fontSize: '1.6em', fontWeight: '700', marginBottom: '2%' }}
-         >
-           <span style={{ color: '#ffd900' }}>응원</span>의 한마디
-         </div>
-         <BoardArea>
-           {textList.map((data: any, idx) => (
-             <TextLine key={idx}>
-               <span>
-                 <span
-                   style={{
-                     fontWeight: 'bold',
-                     fontSize: '14px',
-                     color: `${theme.color.pointColor}`,
-                   }}
-                 >
-                   {data.title}{' '}
-                 </span>
-                 <span style={{ fontWeight: '500', fontSize: '12px' }}>
-                   : {data.content}{' '}
-                 </span>
-               </span>
-               {data.userId === user.sub && (
-                 <span>
-                   <InputBtn
-                     onClick={() => onClickDeleteBtn(data.postId)}
-                     style={{ fontSize: '10px' }}
-                     name={data.postId}
-                   >
-                     삭제
-                   </InputBtn>
-                 </span>
-               )}
-             </TextLine>
-           ))}
-         </BoardArea>
-         <InputArea style={{ color: '#fff' }}>
-           <BoardInput onChange={onChangeText} value={postText.content} />
-           <InputBtn onClick={onClickInputBtn}>입력</InputBtn>
-         </InputArea>
-       </Contents>
-     </Container>
-   );
   return (
     <Container style={{ backgroundColor: 'black', color: '#fff' }}>
       <Header
@@ -128,18 +132,12 @@ const CheerUpPage: React.FC = () => {
       >
         {'무너 응원하기'}
       </Header>
-      <Contents
-        style={{
-          backgroundColor: '#121212',
-          color: '#fff',
-          paddingBottom: '3%',
-        }}
-      >
+      <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
         <ImgArea>
           <img
             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}
             alt="무퀴즈"
-            style={{ width: '100%' }}
+            style={{ width: '100%' }} // 이미지 크기 조정
           />
         </ImgArea>
         <div
