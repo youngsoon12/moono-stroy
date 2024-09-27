@@ -75,7 +75,7 @@ const Fortune: React.FC = () => {
           messages: [
             {
               role: 'user',
-              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}야. 오늘은 ${currentDate}인데, 오늘의 운세를 알려줘! 말투는 반말로하고, 운세 다음 줄바꿈하고 행운 점수를 표시해`,
+              content: `성별은 ${gender}, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데, 생년월일 기반으로 오늘의 운세를 솔직하게 반말로 출력. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
             },
           ],
           max_tokens: 180,
