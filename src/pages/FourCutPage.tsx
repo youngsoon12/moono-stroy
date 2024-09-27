@@ -71,7 +71,7 @@ const FourCutPage = () => {
   const [mainImage] = useImage(mainChar[currentChar]);
   // Konva zone startLine
   const stageRef: any = useRef(null);
-  const [imagePosition, setImagePosition] = useState({ x: 80, y: 90 });
+  const [imagePosition, setImagePosition] = useState({ x: 70, y: 20 });
   const [textPosition, setTextPosition] = useState({ x: 50, y: 20 });
 
   const [user, setUser] = useRecoilState(userAtom);
@@ -323,27 +323,27 @@ const TextRegistBtn = styled(Button)`
   color: #fff !important;
   background-color: #c43232 !important;
   width: 8vh;
-  height: 6vh;
+  height: 4vh;
   border-radius: 0px 7px 7px 0px !important;
 `;
 
 const TextInput = styled(TextField)`
   width: 320px;
-
   & .MuiInputBase-root {
     height: 100%;
     border-radius: 7px 0px 0px 7px !important;
-    height: 6vh !important;
+    height: 4vh !important;
   }
 `;
 
 const AlbumTitle = styled.div`
   width: 80vw;
   max-width: 350px;
-  font-size: 2.2vh;
+  font-size: 1.6vh;
   font-weight: 300;
   color: #6b6b6b;
   border-bottom: 1px solid #c7c7c7;
+  padding: 1vh;
   margin: 0 auto;
   margin-bottom: 1vh;
 `;
