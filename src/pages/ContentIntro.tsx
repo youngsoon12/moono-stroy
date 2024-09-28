@@ -16,7 +16,7 @@ export const ContentIntro = (props: any) => {
       case 'mooQuiz':
         return `${process.env.PUBLIC_URL}/images/moono/헤드셋무너.png`;
       case 'cheerup':
-        return `${process.env.PUBLIC_URL}/images/moono/눕무너2.png`;
+        return `${process.env.PUBLIC_URL}/images/moono/눕무너.png`;
       case 'fourcut':
         return `${process.env.PUBLIC_URL}/images/moono/심쿵무너.png`;
       case 'fortune':
@@ -78,7 +78,7 @@ export const ContentIntro = (props: any) => {
           <div
             style={{
               fontFamily: 'pretendard',
-              fontSize: '2em',
+              fontSize: '28px',
               fontWeight: '900',
               marginBottom: '15%',
             }}
