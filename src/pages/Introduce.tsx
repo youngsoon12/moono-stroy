@@ -162,7 +162,7 @@ export const Introduce = (props: any) => {
               </ContentsStyle>
             </ContentSection>
           </div>
-          <IntroduceBtn onClick={goToMain}>메인으로</IntroduceBtn>
+          <IntroduceBtn onClick={goToMain}>미션 완료</IntroduceBtn>
         </StyledContents>
       )}
     </Container>

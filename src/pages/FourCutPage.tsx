@@ -153,7 +153,7 @@ const FourCutPage = () => {
     StampAPI(stampStatus)
       .then((data) => {
         console.log('스템 API 호출 성공:', data);
-        alert('무너 소개 미션 완료 !');
+        alert('미션 완료 !');
         window.location.href = '/main';
       })
       .catch((error) => {

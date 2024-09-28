@@ -8,16 +8,18 @@ import styled, { keyframes } from 'styled-components';
 import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import Stamp from '../components/css/Stamp';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
 
 const Fortune: React.FC = (props: any) => {
-  // const [user, setUser] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const [fortune, setFortune] = useState('');
   const [gender, setGender] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [isResultPage, setIsResultPage] = useState(false); // 화면 전환을 위한 상태 추가
   const [randomImage, setRandomImage] = useState(''); // 랜덤 이미지 상태
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
-
+  const [st, setSt] = useState(false);
   // 이미지 배열 준비 (임시 경로 예시)
   const images = [
     '/images/fortune/alien.png',
@@ -36,14 +38,59 @@ const Fortune: React.FC = (props: any) => {
     return images[randomIndex];
   };
 
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+
   // 컴포넌트가 마운트될 때마다 랜덤 이미지를 설정
   useEffect(() => {
     const selectedImage = getRandomImage();
     setRandomImage(selectedImage);
   }, []);
-
-  const user = { nickName: '히잉' }; // 임시
+  useEffect(() => {
+    console.log('나 실행되고 있니 ..?');
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: data.twoMission,
+            threeMission: data.threeMission,
+            fourMission: true,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, [st]);
   console.log(user);
+
+  useEffect(() => {
+    // 스템 API 호출
+    if (st) {
+      StampAPI(stampStatus)
+        .then((data) => {
+          console.log('스템 API 호출 성공:', data);
+          alert('무너응원하기 미션 완료 !');
+        })
+        .catch((error) => {
+          console.error('스템 API 호출 실패:', error);
+        });
+    }
+  }, [user]);
+  console.log(stampStatus);
+
   // 현재 날짜를 "YYYY년 MM월 DD일" 형식으로 포맷하는 함수
   const getCurrentDate = () => {
     const today = new Date();
@@ -65,6 +112,15 @@ const Fortune: React.FC = (props: any) => {
       return;
     }
     setIsLoading(true); // 로딩 시작
+    // 스템 API 호출
+    StampAPI(stampStatus)
+      .then((data) => {
+        console.log('스템 API 호출 성공:', data);
+        alert('미션 완료 !');
+      })
+      .catch((error) => {
+        console.error('스템 API 호출 실패:', error);
+      });
 
     const currentDate = getCurrentDate(); // 현재 날짜 계산
 
