@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../components/form/Header';
 import Container from '../components/css/Container';
 import Contents from '../components/css/Contents';
-import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
@@ -180,14 +179,9 @@ const FourCutPage = () => {
 
   return (
     <Container style={{ minWidth: '425px' }}>
-      <Header>{'무생네컷'}</Header>
-      <Contents
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-      >
+      <Header>{'무너만들기'}</Header>
+      <Contents>
+
         <div
           style={{
             // marginTop: '2vh',
@@ -322,6 +316,7 @@ const TextRegistBtn = styled(Button)`
 const TextInput = styled(TextField)`
   width: 75%;
 
+  /* width: 320px; */
   & .MuiInputBase-root {
     height: 100%;
     border-radius: 7px 0px 0px 7px !important;
