@@ -7,14 +7,15 @@ import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import { modeAtom } from 'recoil/modeAtom';
 
 const Main = (props: any) => {
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useRecoilState(modeAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const popoverRef = useRef<HTMLDivElement | null>(null); // ref 생성
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  console.log(user);
+  console.log(darkMode);
 
   const handleButtonClick = (id: string) => {
     navigate(`/contIntro/${id}`);
@@ -30,17 +31,18 @@ const Main = (props: any) => {
 
   // 로그아웃 처리 함수
   const handleLogout = () => {
-    // 사용자 상태 초기화
-    setUser({
-      sub: '',
-      nickName: '',
-      oneMission: false,
-      twoMission: false,
-      threeMission: false,
-      fourMission: false,
-      fiveMission: false,
-    });
-    // 로그인 페이지로 이동
+    // // 사용자 상태 초기화
+    // setUser({
+    //   sub: '',
+    //   nickName: '',
+    //   oneMission: false,
+    //   twoMission: false,
+    //   threeMission: false,
+    //   fourMission: false,
+    //   fiveMission: false,
+    // });
+    // // 로그인 페이지로 이동
+    sessionStorage.clear();
     navigate('/login');
   };
 
@@ -70,7 +72,7 @@ const Main = (props: any) => {
         <LogoStyled>MOOS</LogoStyled>
         <LogoRightSection>
           <img
-            src={`${process.env.PUBLIC_URL}/images/main/stamp.png`}
+            src={`${process.env.PUBLIC_URL}/images/main/stampDark.png`}
             alt="스탬프"
             onClick={() => hadleStampClick()}
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
@@ -81,20 +83,24 @@ const Main = (props: any) => {
             alt="알람"
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
           /> */}
-          <DarkModeIcon
-            sx={{
-              cursor: 'pointer',
-              fontSize: '26px',
-              marginLeft: '10%',
-            }}
-          />
-          <LightModeIcon
-            sx={{
-              cursor: 'pointer',
-              fontSize: '26px',
-              marginLeft: '10%',
-            }}
-          />
+          {darkMode ? (
+            <DarkModeIcon
+              sx={{
+                cursor: 'pointer',
+                fontSize: '26px',
+                marginLeft: '10%',
+              }}
+            />
+          ) : (
+            <LightModeIcon
+              sx={{
+                cursor: 'pointer',
+                fontSize: '26px',
+                marginLeft: '10%',
+              }}
+            />
+          )}
+
           <img
             src={`${process.env.PUBLIC_URL}/images/main/user.png`}
             alt="사용자"

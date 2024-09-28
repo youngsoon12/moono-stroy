@@ -11,7 +11,8 @@ const Container = styled.div`
   max-width: 480px; // 모바일에서 최대 너비 고정
   margin: 0 auto;
   box-sizing: border-box;
-  background-color: #ffffff;
+  color: #fff;
+  background-color: #20232a;
   // 스크롤바가 자동으로 표시되도록 변경
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
