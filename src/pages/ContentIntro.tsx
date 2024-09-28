@@ -78,7 +78,7 @@ export const ContentIntro = (props: any) => {
           <div
             style={{
               fontFamily: 'pretendard',
-              fontSize: '2em',
+              fontSize: '28px',
               fontWeight: '900',
               marginBottom: '15%',
             }}

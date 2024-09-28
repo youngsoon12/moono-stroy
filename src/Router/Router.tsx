@@ -24,12 +24,8 @@ const Router = () => {
         <Route path="/" element={<Intro />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/photo" element={<PhotoPage />} />
- 
-
         <Route path="/contIntro/:id" element={<ContentIntro />} />
 
-        <Route path="/startQuiz" element={<StartQuiz />} />
 
         <Route path="/main" element={<Main />} />
         <Route path="/cheerup" element={<CheerUpPage />} />
@@ -38,6 +34,12 @@ const Router = () => {
         <Route path="/introduce" element={<Introduce />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
         <Route path="/fortune" element={<Fortune />} />
+
+        {/* 테스트용 */}
+        {/* <Route path="/main" element={<Main />} />
+        <Route path="/cheerup" element={<CheerUpPage />} />
+        <Route path="/stamp" element={<StampPage />} /> */}
+
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />
