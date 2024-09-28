@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Container from '../components/css/Container';
-import Header from '../components/css/Header';
+import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
 
 const StartQuiz = () => {
@@ -20,10 +20,15 @@ const StartQuiz = () => {
           }}
         >
           <div>
-            <span style={{ color: '#E947AE' }}>당신</span>에게 들려주는
+            <span style={{ color: '${theme.color.mainColor}' }}>당신</span>에게
+            들려주는
           </div>
           <div
-            style={{ fontSize: '24px', color: '#E947AE', fontWeight: '800' }}
+            style={{
+              fontSize: '24px',
+              color: '${theme.color.mainColor}',
+              fontWeight: '800',
+            }}
           >
             무너 이야기
           </div>

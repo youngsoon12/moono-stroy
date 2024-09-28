@@ -3,15 +3,17 @@ import styled from 'styled-components';
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: 100%;
+  min-height: 600px;
+  /* max-height: 730px; */
   max-width: 480px; /* 모바일에서 최대 너비 고정 */
   margin: 0 auto;
-  padding: 0 20px;
   box-sizing: border-box;
   background-color: #ffffff;
+  /* overflow-y: scroll; */
 `;
 
 export default Contents;

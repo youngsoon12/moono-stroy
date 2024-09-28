@@ -5,27 +5,28 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
+import theme from 'styles/theme';
 
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
+  const [inputInfo, setInputInfo] = useState({
     id: '',
     pwd: '',
   });
 
   const onChangeInfo = (e: any) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
   };
 
   const onClickLogin = async () => {
-    if (!userInfo.id || !userInfo.pwd) {
+    if (!inputInfo.id || !inputInfo.pwd) {
       alert('아이디, 비밀번호를 모두 입력하세요.');
       return;
     }
     try {
-      const data = await loginAPI(userInfo); // 로그인 API 호출
+      const data = await loginAPI(inputInfo); // 로그인 API 호출
       sessionStorage.setItem('token', data.token);
-      navigate('/success');
+      navigate('/main');
     } catch (error) {
       console.error('로그인 실패:', error);
       alert('로그인에 실패했습니다. 다시 시도해주세요.');
@@ -35,9 +36,25 @@ const LoginPage = (props: any) => {
   return (
     <Container>
       <TitleArea>
-        <ColorSpan style={{ fontSize: '14px' }}>TMI</ColorSpan>
-        <br />
-        <ColorSpan>무너</ColorSpan>의 고향은 용궁입니다.
+        <ColorSpan
+          style={{
+            alignItems: 'center',
+            fontSize: '0.6em',
+            backgroundColor: `${theme.color.mainColor}`,
+            color: '#fff',
+            padding: '1% 3%',
+            borderRadius: '30px',
+            width: '10%',
+            textAlign: 'center',
+            margin: '10px auto',
+          }}
+        >
+          TMI
+        </ColorSpan>
+        <ColorSpan>
+          <span style={{ color: `${theme.color.mainColor}` }}>무너</span>의
+          고향은 용궁입니다.
+        </ColorSpan>
       </TitleArea>
       <InfoInput placeholder="아이디" name="id" onChange={onChangeInfo} />
       <InfoInput
@@ -46,7 +63,16 @@ const LoginPage = (props: any) => {
         name="pwd"
         onChange={onChangeInfo}
       />
-      <LoginBtn variant="contained" onClick={onClickLogin}>
+      <LoginBtn
+        variant="contained"
+        onClick={onClickLogin}
+        style={{
+          fontSize: '1.3em',
+          fontWeight: '600',
+          letterSpacing: 'px',
+          color: '#fff',
+        }}
+      >
         로그인
       </LoginBtn>
       <FootArea>
@@ -76,16 +102,23 @@ const LoginPage = (props: any) => {
 export default LoginPage;
 
 const TitleArea = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.4em;
+  font-weight: 900;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ColorSpan = styled.span`
   // Login 페이지 글자 색 바꾸는 용도
-  color: #e947ae;
+  font-size: 1.1em;
+  /* color: #fff; */
+  font-weight: 900;
 `;
 
 const FootArea = styled.div`
@@ -93,7 +126,7 @@ const FootArea = styled.div`
   flex-direction: row;
   gap: 0px;
   width: 350px;
-  font-weight: normal;
+  font-weight: 600;
   color: #6b6b6b;
   margin-top: 11px;
   font-size: 13px;

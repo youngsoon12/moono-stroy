@@ -1,135 +1,255 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Comtainer from '../components/css/Container';
-import Header from '../components/css/Header';
+import Container from '../components/css/Container';
+import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
+import theme from 'styles/theme';
+import QuizData from '../assets/quiz.json';
+import { useNavigate } from 'react-router-dom';
+import { userAtom } from 'recoil/userAtom';
+import { useRecoilState } from 'recoil';
+import { UserInfoAPI } from '../api/UserInfoAPI';
+import { StampAPI } from 'api/StampAPI';
 
 const MooQuiz = () => {
+  const navigate = useNavigate();
+  const [quizIndex, setQuizIndex] = useState(0); // 현재 퀴즈 인덱스
+  const [score, setScore] = useState(0); // 맞은 개수
+  const [showResult, setShowResult] = useState(false); // 결과 화면 여부
+  const quiz = QuizData.quiz;
+
+  const [user, setUser] = useRecoilState(userAtom);
+  const [stampStatus, setStampStatus] = useState({
+    id: '',
+    nickName: '',
+    oneMission: false,
+    twoMission: false,
+    threeMission: false,
+    fourMission: false,
+    fiveMission: false,
+  });
+
+  useEffect(() => {
+    if (user && user.sub) {
+      // 유저 정보 API 호출
+      UserInfoAPI(user.sub)
+        .then((data) => {
+          setStampStatus({
+            id: data.id,
+            nickName: data.nickName,
+            oneMission: data.oneMission,
+            twoMission: true,
+            threeMission: data.threeMission,
+            fourMission: data.fourMission,
+            fiveMission: data.fiveMission,
+          });
+        })
+        .catch((error) => {
+          console.error('유저 정보 API 호출 실패:', error);
+        });
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   // 카카오톡 SDK 초기화
+  //   window.Kakao.init('YOUR_APP_KEY'); // 자신의 카카오 앱 키로 변경
+  // }, []);
+
+  const handleAnswerClick = (optionIndex: number) => {
+    // 정답인지 확인
+    if (optionIndex === quiz[quizIndex].answer) {
+      setScore(score + 1); // 정답일 경우 점수 증가
+    }
+
+    // 마지막 문제인지 확인
+    if (quizIndex < quiz.length - 1) {
+      setQuizIndex(quizIndex + 1); // 다음 문제로 이동
+    } else {
+      setShowResult(true); // 결과 화면 표시
+    }
+  };
+  // const handleShareClick = () => {
+  //   const shareUrl = 'https://yourwebsite.com/quiz'; // 공유할 URL
+  //   const shareText = `무퀴즈를 푸세요! 총 ${quiz.length}문제 중 ${score}문제를 맞췄어요!`;
+
+  //   window.Kakao.Share.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: '무퀴즈',
+  //       description: shareText,
+  //       imageUrl: `${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`,
+  //       link: {
+  //         webUrl: shareUrl,
+  //         mobileWebUrl: shareUrl,
+  //       },
+  //     },
+  //     buttons: [
+  //       {
+  //         title: '바로가기',
+  //         link: {
+  //           webUrl: shareUrl,
+  //           mobileWebUrl: shareUrl,
+  //         },
+  //       },
+  //     ],
+  //   });
+  // };
+  const goToMain = () => {
+    // 스템 API 호출
+    StampAPI(stampStatus)
+      .then((data) => {
+        console.log('스템 API 호출 성공:', data);
+        alert('무퀴즈 미션 완료 !');
+        window.location.href = '/main';
+      })
+      .catch((error) => {
+        console.error('스템 API 호출 실패:', error);
+      });
+  };
+
   return (
-    <Comtainer>
-      <Header>
-        <span style={{ flex: '0.5' }}>
-          <HeaderIcon
-            src={`${process.env.PUBLIC_URL}/images/header/back.png`}
-          />
-        </span>
-        <span
-          style={{ textAlign: 'center', fontSize: '20px', fontWeight: '700' }}
-        >
-          무퀴즈
-        </span>
-        <span style={{ display: 'flex', gap: '10px' }}>
-          {/* <span
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <HeaderIcon
-              src={`${process.env.PUBLIC_URL}/images/header/stamp.png`}
-              style={{ width: '26px' }}
-            />
-          </span> */}
-          {/* <span
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div style={{ fontSize: '20px', fontWeight:'800' }}>반가워요.</div>
-            <div>퀸가비님</div>
-          </span> */}
-        </span>
-      </Header>
-      <Contents>
-        <MQuizContainer>
-          <div
-            style={{
-              margin: '0 auto',
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'center',
-              gap: '10px',
-            }}
-          >
+    <Container>
+      <Header>무퀴즈</Header>
+      <Contents style={{ justifyContent: 'center' }}>
+        {showResult ? (
+          <ResultContainer>
             <div
               style={{
-                margin: '0 auto',
+                fontSize: '1.4em',
+                marginBottom: '10px',
+                padding: '3% 5%',
+                backgroundColor: `${theme.color.mainColor}`,
+                color: '#fff',
+                cursor: 'pointer',
+              }}
+              onClick={goToMain}
+            >
+              퀴즈 종료
+            </div>
+            <div style={{ color: '#121212', fontWeight: '700' }}>
+              총 {quiz.length}문제 중{' '}
+              <span style={{ color: `${theme.color.mainColor}` }}>
+                {score}
+                문제
+              </span>
+              를 맞췄어요!
+            </div>
+            {/* <ShareButton onClick={handleShareClick}>공유하기</ShareButton> */}
+          </ResultContainer>
+        ) : (
+          <MQuizContainer>
+            <div
+              style={{
+                margin: 'auto',
                 display: 'flex',
+                flexDirection: 'column',
                 textAlign: 'center',
-                fontSize: '36px',
-                alignItems: 'flex-end',
-                color: '#e947ae',
+                gap: '6%',
               }}
             >
-              <span>01</span>
-              <span
+              <div
                 style={{
-                  fontSize: '14px',
-                  justifyContent: 'flex-end',
-                  marginBottom: '5px',
-                  color: '#afafaf',
+                  margin: '0 auto',
+                  display: 'flex',
+                  textAlign: 'center',
+                  fontSize: '36px',
+                  alignItems: 'flex-end',
+                  color: `${theme.color.mainColor}`,
                 }}
               >
-                /10
-              </span>
+                <span>{quizIndex + 1}</span>
+                <span
+                  style={{
+                    fontSize: '14px',
+                    justifyContent: 'flex-end',
+                    marginBottom: '5px',
+                    color: '#afafaf',
+                  }}
+                >
+                  / {quiz.length}
+                </span>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  fontSize: '1.5em',
+                  padding: '10px',
+                  margin: '0 auto',
+                  height: '50px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {quiz[quizIndex].question}
+              </div>
             </div>
-            <div
-              style={{ fontSize: '24px', padding: '10px', margin: '0 auto' }}
-            >
-              무너의 고향은 어디일까요?
+            <img
+              src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
+              style={{ width: '150px', margin: '7% auto' }}
+              alt="quiz illustration"
+            />
+            <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
+              {quiz[quizIndex].options.map((option: string, index: number) => (
+                <QuizBtn
+                  key={index}
+                  onClick={() => handleAnswerClick(index)}
+                  style={{
+                    color:
+                      index === quiz[quizIndex].answer
+                        ? `${theme.color.mainColor}`
+                        : 'white',
+                    backgroundColor:
+                      index === quiz[quizIndex].answer
+                        ? '#f7f7f7'
+                        : `${theme.color.mainColor}`,
+                  }}
+                >
+                  {option}
+                </QuizBtn>
+              ))}
             </div>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/quiz/Desertisland.png`}
-            style={{ width: '183px', margin: '30px auto' }}
-          />
-          <div style={{ margin: '0 auto', display: 'flex', gap: '15px' }}>
-            <QuizBtn>천국</QuizBtn>
-            <QuizBtn style={{ color: '#e947ae', backgroundColor: '#f7f7f7' }}>
-              용궁
-            </QuizBtn>
-          </div>
-        </MQuizContainer>
+          </MQuizContainer>
+        )}
       </Contents>
-    </Comtainer>
+    </Container>
   );
 };
+
 export default MooQuiz;
-const HeaderIcon = styled.img`
-  width: 15px;
-  /* height: 30px; */
-`;
 
 const MQuizContainer = styled.div`
   width: 100%;
-  height: 550px;
+  height: 85%;
+  /* padding: 5% 0; */
   font-family: Cafe24Ssurround;
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: auto;
 `;
+
 const QuizBtn = styled.button`
   font-family: Cafe24Ssurround;
   width: 150px;
   height: 200px;
   border-radius: 20px;
-  /* box-shadow:
-    inset 0px 0px 5px rgba(253, 253, 253, 0.753),
-    0px 4px 4px #00000025; */
   box-shadow:
     0 10px 20px rgba(37, 37, 37, 0.05),
     0 6px 10px rgba(0, 0, 0, 0.158);
   color: white;
   font-size: 24px;
   font-weight: 800;
-  background-color: #e947ae;
+  background-color: ${theme.color.mainColor};
   &&:hover {
     box-shadow:
       0 10px 20px rgba(0, 0, 0, 0.2),
       0 6px 4px rgba(0, 0, 0, 0.2);
   }
+`;
+
+const ResultContainer = styled.div`
+  text-align: center;
+  font-size: 20px;
+  color: ${theme.color.mainColor};
+  font-weight: 900;
 `;

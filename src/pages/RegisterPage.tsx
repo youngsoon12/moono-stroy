@@ -7,7 +7,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { useNavigate } from 'react-router-dom';
 import { IdDuplicateAPI } from 'api/IdDuplicatge';
 import { RegisterAPI } from 'api/RegisterAPI';
-
+import theme from 'styles/theme';
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -16,6 +16,8 @@ const RegisterPage = () => {
     pwd: '',
     nickName: '',
   });
+
+  console.log(registInfo);
 
   // 입력값 핸들러
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,12 +163,18 @@ const RegisterPage = () => {
         <>
           <StepFourInfo>
             회원가입완료 👍🏻 <br />
-            <span style={{ color: '#e947ae' }}>무너의 이야기를</span> 들어
-            볼까요?!
+            <span style={{ color: '${theme.color.mainColor}' }}>
+              무너의 이야기를
+            </span>{' '}
+            들어 볼까요?!
           </StepFourInfo>
           <LoginBtn
             onClick={() => {
               navigate('/login');
+            }}
+            style={{
+              fontWeight: '600',
+              letterSpacing: '3px',
             }}
           >
             확인
@@ -183,7 +191,7 @@ const TitleArea = styled.div`
   width: 350px;
   padding-left: 20px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 1.4em;
   font-weight: 600;
 `;
 
@@ -198,12 +206,12 @@ const CheckArea = styled.div`
 
 const CheckInfo = styled.div`
   font-size: 16px;
-  color: #e947ae;
+  color: ${theme.color.mainColor};
   font-weight: bold;
 `;
 
 const StepFourInfo = styled.div`
-  font-size: 22px;
+  font-size: 1.3em;
   font-weight: 600;
   margin-bottom: 60px;
 `;

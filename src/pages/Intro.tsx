@@ -1,120 +1,139 @@
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import Container from '../components/css/Container';
+import theme from '../styles/theme';
 
 const Intro = () => {
   const navigate = useNavigate();
-  return (
-    <Container>
-      <Toptext>
-        <span style={{ fontSize: '16px', fontWeight: '200', margin: '20px 0' }}>
-          내 <span style={{ color: '#9ffb4b' }}>이야기</span> 들어줄래?
-        </span>
-        <div
-          style={{
-            textAlign: 'center',
-            fontSize: '22px',
-            fontWeight: '500',
-            margin: '20px 0',
-            lineHeight: '25px',
-          }}
-        >
-          <div>
-            <span style={{ color: '#E947AE' }}>당신</span>에게 들려주는
-          </div>
-          <div
-            style={{ fontSize: '24px', color: '#E947AE', fontWeight: '800' }}
-          >
-            무너 이야기
-          </div>
-        </div>
-      </Toptext>
 
-      <ImgContainer>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/intro/HotPink.png`}
-          alt="Hot Pink"
-        />
-        <img
-          src={`${process.env.PUBLIC_URL}/images/intro/LogoLess2.png`}
-          alt="Logo"
-        />
-      </ImgContainer>
-      <StartButton
-        onClick={() => {
-          navigate('/login');
+  return (
+    <Container
+      style={{
+        height: '100dvh',
+        backgroundColor: '#171717',
+        color: '#fff',
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '85%',
         }}
       >
-        로그인하기
-      </StartButton>
+        <div>
+          <Toptext>
+            <span style={{ fontSize: '16px', fontWeight: '500', top: '10%' }}>
+              내 <span style={{}}>이야기</span> 들어줄래?
+            </span>
+            <div
+              style={{
+                textAlign: 'center',
+                fontSize: '1.4em',
+                fontWeight: '500',
+                margin: '2vh 0',
+                lineHeight: '4vh',
+              }}
+            >
+              <div>
+                <span style={{ color: `${theme.color.mainColor}` }}>당신</span>
+                에게 들려주는
+              </div>
+              <div
+                style={{
+                  fontSize: '1.1em',
+                  color: '${theme.color.mainColor}',
+                  fontWeight: '800',
+                }}
+              >
+                무너 이야기
+              </div>
+            </div>
+          </Toptext>
+
+          <ImgContainer>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/intro/redlogo.png`}
+              alt="Hot Pink"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/intro/deco.png`}
+              alt="Logo"
+            />
+          </ImgContainer>
+        </div>
+      </div>
+      <div style={{ height: '15%' }}>
+        <StartButton
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          로그인하기
+        </StartButton>
+      </div>
     </Container>
   );
 };
 
 export default Intro;
+
 // bounce-in-top 애니메이션 정의
 const bounceInTop = keyframes`
-      0% {
-        transform: translateY(-500px);
-        animation-timing-function: ease-in;
-        opacity: 0;
-      }
-      38% {
-        transform: translateY(0);
-        animation-timing-function: ease-out;
-        opacity: 1;
-      }
-      55% {
-        transform: translateY(-65px);
-        animation-timing-function: ease-in;
-      }
-      72% {
-        transform: translateY(0);
-        animation-timing-function: ease-out;
-      }
-      81% {
-        transform: translateY(-28px);
-        animation-timing-function: ease-in;
-      }
-      90% {
-        transform: translateY(0);
-        animation-timing-function: ease-out;
-      }
-      95% {
-        transform: translateY(-8px);
-        animation-timing-function: ease-in;
-      }
-      100% {
-        transform: translateY(0);
-        animation-timing-function: ease-out;
-      }
-    `;
-
-// Container는 기본적으로 위치를 기준으로 삼기 위해 relative로 설정
-const Container = styled.div`
-  color: #fff;
-  max-width: 480px;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  background-color: #171717;
-  position: relative;
-  overflow: hidden; /* 자식 요소가 Container를 벗어나지 않도록 */
+  0% {
+    transform: translateY(-50vh);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(-10vh);
+    animation-timing-function: ease-in;
+  }
+  72% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  81% {
+    transform: translateY(-5vh);
+    animation-timing-function: ease-in;
+  }
+  90% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  95% {
+    transform: translateY(-2vh);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
 `;
 
 // ImgContainer는 로고 이미지를 담는 컨테이너
 const ImgContainer = styled.div`
-  position: relative; /* 이미지 겹치기 위한 기준점 */
-  width: 400px; /* 필요한 경우 너비 조정 */
-  height: 400px; /* 필요한 경우 높이 조정 */
-  flex: 1;
-  min-height: 400px; /* 최소 높이 지정 */
+  position: relative;
+  width: 95dvw; /* 이미지를 뷰포트 너비의 60%로 설정 */
+  /* height: 45dvh; */
+  /* max-height: auto; */
+  max-width: 430px; /* 최대 너비 400px */
+  margin: auto; /* 가운데 정렬 */
+  /* bottom: 5%; */
+
   img {
-    position: absolute; /* 이미지가 겹치도록 설정 */
-    width: 100%; /* 이미지를 같은 크기로 설정 */
+    margin: 0 auto;
+    position: absolute;
+    width: 100%; /* 컨테이너의 100% 너비를 가짐 */
+    /* margin: auto; */
     height: auto;
     top: 0;
     left: 0;
@@ -122,39 +141,52 @@ const ImgContainer = styled.div`
 
   /* HotPink 이미지에 애니메이션 적용 */
   img:nth-child(1) {
-    z-index: 1; /* 첫 번째 이미지 아래쪽 */
-    top: 10%;
-    animation: ${bounceInTop} 1.1s both; /* 애니메이션 적용 */
+    z-index: 1;
+    /* top: 15%; */
+    width: 100%;
+    animation: ${bounceInTop} 1.1s both;
+    mix-blend-mode: hard-light;
   }
 
+  /* 로고 이미지 */
   img:nth-child(2) {
-    z-index: 2; /* 두 번째 이미지 위쪽 */
-    width: 350px;
+    position: relative;
+    z-index: 2;
+    width: 70%; /* 로고 이미지는 컨테이너의 80% 너비로 설정 */
+    max-width: 400px; /* 최대 너비 300px */
     height: auto;
-    left: 10%;
+    left: 5%;
+    margin-top: 11%;
   }
 `;
+
 const StartButton = styled.button`
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  background-color: #e947ae;
-  height: 100px;
+  background-color: ${theme.color.mainColor};
+  height: 13%;
   border: none;
   border-radius: 30px 30px 0 0;
-  font-size: 26px;
+  font-size: 1.6em;
   font-weight: 900;
   color: #171717;
   text-align: center;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-  letter-spacing: 3px;
+  justify-content: center;
+  align-items: center;
+  /* letter-spacing: 3px; */
+  display: flex;
+
+  cursor: pointer;
   &&:hover {
-    color: #9ffb4b; /* hover 시 텍스트 색상 변경 */
-    font-weight: 800; /* hover 시 폰트 두께 변경 */
-    /* background-color: #fff; */
+    color: #ffffff;
+    font-weight: 900;
   }
 `;
+
 const Toptext = styled.div`
-  margin: 160px 0 0 0;
+  margin: 3% 0;
   text-align: center;
 `;

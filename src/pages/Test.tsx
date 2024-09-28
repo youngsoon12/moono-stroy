@@ -25,7 +25,7 @@ const Test: React.FC = () => {
   const handleCombineImages = () => {
     const canvas = document.createElement('canvas');
     const totalHeight = images.length * 500; // 각 이미지가 500px 높이라고 가정
-    canvas.width = 500; // 말풍선 이미지의 가로 크기
+    canvas.width = 500; // 말풍선 이미지의 가로 크기 
     canvas.height = totalHeight;
 
     const ctx = canvas.getContext('2d');
@@ -38,7 +38,7 @@ const Test: React.FC = () => {
           const finalUri = canvas.toDataURL();
           saveAs(finalUri, 'combined-image.png'); // 세로로 나열된 이미지를 다운로드
         }
-      };
+      };  
     });
   };
 
