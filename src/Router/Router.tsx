@@ -24,30 +24,28 @@ const Router = () => {
         <Route path="/" element={<Intro />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/photo" element={<PhotoPage />} />
- 
-
-        <Route path="/contIntro/:id" element={<ContentIntro />} />
 
         <Route path="/startQuiz" element={<StartQuiz />} />
-
+        {/* 
         <Route path="/main" element={<Main />} />
         <Route path="/cheerup" element={<CheerUpPage />} />
         <Route path="/stamp" element={<StampPage />} />
         <Route path="/fourcut" element={<FourCutPage />} />
         <Route path="/introduce" element={<Introduce />} />
         <Route path="/mooQuiz" element={<MooQuiz />} />
-        <Route path="/fortune" element={<Fortune />} />
+        <Route path="/fortune" element={<Fortune />} /> */}
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
           <Route path="/main" element={<Main />} />
+          <Route path="/contIntro/:id" element={<ContentIntro />} />
           <Route path="/cheerup" element={<CheerUpPage />} />
           <Route path="/stamp" element={<StampPage />} />
           <Route path="/fourcut" element={<FourCutPage />} />
           <Route path="/introduce" element={<Introduce />} />
           <Route path="/mooQuiz" element={<MooQuiz />} />
+          <Route path="/fortune" element={<Fortune />} />
         </Route>
       </Routes>
     </BrowserRouter>
