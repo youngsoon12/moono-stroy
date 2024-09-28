@@ -75,7 +75,7 @@ const Fortune: React.FC = () => {
           messages: [
             {
               role: 'user',
-              content: `성별은 ${gender}, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데, 생년월일 기반으로 오늘의 운세를 솔직하게 반말로 출력. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
+              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데,입력받은 생년월일 기반으로 오늘의 운세를 간결한 반말로 출력. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
             },
           ],
           max_tokens: 180,
@@ -162,7 +162,7 @@ const Fortune: React.FC = () => {
                 </CardDescription>
               </InnerCard>
             </ResultCard>
-            <ButtonContainer>
+            <ButtonContainer style={{ padding: '0' }}>
               <RetryStyle onClick={resetForm}>♻️ 다시 해볼까요??</RetryStyle>
             </ButtonContainer>
           </div>
@@ -449,5 +449,5 @@ const LoadingMessage = styled.div`
   font-weight: bold;
   color: #fff;
   text-align: center;
-  margin-top: 20px;
+  padding: 3%;
 `;
