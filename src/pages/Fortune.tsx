@@ -9,7 +9,7 @@ import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import Stamp from '../components/css/Stamp';
 
-const Fortune: React.FC = (props:any) => {
+const Fortune: React.FC = (props: any) => {
   // const [user, setUser] = useRecoilState(userAtom);
   const [fortune, setFortune] = useState('');
   const [gender, setGender] = useState('');
