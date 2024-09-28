@@ -181,9 +181,10 @@ const FourCutPage = () => {
     <Container style={{ minWidth: '425px' }}>
       <Header>{'무너만들기'}</Header>
       <Contents>
+
         <div
           style={{
-            marginTop: '2vh',
+            // marginTop: '2vh',
             fontSize: '2.5vh',
             fontWeight: '600',
             textAlign: 'center',
@@ -293,7 +294,7 @@ const InputArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1.5vh;
+  /* margin-top: 1.5vh; */
 `;
 
 const AlbumArea = styled.div`

@@ -7,8 +7,9 @@ import theme from 'styles/theme';
 import styled, { keyframes } from 'styled-components';
 import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
+import Stamp from '../components/css/Stamp';
 
-const Fortune: React.FC = () => {
+const Fortune: React.FC = (props:any) => {
   // const [user, setUser] = useRecoilState(userAtom);
   const [fortune, setFortune] = useState('');
   const [gender, setGender] = useState('');
@@ -176,7 +177,6 @@ const Fortune: React.FC = () => {
     );
   }
 
-  // 입력 화면
   return (
     <Container>
       <Header>{'오늘의 운세를 무너보살'}</Header>

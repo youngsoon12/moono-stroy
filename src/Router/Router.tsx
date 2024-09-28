@@ -25,6 +25,12 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
+        {/* 테스트용 */}
+        {/* <Route path="/main" element={<Main />} />
+        <Route path="/cheerup" element={<CheerUpPage />} />
+        <Route path="/stamp" element={<StampPage />} /> */}
+
+
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />
           {/* 로그인이 필요한 라우트 같은 경우에는 아래에 작성. */}
