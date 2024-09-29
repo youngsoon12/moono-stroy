@@ -11,6 +11,7 @@ import Contents from '../components/css/Contents';
 import theme from 'styles/theme';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 const CheerUpPage: React.FC = () => {
   const [stampStatus, setStampStatus] = useState({
@@ -33,6 +34,7 @@ const CheerUpPage: React.FC = () => {
   });
   const [refresh, setRefresh] = useState(false);
   const lastMessageRef = useRef<HTMLDivElement | null>(null); // 마지막 메시지에 대한 Ref
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   useEffect(() => {
     console.log('나 실행되고 있니 ..?');
@@ -125,14 +127,20 @@ const CheerUpPage: React.FC = () => {
   };
 
   return (
-    <Container style={{ backgroundColor: 'black', color: '#fff' }}>
+    <Container
+      style={{ backgroundColor: 'black', color: '#fff' }}
+      isDarkMode={isDarkMode}
+    >
       <Header
-        bgColor="#121212"
         iconSrc={`${process.env.PUBLIC_URL}/images/header/whiteBack.png`}
+        bgColor={isDarkMode ? '#121212' : '#121212'}
       >
         {'무너 응원하기'}
       </Header>
-      <Contents style={{ backgroundColor: '#121212', color: '#fff' }}>
+      <Contents
+        isDarkMode={isDarkMode}
+        style={{ backgroundColor: '#121212', color: '#fff' }}
+      >
         <ImgArea>
           <img
             src={`${process.env.PUBLIC_URL}/images/cheerup/cheer.png`}

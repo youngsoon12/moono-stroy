@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
+import { useRecoilState } from 'recoil';
+import { modeAtom } from 'recoil/modeAtom';
 
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ const LoginPage = (props: any) => {
     id: '',
     pwd: '',
   });
+
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   const onChangeInfo = (e: any) => {
     setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
@@ -34,7 +38,7 @@ const LoginPage = (props: any) => {
   };
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <TitleArea>
         <ColorSpan
           style={{

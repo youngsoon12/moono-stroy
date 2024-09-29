@@ -9,6 +9,7 @@ import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
 import Contents from '../components/css/Contents';
 import { UserInfoAPI } from 'api/UserInfoAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 export const StampPage = (props: any) => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export const StampPage = (props: any) => {
     fourMission: false,
     fiveMission: false,
   });
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -84,9 +86,18 @@ export const StampPage = (props: any) => {
   }
 
   return (
-    <StyledContainer>
-      <StyledHeader>{'미션진행도'}</StyledHeader>
-      <StyledContents>
+    <StyledContainer isDarkMode={isDarkMode}>
+      <StyledHeader
+        iconSrc={
+          isDarkMode
+            ? `${process.env.PUBLIC_URL}/images/header/whiteBack.png`
+            : `${process.env.PUBLIC_URL}/images/header/blackBack.png`
+        }
+        bgColor={isDarkMode ? '#20232a' : '#fff'}
+      >
+        {'미션진행도'}
+      </StyledHeader>
+      <StyledContents isDarkMode={isDarkMode}>
         <CoffeImgSection>
           <CoffeText>
             <div>

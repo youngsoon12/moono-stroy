@@ -10,6 +10,7 @@ import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 const MooQuiz = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const MooQuiz = () => {
   const [score, setScore] = useState(0); // 맞은 개수
   const [showResult, setShowResult] = useState(false); // 결과 화면 여부
   const quiz = QuizData.quiz;
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   const [user, setUser] = useRecoilState(userAtom);
   const [stampStatus, setStampStatus] = useState({
@@ -108,9 +110,18 @@ const MooQuiz = () => {
   };
 
   return (
-    <Container>
-      <Header>무퀴즈</Header>
-      <Contents style={{ justifyContent: 'center' }}>
+    <Container isDarkMode={isDarkMode}>
+      <Header
+        iconSrc={
+          isDarkMode
+            ? `${process.env.PUBLIC_URL}/images/header/whiteBack.png`
+            : `${process.env.PUBLIC_URL}/images/header/blackBack.png`
+        }
+        bgColor={isDarkMode ? '#20232a' : '#fff'}
+      >
+        무퀴즈
+      </Header>
+      <Contents isDarkMode={isDarkMode} style={{ justifyContent: 'center' }}>
         {showResult ? (
           <ResultContainer>
             <div
@@ -132,14 +143,19 @@ const MooQuiz = () => {
               >
                 퀴즈 종료
               </div>
-              <div style={{ color: '#121212', fontWeight: '700' }}>
+              <ResultText
+                isDarkMode={isDarkMode}
+                style={{
+                  fontWeight: '700',
+                }}
+              >
                 총 {quiz.length}문제 중{' '}
                 <span style={{ color: `${theme.color.mainColor}` }}>
                   {score}
                   문제
                 </span>
                 를 맞췄어요!
-              </div>
+              </ResultText>
             </div>
             <MainBtn onClick={goToMain}>미션 완료!</MainBtn>
           </ResultContainer>
@@ -223,6 +239,9 @@ const MooQuiz = () => {
 };
 
 export default MooQuiz;
+const ResultText = styled.div<{ isDarkMode: any }>`
+  color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
+`;
 
 const MQuizContainer = styled.div`
   width: 100%;

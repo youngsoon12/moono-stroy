@@ -11,6 +11,7 @@ import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 export const Introduce = (props: any) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
@@ -26,6 +27,8 @@ export const Introduce = (props: any) => {
     fourMission: false,
     fiveMission: false,
   });
+
+  const [isDarkMode] = useRecoilState(modeAtom); // 다크모드 상태
 
   useEffect(() => {
     if (user && user.sub) {
@@ -92,11 +95,20 @@ export const Introduce = (props: any) => {
       });
   };
   return (
-    <Container>
-      <Header>{'무너 소개서'}</Header>
+    <Container isDarkMode={isDarkMode}>
+      <Header
+        iconSrc={
+          isDarkMode
+            ? `${process.env.PUBLIC_URL}/images/header/whiteBack.png`
+            : `${process.env.PUBLIC_URL}/images/header/blackBack.png`
+        }
+        bgColor={isDarkMode ? '#20232a' : '#fff'}
+      >
+        {'무너 소개서'}
+      </Header>
 
       {pageIndex >= 0 ? (
-        <StyledContents>
+        <StyledContents isDarkMode={isDarkMode}>
           <ContentSection style={{ height: '70%' }}>
             <TextSection style={{ whiteSpace: 'pre-wrap' }}>
               {displayedText && <span>{displayedText}</span>}{' '}
@@ -107,7 +119,7 @@ export const Introduce = (props: any) => {
             </ImgSection>
           </ContentSection>
           {pageIndex != 5 ? (
-            <IntroduceBtn onClick={handleNextPage}>
+            <IntroduceBtn onClick={handleNextPage} isDarkMode={isDarkMode}>
               <Triangle />
               {currentData.buttonText} {/* 버튼 텍스트 */}
             </IntroduceBtn>
@@ -116,7 +128,7 @@ export const Introduce = (props: any) => {
           )}
         </StyledContents>
       ) : (
-        <StyledContents style={{}}>
+        <StyledContents isDarkMode={isDarkMode}>
           <div
             style={{
               width: '100%',
@@ -132,17 +144,21 @@ export const Introduce = (props: any) => {
                 <ImgSection>
                   <SemiTitle>SKILL</SemiTitle>
                   <img
-                    src={`${process.env.PUBLIC_URL}/images/intro/무너능력.png`}
+                    src={
+                      isDarkMode
+                        ? `${process.env.PUBLIC_URL}/images/intro/DarkModeSkill.png`
+                        : `${process.env.PUBLIC_URL}/images/intro/무너능력.png`
+                    }
                     alt="무너 능력치"
                   />
                 </ImgSection>
-                <SkillText>
+                <SkillText isDarkMode={isDarkMode}>
                   인내심 말고는 못하는게 없는 <br />
                   <span style={{ fontSize: '0.7em' }}>(거의)</span> 꽉 찬 오각형
                 </SkillText>
               </ContentsStyle>
               <ContentsStyle>
-                <TMIStyle>
+                <TMIStyle isDarkMode={isDarkMode}>
                   <img
                     src={`${process.env.PUBLIC_URL}/images/intro/alien.png`}
                   />
@@ -231,22 +247,24 @@ const ContentsStyle = styled.div`
   font-size: 12px;
 `;
 
-const SkillText = styled.div`
+const SkillText = styled.div<{ isDarkMode: any }>`
   width: 100%;
   margin: auto;
-  background-color: #f3f3f3;
+  color: ${({ isDarkMode }) => (isDarkMode ? '#000' : '#000')};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#f3f3f3')};
   border-radius: 0 20px 0 20px;
   padding: 6% 0;
   text-align: center;
   margin: 3% auto 0%;
 `;
 
-const TMIStyle = styled.div`
+const TMIStyle = styled.div<{ isDarkMode: any }>`
   display: flex;
   text-align: center;
   color: #6d6d6d;
   font-size: 0.9em;
   justify-content: center;
+  color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
 
   img {
     width: 1.3em;

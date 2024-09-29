@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/form/Header';
-
+import { modeAtom } from '../recoil/modeAtom';
+import { useRecoilState } from 'recoil';
 export const ContentIntro = (props: any) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   // id에 따라 이미지 경로를 변경
   const getImageSrc = () => {
@@ -54,8 +56,17 @@ export const ContentIntro = (props: any) => {
     navigate(`/${id}`);
   };
   return (
-    <Container>
-      <Header>{''}</Header>
+    <Container isDarkMode={isDarkMode}>
+      <Header
+        iconSrc={
+          isDarkMode
+            ? `${process.env.PUBLIC_URL}/images/header/whiteBack.png`
+            : `${process.env.PUBLIC_URL}/images/header/blackBack.png`
+        }
+        bgColor={isDarkMode ? '#20232a' : '#fff'}
+      >
+        {''}
+      </Header>
       <div
         style={{
           height: '100%',
