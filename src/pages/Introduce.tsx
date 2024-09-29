@@ -97,18 +97,6 @@ export const Introduce = (props: any) => {
 
       {pageIndex >= 0 ? (
         <StyledContents>
-          {/* <div
-            style={{
-              display: 'flex',
-              // width: '100%',
-              fontSize: '0.8em',
-              color: `${theme.color.mainColor}`,
-              cursor: 'pointer',
-              textAlign: 'center',
-            }}
-          >
-            클릭으로 스킵이 가능해요.
-          </div> */}
           <ContentSection style={{ height: '70%' }}>
             <TextSection style={{ whiteSpace: 'pre-wrap' }}>
               {displayedText && <span>{displayedText}</span>}{' '}
@@ -118,10 +106,14 @@ export const Introduce = (props: any) => {
               <img src={currentData.img} alt="무너 이미지" />
             </ImgSection>
           </ContentSection>
-          <IntroduceBtn onClick={handleNextPage}>
-            <Triangle />
-            {currentData.buttonText} {/* 버튼 텍스트 */}
-          </IntroduceBtn>
+          {pageIndex != 5 ? (
+            <IntroduceBtn onClick={handleNextPage}>
+              <Triangle />
+              {currentData.buttonText} {/* 버튼 텍스트 */}
+            </IntroduceBtn>
+          ) : (
+            <button onClick={handleNextPage}>TMI보러가기</button>
+          )}
         </StyledContents>
       ) : (
         <StyledContents
