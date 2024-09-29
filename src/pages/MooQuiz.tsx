@@ -117,26 +117,33 @@ const MooQuiz = () => {
           <ResultContainer>
             <div
               style={{
-                fontSize: '1.4em',
-                marginBottom: '10px',
-                padding: '3% 5%',
-                backgroundColor: `${theme.color.mainColor}`,
-                color: '#fff',
-                cursor: 'pointer',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '85%',
+                justifyContent: 'center',
               }}
-              onClick={goToMain}
             >
-              퀴즈 종료
+              <div
+                style={{
+                  fontSize: '1.4em',
+                  marginBottom: '10px',
+                  color: `${theme.color.mainColor}`,
+                }}
+                onClick={goToMain}
+              >
+                퀴즈 종료
+              </div>
+              <div style={{ color: '#121212', fontWeight: '700' }}>
+                총 {quiz.length}문제 중{' '}
+                <span style={{ color: `${theme.color.mainColor}` }}>
+                  {score}
+                  문제
+                </span>
+                를 맞췄어요!
+              </div>
             </div>
-            <div style={{ color: '#121212', fontWeight: '700' }}>
-              총 {quiz.length}문제 중{' '}
-              <span style={{ color: `${theme.color.mainColor}` }}>
-                {score}
-                문제
-              </span>
-              를 맞췄어요!
-            </div>
-            {/* <ShareButton onClick={handleShareClick}>공유하기</ShareButton> */}
+            <MainBtn onClick={goToMain}>미션 완료!</MainBtn>
           </ResultContainer>
         ) : (
           <MQuizContainer>
@@ -250,8 +257,26 @@ const QuizBtn = styled.button`
 `;
 
 const ResultContainer = styled.div`
+  width: 90%;
+  height: 100%;
   text-align: center;
   font-size: 20px;
   color: ${theme.color.mainColor};
   font-weight: 900;
+  margin-top: 16%;
+`;
+const MainBtn = styled.button`
+  display: flexbox;
+  width: 90%;
+  background-color: ${theme.color.mainColor};
+  cursor: pointer;
+  color: #fff;
+  /* z-index: 100000; */
+  text-align: center;
+  margin: auto;
+  align-items: end;
+  padding: 3%;
+  font-weight: 700;
+  font-size: 1em;
+  border-radius: 15px;
 `;

@@ -311,6 +311,7 @@ const Main = (props: any) => {
           <Menubutton
             onClick={() => handleButtonClick('fourcut')}
             style={{ textAlign: 'left' }}
+            bgImage=""
           >
             {' '}
             <div style={{}}>
