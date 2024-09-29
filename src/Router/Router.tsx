@@ -25,6 +25,14 @@ const Router = () => {
         {/* <Route path="/main" element={<Main />} />
         <Route path="/cheerup" element={<CheerUpPage />} />
         <Route path="/stamp" element={<StampPage />} /> */}
+          <Route path="/main" element={<Main />} />
+          <Route path="/contIntro/:id" element={<ContentIntro />} />
+          <Route path="/cheerup" element={<CheerUpPage />} />
+          <Route path="/stamp" element={<StampPage />} />
+          <Route path="/fourcut" element={<FourCutPage />} />
+          <Route path="/introduce" element={<Introduce />} />
+          <Route path="/mooQuiz" element={<MooQuiz />} />
+          <Route path="/fortune" element={<Fortune />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/a" element={<KonvaTextOnImage />} />
