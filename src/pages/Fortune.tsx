@@ -505,9 +505,10 @@ const GenderButtonContainer = styled.div`
 `;
 
 const GenderButton = styled.button<{ isSelected: boolean }>`
-  background-color: ${(props) => (props.isSelected ? `#000` : '#fff')};
-  color: ${(props) =>
-    props.isSelected ? `${theme.color.pointColor}` : '#555'};
+  background-color: ${(props) =>
+    props.isSelected ? `${theme.color.pointColor}` : '#fff'};
+  color: ${(props) => (props.isSelected ? '#000' : '#555')};
+  border: 3px solid #fff;
   padding: 2%;
   font-size: 1.2em;
   font-weight: 700;
@@ -519,10 +520,15 @@ const GenderButton = styled.button<{ isSelected: boolean }>`
     border-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) =>
-      props.isSelected ? '#000000' : `${theme.color.pointColor}`};
-    color: ${(props) =>
-      props.isSelected ? `${theme.color.pointColor}` : '#000'};
+    border: 3px solid ${theme.color.pointColor};
+    /* border: ${(props) =>
+      props.isSelected
+        ? `1px solid ${theme.color.mainColor}`
+        : `1px solid ${theme.color.pointColor}`}; */
+    /* background-color: ${(props) =>
+      props.isSelected ? '#000000' : `${theme.color.pointColor}`}; */
+    /* color: ${(props) =>
+      props.isSelected ? `${theme.color.pointColor}` : '#000'}; */
   }
 `;
 // 로딩 메시지 스타일

@@ -15,7 +15,7 @@ const Main = (props: any) => {
   const [user, setUser] = useRecoilState(userAtom);
   const popoverRef = useRef<HTMLDivElement | null>(null); // ref 생성
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  console.log(darkMode);
+
 
   const handleButtonClick = (id: string) => {
     navigate(`/contIntro/${id}`);
@@ -34,7 +34,18 @@ const Main = (props: any) => {
     sessionStorage.clear();
     navigate('/login');
   };
+  // 다크 모드 상태를 localStorage에서 가져오기
+  useEffect(() => {
+    const storedDarkMode = localStorage.getItem('darkMode');
+    if (storedDarkMode !== null) {
+      setDarkMode(JSON.parse(storedDarkMode));
+    }
+  }, [setDarkMode]);
 
+  // 다크 모드 상태를 localStorage에 저장
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
   const handleModeChange = () => {
     setDarkMode((prev) => !prev);
   };
