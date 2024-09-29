@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
 import Contents from '../components/css/Contents';
@@ -13,9 +13,9 @@ import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
 
 export const Introduce = (props: any) => {
-  const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
-  const [currentData, setCurrentData] = useState(data[pageIndex]); // 현재 페이지 데이터 상태
-  const [isDataLoaded, setIsDataLoaded] = useState(false); // 데이터 로드 여부 추가
+  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [currentData, setCurrentData] = useState(data[pageIndex]);
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
   const [user, setUser] = useRecoilState(userAtom);
   const [stampStatus, setStampStatus] = useState({
     id: '',
@@ -29,7 +29,6 @@ export const Introduce = (props: any) => {
 
   useEffect(() => {
     if (user && user.sub) {
-      // 유저 정보 API 호출
       UserInfoAPI(user.sub)
         .then((data) => {
           setStampStatus({
@@ -46,34 +45,32 @@ export const Introduce = (props: any) => {
           console.error('유저 정보 API 호출 실패:', error);
         });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
-    // 데이터가 로드되었음을 표시
     if (pageIndex >= 0) {
       setCurrentData(data[pageIndex]);
-      setIsDataLoaded(true); // 데이터 로드 완료
+      setIsDataLoaded(true);
     }
   }, [pageIndex]);
 
-  // 타이핑 효과를 위한 훅 호출 (데이터 로드 후에만 실행)
   const { displayedText, handleClick } = useTypingEffect(
-    isDataLoaded ? currentData.text : '', // 데이터 로드 후에 텍스트 전달
-    100 // 타이핑 속도
+    isDataLoaded ? currentData.text : '',
+    100
   );
 
   const handleNextPage = () => {
     if (pageIndex < data.length - 1) {
-      setPageIndex(pageIndex + 1); // 페이지 인덱스 증가
-      setIsDataLoaded(false); // 페이지 이동 시 데이터 로드 초기화
+      setPageIndex(pageIndex + 1);
+      setIsDataLoaded(false);
     } else {
-      setPageIndex(-1); // 마지막 페이지 이후 다른 화면으로 전환
+      setPageIndex(-1);
     }
   };
 
   useEffect(() => {
     const handleGlobalClick = () => {
-      handleClick(); // 클릭 시 전체 텍스트 보여주기
+      handleClick();
     };
 
     document.addEventListener('click', handleGlobalClick);
@@ -84,7 +81,6 @@ export const Introduce = (props: any) => {
   }, [handleClick]);
 
   const goToMain = () => {
-    // 스템 API 호출
     StampAPI(stampStatus)
       .then((data) => {
         console.log('스템 API 호출 성공:', data);
@@ -95,12 +91,24 @@ export const Introduce = (props: any) => {
         console.error('스템 API 호출 실패:', error);
       });
   };
-
   return (
     <Container>
       <Header>{'무너 소개서'}</Header>
+
       {pageIndex >= 0 ? (
         <StyledContents>
+          {/* <div
+            style={{
+              display: 'flex',
+              // width: '100%',
+              fontSize: '0.8em',
+              color: `${theme.color.mainColor}`,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            클릭으로 스킵이 가능해요.
+          </div> */}
           <ContentSection style={{ height: '70%' }}>
             <TextSection style={{ whiteSpace: 'pre-wrap' }}>
               {displayedText && <span>{displayedText}</span>}{' '}
@@ -111,6 +119,7 @@ export const Introduce = (props: any) => {
             </ImgSection>
           </ContentSection>
           <IntroduceBtn onClick={handleNextPage}>
+            <Triangle />
             {currentData.buttonText} {/* 버튼 텍스트 */}
           </IntroduceBtn>
         </StyledContents>
@@ -181,8 +190,8 @@ const StyledContents = styled(Contents)`
   /* display: flex; */
 
   align-items: center;
-  justify-content: flex-end;
-  height: calc(100dvh);
+  justify-content: center;
+  margin-top: 15%;
 `;
 
 const TextSection = styled.div`
@@ -190,7 +199,7 @@ const TextSection = styled.div`
   font-size: 1.2em;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 10%;
+  /* margin-bottom: 10%; */
   line-height: 1.5;
 `;
 
@@ -249,4 +258,23 @@ const TMIStyle = styled.div`
     width: 1.3em;
     margin-right: 5px;
   }
+`;
+
+const Blink = keyframes`
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+`;
+
+const Triangle = styled.div`
+  width: 0;
+  height: 0;
+  margin-right: 15px;
+  border-style: solid;
+  border-width: 6px 0px 6px 12px;
+  border-color: transparent transparent transparent ${theme.color.mainColor};
+  animation: ${Blink} 2.5s infinite;
 `;
