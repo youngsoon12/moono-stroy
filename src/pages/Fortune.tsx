@@ -5,7 +5,7 @@ import Header from '../components/form/Header';
 import Stamp from '../components/css/Stamp';
 export const Fortune = (props: any) => {
   return (
-    <Container>
+    <Container isDarkMode={false}>
       <Header>무너보살</Header>
     </Container>
   );

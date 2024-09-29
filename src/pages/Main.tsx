@@ -20,7 +20,6 @@ const Main = (props: any) => {
   const handleButtonClick = (id: string) => {
     navigate(`/contIntro/${id}`);
   };
-
   const hadleStampClick = () => {
     navigate('/stamp');
   };
@@ -42,8 +41,13 @@ const Main = (props: any) => {
     //   fiveMission: false,
     // });
     // // 로그인 페이지로 이동
+    alert('로그아웃 되었습니다 !');
     sessionStorage.clear();
     navigate('/login');
+  };
+
+  const handleModeChange = () => {
+    setDarkMode((prev) => !prev);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -65,18 +69,29 @@ const Main = (props: any) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
-
   return (
-    <Container style={{ padding: '15px', overflowY: 'scroll' }}>
+    <Container
+      style={{ padding: '15px', overflowY: 'scroll' }}
+      isDarkMode={darkMode}
+    >
       <HederStyled>
         <LogoStyled>MOOS</LogoStyled>
         <LogoRightSection>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/main/stampDark.png`}
-            alt="스탬프"
-            onClick={() => hadleStampClick()}
-            style={{ cursor: 'pointer', width: '25px', height: '25px' }}
-          />
+          {darkMode ? (
+            <img
+              src={`${process.env.PUBLIC_URL}/images/main/stampDark.png`}
+              alt="스탬프"
+              onClick={() => hadleStampClick()}
+              style={{ cursor: 'pointer', width: '25px', height: '25px' }}
+            />
+          ) : (
+            <img
+              src={`${process.env.PUBLIC_URL}/images/main/stampLight.png`}
+              alt="스탬프"
+              onClick={() => hadleStampClick()}
+              style={{ cursor: 'pointer', width: '25px', height: '25px' }}
+            />
+          )}
 
           {/* <img
             src={`${process.env.PUBLIC_URL}/images/main/bell.png`}
@@ -84,19 +99,25 @@ const Main = (props: any) => {
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
           /> */}
           {darkMode ? (
+            <LightModeIcon
+              sx={{
+                cursor: 'pointer',
+                fontSize: '26px',
+                marginLeft: '10%',
+              }}
+              onClick={() => {
+                handleModeChange();
+              }}
+            />
+          ) : (
             <DarkModeIcon
               sx={{
                 cursor: 'pointer',
                 fontSize: '26px',
                 marginLeft: '10%',
               }}
-            />
-          ) : (
-            <LightModeIcon
-              sx={{
-                cursor: 'pointer',
-                fontSize: '26px',
-                marginLeft: '10%',
+              onClick={() => {
+                handleModeChange();
               }}
             />
           )}

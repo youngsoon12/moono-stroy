@@ -10,6 +10,7 @@ import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 const MooQuiz = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const MooQuiz = () => {
   const [score, setScore] = useState(0); // 맞은 개수
   const [showResult, setShowResult] = useState(false); // 결과 화면 여부
   const quiz = QuizData.quiz;
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   const [user, setUser] = useRecoilState(userAtom);
   const [stampStatus, setStampStatus] = useState({
@@ -108,7 +110,7 @@ const MooQuiz = () => {
   };
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <Header>무퀴즈</Header>
       <Contents style={{ justifyContent: 'center' }}>
         {showResult ? (

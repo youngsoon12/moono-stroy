@@ -11,6 +11,7 @@ import { userAtom } from 'recoil/userAtom';
 import { useRecoilState } from 'recoil';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 export const Introduce = (props: any) => {
   const [pageIndex, setPageIndex] = useState(0); // 현재 페이지 인덱스 상태
@@ -26,6 +27,8 @@ export const Introduce = (props: any) => {
     fourMission: false,
     fiveMission: false,
   });
+
+  const [isDarkMode] = useRecoilState(modeAtom); // 다크모드 상태
 
   useEffect(() => {
     if (user && user.sub) {
@@ -97,7 +100,7 @@ export const Introduce = (props: any) => {
   };
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <Header>{'무너 소개서'}</Header>
       {pageIndex >= 0 ? (
         <StyledContents>
