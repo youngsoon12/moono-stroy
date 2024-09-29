@@ -258,15 +258,21 @@ const Fortune: React.FC = (props: any) => {
         </ImgSection>
         <div
           style={{
-            fontSize: '1.4em',
-            fontFamily: 'Pretendard',
+            fontSize: '24px',
             fontWeight: '900',
             marginTop: '10px',
+            letterSpacing: '-1px',
           }}
         >
           오늘 당신에게는 무슨 일이?
         </div>
-        <div style={{ fontSize: '0.9em', lineHeight: '1.7' }}>
+        <div
+          style={{
+            fontSize: '14px',
+            lineHeight: '1.7',
+            letterSpacing: '-1px',
+          }}
+        >
           간단한 입력으로{' '}
           <span
             style={{ color: `${theme.color.mainColor} `, fontWeight: '600' }}

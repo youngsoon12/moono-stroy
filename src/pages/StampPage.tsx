@@ -113,7 +113,7 @@ export const StampPage = (props: any) => {
         </CoffeImgSection>
         <StampSection>
           <StampText>
-            <div style={{ fontSize: '1.2em' }}>
+            <div style={{ fontSize: '1.2em', fontWeight: '700' }}>
               미션을 완료하고 도장을 모아보세요.
             </div>
             <div style={{ fontSize: '0.8em', marginTop: '10px' }}>
@@ -149,15 +149,16 @@ export const StampPage = (props: any) => {
 
 // 스타일 수정 부분
 const StyledContainer = styled(Container)`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 24%,
     rgba(243, 224, 136, 1) 100%
-  );
+  ); */
   padding-top: 60px; /* Header와 Contents 간의 간격을 유지 */
 `;
 
@@ -172,15 +173,18 @@ const StyledHeader = styled(Header)`
   z-index: 1;
 `;
 
-const StyledContents = styled(Contents)`
+const StyledContents = styled(Contents)<{ isDarkMode: boolean }>`
   width: 100%;
-  /* padding-top: 20%; */
-  background: linear-gradient(
+  background: ${({ isDarkMode }) =>
+    isDarkMode
+      ? 'linear-gradient(180deg, #1a1a1a16 24%, rgba(223, 23, 33, 0.43) 100%)' // 다크 모드 배경
+      : 'linear-gradient(180deg, rgba(255,212,93,0.42622986694677867) 24%, rgba(218,113,113,0.8379945728291316) 100%)'}; // 일반 모드 배경
+  /* background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 24%,
     rgba(243, 224, 136, 1) 100%
-  );
-  margin-top: 10%;
+  ); */
+  /* margin-top: 10%; */
   z-index: 0;
 `;
 
