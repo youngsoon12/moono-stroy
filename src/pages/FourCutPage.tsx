@@ -14,6 +14,7 @@ import { useRecoilState } from 'recoil';
 import { userAtom } from 'recoil/userAtom';
 import { StampAPI } from 'api/StampAPI';
 import { UserInfoAPI } from 'api/UserInfoAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 const backgroundList = [
   {
@@ -83,6 +84,8 @@ const FourCutPage = () => {
     fourMission: false,
     fiveMission: false,
   });
+
+  const [isDarkMode] = useRecoilState(modeAtom);
 
   useEffect(() => {
     if (user && user.sub) {
@@ -178,7 +181,7 @@ const FourCutPage = () => {
   };
 
   return (
-    <Container style={{ minWidth: '425px' }}>
+    <Container style={{ minWidth: '425px' }} isDarkMode={isDarkMode}>
       <Header>{'무너만들기'}</Header>
       <Contents>
 

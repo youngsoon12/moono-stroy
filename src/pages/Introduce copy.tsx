@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Contents from '../components/css/Contents';
 import Container from '../components/css/Container';
 import Header from '../components/form/Header';
+import { modeAtom } from 'recoil/modeAtom';
+import { useRecoilState } from 'recoil';
 
 export const Introduce = (props: any) => {
+  const [isDarkMode] = useRecoilState(modeAtom);
   return (
     <div
       style={{
@@ -23,6 +26,7 @@ export const Introduce = (props: any) => {
             'linear-gradient(180deg, rgba(255,255,255,1) 24%, rgba(243,224,136,1) 100dvh)',
           padding: '5% 0',
         }}
+        isDarkMode={isDarkMode}
       >
         <CenterImg>
           <img

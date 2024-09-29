@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil';
 import Stamp from '../components/css/Stamp';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
+import { modeAtom } from 'recoil/modeAtom';
 
 const Fortune: React.FC = (props: any) => {
   const [user, setUser] = useRecoilState(userAtom);
@@ -20,6 +21,7 @@ const Fortune: React.FC = (props: any) => {
   const [randomImage, setRandomImage] = useState(''); // 랜덤 이미지 상태
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
   const [st, setSt] = useState(false);
+  const [isDarkMode] = useRecoilState(modeAtom);
   // 이미지 배열 준비 (임시 경로 예시)
   const images = [
     '/images/fortune/alien.png',
@@ -198,7 +200,7 @@ const Fortune: React.FC = (props: any) => {
   // 운세 결과 화면
   if (isResultPage) {
     return (
-      <Container>
+      <Container isDarkMode={isDarkMode}>
         <Header>{'오늘의 운세 결과'}</Header>
         <Contents
           style={{
@@ -234,7 +236,7 @@ const Fortune: React.FC = (props: any) => {
   }
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <Header>{'오늘의 운세를 무너보살'}</Header>
       <Contents
         style={{
