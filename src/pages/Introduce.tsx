@@ -112,15 +112,11 @@ export const Introduce = (props: any) => {
               {currentData.buttonText} {/* 버튼 텍스트 */}
             </IntroduceBtn>
           ) : (
-            <button onClick={handleNextPage}>TMI보러가기</button>
+            <GoTMI onClick={handleNextPage}>TMI보러가기</GoTMI>
           )}
         </StyledContents>
       ) : (
-        <StyledContents
-          style={{
-            backgroundColor: '#f3f3f3',
-          }}
-        >
+        <StyledContents style={{}}>
           <div
             style={{
               width: '100%',
@@ -163,7 +159,9 @@ export const Introduce = (props: any) => {
               </ContentsStyle>
             </ContentSection>
           </div>
-          <IntroduceBtn onClick={goToMain}>미션 완료</IntroduceBtn>
+          <GoTMI onClick={goToMain} style={{ marginBottom: '20px' }}>
+            미션 완료
+          </GoTMI>
         </StyledContents>
       )}
     </Container>
@@ -183,7 +181,7 @@ const StyledContents = styled(Contents)`
 
   align-items: center;
   justify-content: center;
-  margin-top: 15%;
+  /* margin-top: 15%; */
 `;
 
 const TextSection = styled.div`
@@ -227,16 +225,20 @@ const ContentsStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 3%;
+  width: 80%;
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: 12px;
 `;
 
 const SkillText = styled.div`
   width: 100%;
   margin: auto;
-  background-color: #fff;
+  background-color: #f3f3f3;
   border-radius: 0 20px 0 20px;
-  padding: 7% 0;
+  padding: 6% 0;
   text-align: center;
-  margin: 3% 0;
+  margin: 3% auto 0%;
 `;
 
 const TMIStyle = styled.div`
@@ -269,4 +271,14 @@ const Triangle = styled.div`
   border-width: 6px 0px 6px 12px;
   border-color: transparent transparent transparent ${theme.color.mainColor};
   animation: ${Blink} 2.5s infinite;
+`;
+
+const GoTMI = styled.button`
+  width: 85%;
+  font-weight: 500;
+  font-size: 1.4em;
+  background-color: ${theme.color.mainColor};
+  color: #fff;
+  padding: 3%;
+  border-radius: 10px;
 `;

@@ -76,11 +76,6 @@ const Main = (props: any) => {
             style={{ cursor: 'pointer', width: '25px', height: '25px' }}
           />
 
-          {/* <img
-            src={`${process.env.PUBLIC_URL}/images/main/bell.png`}
-            alt="알람"
-            style={{ cursor: 'pointer', width: '25px', height: '25px' }}
-          /> */}
           <DarkModeIcon
             sx={{
               cursor: 'pointer',
@@ -115,7 +110,7 @@ const Main = (props: any) => {
         </LogoRightSection>
       </HederStyled>
       <IntroMoo>
-        <IntroText style={{ fontFamily: 'Pretendard' }}>
+        <IntroText >
           <div style={{ color: `${theme.color.mainColor}` }}>
             용궁에서 찾아온 무너
           </div>

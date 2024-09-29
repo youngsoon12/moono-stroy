@@ -178,17 +178,16 @@ const FourCutPage = () => {
   };
 
   return (
-    <Container style={{ minWidth: '425px' }}>
+    <Container style={{ minWidth: '425px', overflowY: 'auto' }}>
       <Header>{'무너만들기'}</Header>
       <Contents>
-
         <div
           style={{
-            // marginTop: '2vh',
-            fontSize: '2.5vh',
-            fontWeight: '600',
+            marginTop: '13%',
+            fontSize: '24px',
+            // fontWeight: '600',
             textAlign: 'center',
-            marginBottom: '2vh',
+            marginBottom: '5%',
           }}
         >
           나만의 무너를 만들고 <br /> 자랑해 보세요!
@@ -225,6 +224,7 @@ const FourCutPage = () => {
                 draggable
                 onDragMove={handleTextDragMove}
                 onDragEnd={handleTextDragEnd}
+                fontFamily="establishRetrosansOTF"
               />
               <Image
                 image={mainImage}
@@ -295,6 +295,9 @@ const InputArea = styled.div`
   justify-content: center;
   align-items: center;
   /* margin-top: 1.5vh; */
+  &:focus {
+    outline: none;
+  }
 `;
 
 const AlbumArea = styled.div`
