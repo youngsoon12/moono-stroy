@@ -17,6 +17,7 @@ const LoginPage = (props: any) => {
   });
 
   const [isDarkMode] = useRecoilState(modeAtom);
+  const DarkMode = localStorage.getItem('darkMode') === 'true';
 
   const onChangeInfo = (e: any) => {
     setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
@@ -38,7 +39,7 @@ const LoginPage = (props: any) => {
   };
 
   return (
-    <Container isDarkMode={isDarkMode}>
+    <Container isDarkMode={DarkMode}>
       <TitleArea>
         <ColorSpan
           style={{
@@ -60,12 +61,23 @@ const LoginPage = (props: any) => {
           고향은 용궁입니다.
         </ColorSpan>
       </TitleArea>
+<<<<<<< HEAD
+      <InfoInput
+        placeholder="아이디"
+        name="id"
+        onChange={onChangeInfo}
+        style={{ color: `${DarkMode ? '#ffffff' : '#000000'}` }}
+      />
+      <InfoInput
+=======
       <InfoInput2 placeholder="아이디" name="id" onChange={onChangeInfo} />
       <InfoInput2
+>>>>>>> main
         placeholder="비밀번호"
         type="password"
         name="pwd"
         onChange={onChangeInfo}
+        style={{ color: `${DarkMode ? '#ffffff' : '#000000'}` }}
       />
       <LoginBtn
         variant="contained"
