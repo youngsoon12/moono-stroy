@@ -130,7 +130,7 @@ const ContentButtonStyle = styled.button`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  font-weight: 900;
+  font-weight: 600;
   font-size: 1.5em;
   top: 10%;
 `;

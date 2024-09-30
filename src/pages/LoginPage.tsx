@@ -61,6 +61,7 @@ const LoginPage = (props: any) => {
           고향은 용궁입니다.
         </ColorSpan>
       </TitleArea>
+<<<<<<< HEAD
       <InfoInput
         placeholder="아이디"
         name="id"
@@ -68,6 +69,10 @@ const LoginPage = (props: any) => {
         style={{ color: `${DarkMode ? '#ffffff' : '#000000'}` }}
       />
       <InfoInput
+=======
+      <InfoInput2 placeholder="아이디" name="id" onChange={onChangeInfo} />
+      <InfoInput2
+>>>>>>> main
         placeholder="비밀번호"
         type="password"
         name="pwd"
@@ -111,7 +116,11 @@ const LoginPage = (props: any) => {
 };
 
 export default LoginPage;
-
+const InfoInput2 = styled(InfoInput)`
+  &::placeholder {
+    color: #fff;
+  }
+`;
 const TitleArea = styled.div`
   display: flex;
   flex-direction: column;
