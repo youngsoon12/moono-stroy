@@ -20,7 +20,7 @@ const IntroduceBtn: React.FC<IntroProps> = ({
         <InputStyled>{children}</InputStyled>
         <SendIconWrapper>
           <Icon
-            src={`${process.env.PUBLIC_URL}/images/send-icon.png`}
+            src={`${process.env.PUBLIC_URL}/images/intro/send.png`}
             alt="Send Icon"
           />
         </SendIconWrapper>
@@ -42,6 +42,7 @@ const InputContainer = styled.div<{ isDarkMode: boolean }>`
   padding: 12px 8px 32px;
   display: flex;
   justify-content: center;
+  color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
 `;
 
 const FormStyled = styled.div`
