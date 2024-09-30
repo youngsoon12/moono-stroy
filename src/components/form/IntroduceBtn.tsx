@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import theme from 'styles/theme';
 
 // Props에 onClick 함수와 isDarkMode 추가
@@ -40,7 +40,7 @@ const InputContainer = styled.div<{ isDarkMode: boolean }>`
   position: absolute; //화면 하단에 고정
   z-index: 2;
   bottom: 0;
-  left: 50%;// 가운데 정렬을 위한 시작점
+  left: 50%; // 가운데 정렬을 위한 시작점
   transform: translateX(-50%); //가운데 정렬
   width: 100%;
   max-width: 430px; /* 부모 요소의 max-width와 동일하게 설정 */
@@ -98,4 +98,23 @@ const Icon = styled.img`
   height: 16px;
   fill: none;
   stroke-width: 2;
+`;
+
+const Blink = keyframes`
+  0%, 50%, 100%{
+    opacity: 1;
+  }
+  25%, 75%{
+    opacity: 0;
+  }
+`;
+
+const Triangle = styled.div`
+  width: 0;
+  height: 0;
+  margin-right: 15px;
+  border-style: solid;
+  border-width: 6px 0px 6px 12px;
+  border-color: transparent ${theme.color.mainColor};
+  animation: ${Blink} 2.5s infinite;
 `;
