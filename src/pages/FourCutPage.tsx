@@ -252,7 +252,7 @@ const FourCutPage = () => {
                 draggable
                 onDragMove={handleTextDragMove}
                 onDragEnd={handleTextDragEnd}
-                fontFamily="LOTTERIACHAB"
+                fontFamily="Cafe24Ssurround"
               />
               <Image
                 image={mainImage}
