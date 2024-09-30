@@ -12,12 +12,18 @@ import { useRecoilState } from 'recoil';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
 import { modeAtom } from 'recoil/modeAtom';
+import ChatBubble from '../components/form/ChatBubble';
+interface Message {
+  text: string;
+  isButton: boolean;
+}
 
 export const Introduce = (props: any) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [currentData, setCurrentData] = useState(data[pageIndex]);
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
   const [user, setUser] = useRecoilState(userAtom);
+
   const [stampStatus, setStampStatus] = useState({
     id: '',
     nickName: '',
@@ -29,6 +35,7 @@ export const Introduce = (props: any) => {
   });
 
   const [isDarkMode] = useRecoilState(modeAtom); // 다크모드 상태
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     if (user && user.sub) {
@@ -49,7 +56,6 @@ export const Introduce = (props: any) => {
         });
     }
   }, [user]);
-  
 
   useEffect(() => {
     if (pageIndex >= 0) {
@@ -65,6 +71,11 @@ export const Introduce = (props: any) => {
 
   const handleNextPage = () => {
     if (pageIndex < data.length - 1) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: displayedText, isButton: false },
+        { text: currentData.buttonText, isButton: true },
+      ]);
       setPageIndex(pageIndex + 1);
       setIsDataLoaded(false);
     } else {
@@ -110,23 +121,35 @@ export const Introduce = (props: any) => {
 
       {pageIndex >= 0 ? (
         <StyledContents isDarkMode={isDarkMode}>
-          <ContentSection style={{ height: '70%' }}>
-            <TextSection style={{ whiteSpace: 'pre-wrap' }}>
+          <ContentSection style={{ height: '50%' }}>
+            {/* <TextSection style={{ whiteSpace: 'pre-wrap' }}>
               {displayedText && <span>{displayedText}</span>}{' '}
-              {/* 타이핑된 텍스트 */}
-            </TextSection>
+            </TextSection> */}
             <ImgSection>
               <img src={currentData.img} alt="무너 이미지" />
             </ImgSection>
           </ContentSection>
-          {pageIndex != 5 ? (
-            <IntroduceBtn onClick={handleNextPage} isDarkMode={isDarkMode}>
-              <Triangle />
-              {currentData.buttonText} {/* 버튼 텍스트 */}
-            </IntroduceBtn>
-          ) : (
-            <GoTMI onClick={handleNextPage}>TMI보러가기</GoTMI>
-          )}
+          <ChattingContainer>
+            <WelcomeMessage isDarkMode={isDarkMode}>
+              채팅방에 입장하셨습니다.
+            </WelcomeMessage>{' '}
+            {/* 추가된 부분 */}
+            {messages.map((message, index) => (
+              <ChatBubble key={index} isButton={message.isButton}>
+                {message.text}
+              </ChatBubble>
+            ))}
+            {isDataLoaded && (
+              <ChatBubble isButton={false}>{displayedText}</ChatBubble>
+            )}
+            {pageIndex != 5 ? (
+              <IntroduceBtn onClick={handleNextPage} isDarkMode={isDarkMode}>
+                {currentData.buttonText} {/* 버튼 텍스트 */}
+              </IntroduceBtn>
+            ) : (
+              <GoTMI onClick={handleNextPage}>TMI보러가기</GoTMI>
+            )}
+          </ChattingContainer>
         </StyledContents>
       ) : (
         <StyledContents isDarkMode={isDarkMode}>
@@ -184,12 +207,23 @@ export const Introduce = (props: any) => {
     </Container>
   );
 };
-
+const WelcomeMessage = styled.div<{ isDarkMode: boolean }>`
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 10px;
+  color: ${({ isDarkMode }: { isDarkMode: boolean }) =>
+    isDarkMode ? '#fff' : '#000'};
+  margin-bottom: 10px; /* 아래쪽 여백 추가 */
+  background-color: #e4e4e465;
+  border-radius: 10px;
+`;
 // 스타일 정의
 const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 `;
 
@@ -202,27 +236,24 @@ const StyledContents = styled(Contents)`
 `;
 
 const TextSection = styled.div`
-  height: 80px;
-  font-size: 1.2em;
+  height: 50px;
+  font-size: 14px;
   font-weight: 600;
   text-align: center;
+  line-height: 1.3;
   /* margin-bottom: 10%; */
-  line-height: 1.5;
 `;
 
 const ImgSection = styled.div`
   /* width: 100%; */
   img {
-    width: 290px;
-    max-width: 90%;
+    width: 90%;
+    max-width: 250px;
     height: auto;
-    margin: 5% 0;
   }
   display: flex;
   margin: 0 auto;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
 `;
 
 const SemiTitle = styled.div`
@@ -273,31 +304,32 @@ const TMIStyle = styled.div<{ isDarkMode: any }>`
   }
 `;
 
-const Blink = keyframes`
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
-`;
-
-const Triangle = styled.div`
-  width: 0;
-  height: 0;
-  margin-right: 15px;
-  border-style: solid;
-  border-width: 6px 0px 6px 12px;
-  border-color: transparent transparent transparent ${theme.color.mainColor};
-  animation: ${Blink} 2.5s infinite;
-`;
-
 const GoTMI = styled.button`
-  width: 85%;
-  font-weight: 500;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 70%;
+  max-width: 430px;
+  font-weight: 400;
   font-size: 1.4em;
+  transform: translateX(-50%);
   background-color: ${theme.color.mainColor};
   color: #fff;
-  padding: 3%;
+  padding: 1%;
   border-radius: 10px;
+  margin: 0 auto;
+`;
+const ChattingContainer = styled.div`
+  width: 80%;
+  height: 50%;
+  height: 600px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  margin-bottom: 20%;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
+  }
 `;
