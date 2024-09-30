@@ -177,7 +177,7 @@ const FourCutPage = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '1000px',
+        minHeight: '820px',
       }}
     >
       <Header
@@ -241,6 +241,7 @@ const FourCutPage = () => {
                 text={text}
                 width={290}
                 fontSize={24}
+                fontStyle="bolder"
                 x={textPosition.x}
                 y={textPosition.y}
                 wrap="word"
@@ -248,6 +249,7 @@ const FourCutPage = () => {
                 draggable
                 onDragMove={handleTextDragMove}
                 onDragEnd={handleTextDragEnd}
+                fontFamily="Pretendard"
               />
               <Image
                 image={mainImage}
@@ -260,61 +262,57 @@ const FourCutPage = () => {
             </Layer>
           </Stage>
         </div>
-        <InputArea>
-          <TextInput onChange={onChangeText} isDarkMode={isDarkMode} />
-          <TextRegistBtn variant="contained" onClick={saveImageFIle}>
-            저장
-          </TextRegistBtn>
-        </InputArea>
-        <AlbumArea>
-          <AlbumTitle>배경</AlbumTitle>
-          <AlbumImgListArea>
-            {backgroundList.map((img, idx) => (
-              <img
-                key={idx}
-                src={img.address}
-                alt=""
-                style={{ cursor: 'pointer', width: '92.5px', height: '10.5vh' }}
-                data-name={img.name}
-                onClick={onClickImgBg}
-              />
-            ))}
-          </AlbumImgListArea>
-        </AlbumArea>
-        <AlbumArea>
-          <AlbumTitle>캐릭터</AlbumTitle>
-          <AlbumImgListArea style={{ marginBottom: '3%' }}>
-            {charList.map((img, idx) => (
-              <img
-                key={idx}
-                src={img.address}
-                alt=""
-                style={{ cursor: 'pointer', width: '92.5px', height: '10.5vh' }}
-                data-name={img.name}
-                onClick={onClickImgChar}
-              />
-            ))}
-          </AlbumImgListArea>
-        </AlbumArea>
+        <div style={{ width: '100%' }}>
+          <InputContainer>
+            <InputStyled onChange={onChangeText} isDarkMode={isDarkMode} />
+            <RegistBtn onClick={saveImageFIle}>저장</RegistBtn>
+          </InputContainer>
+          <AlbumArea>
+            <AlbumTitle>배경</AlbumTitle>
+            <AlbumImgListArea>
+              {backgroundList.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.address}
+                  alt=""
+                  style={{
+                    cursor: 'pointer',
+                    width: '92.5px',
+                    height: '10.5vh',
+                  }}
+                  data-name={img.name}
+                  onClick={onClickImgBg}
+                />
+              ))}
+            </AlbumImgListArea>
+          </AlbumArea>
+          <AlbumArea>
+            <AlbumTitle>캐릭터</AlbumTitle>
+            <AlbumImgListArea style={{ marginBottom: '3%' }}>
+              {charList.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.address}
+                  alt=""
+                  style={{
+                    cursor: 'pointer',
+                    width: '92.5px',
+                    height: '10.5vh',
+                  }}
+                  data-name={img.name}
+                  onClick={onClickImgChar}
+                />
+              ))}
+            </AlbumImgListArea>
+          </AlbumArea>
+        </div>
       </Contents>
     </Container>
   );
 };
 
 export default FourCutPage;
-
-const InputArea = styled.div`
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3%;
-  &:focus {
-    outline: none;
-  }
-`;
-
+const ImageInnerText = styled.text``;
 const AlbumArea = styled.div`
   display: flex;
   justify-content: center;
@@ -323,32 +321,33 @@ const AlbumArea = styled.div`
   margin-top: 3%;
   width: 90%;
 `;
-
-const TextRegistBtn = styled(Button)`
+const InputContainer = styled.div`
+  width: 75%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 2%;
+  margin-top: 3%;
+  &:focus {
+    outline: none;
+  }
+`;
+const InputStyled = styled.input<{ isDarkMode: boolean }>`
+  margin: 0 auto;
+  flex: 1;
+  padding: 2%;
+`;
+const RegistBtn = styled.button`
   color: #fff !important;
   background-color: ${theme.color.mainColor} !important;
-  width: 10%;
+  width: 20%;
   height: 100%;
   border-radius: 0px 7px 7px 0px !important;
-`;
-
-const TextInput = styled(TextField)<{ isDarkMode: boolean }>`
-  width: 75%;
-
-  & .MuiInputBase-root {
-    background-color: ${({ isDarkMode }) =>
-      isDarkMode ? '#333' : '#ffffffed'};
-    color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
-    outline: none;
-    height: 5% !important;
-    border: none;
-    border-radius: 7px 0px 0px 7px;
-    box-shadow: inset 0px -4px 3px ${({ isDarkMode }) => (isDarkMode ? 'rgba(32, 32, 32, 0.5)' : 'rgba(200, 200, 200, 0.5)')};
-  }
-
-  & .MuiOutlinedInput-notchedOutline {
-    border: none;
-  }
+  z-index: 3;
+  padding: 3%;
+  margin-right: 1px;
 `;
 
 const AlbumTitle = styled.div`

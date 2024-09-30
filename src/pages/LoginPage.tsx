@@ -112,8 +112,9 @@ const LoginPage = (props: any) => {
 
 export default LoginPage;
 const InfoInput2 = styled(InfoInput)`
-  &::placeholder {
-    color: #fff;
+  ::placeholder {
+    /* color: #fff; */
+    font-size: 12px;
   }
 `;
 const TitleArea = styled.div`

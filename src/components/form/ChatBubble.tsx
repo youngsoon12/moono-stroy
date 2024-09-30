@@ -1,14 +1,23 @@
-// ChatBubble.tsx
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import theme from 'styles/theme';
+
 interface ChatBubbleProps {
   isButton: boolean;
   children: React.ReactNode;
+  tabIndex: number;
 }
 
-const ChatBubble: React.FC<ChatBubbleProps> = ({ isButton, children }) => {
-  return <BubbleContainer isButton={isButton}>{children}</BubbleContainer>;
-};
+// forwardRef를 사용하여 ref를 전달
+const ChatBubble = forwardRef<HTMLDivElement, ChatBubbleProps>(
+  ({ isButton, children, tabIndex }, ref) => {
+    return (
+      <BubbleContainer isButton={isButton} ref={ref} tabIndex={tabIndex}>
+        {children}
+      </BubbleContainer>
+    );
+  }
+);
 
 const BubbleContainer = styled.div<{ isButton: boolean }>`
   padding: 10px;
@@ -16,7 +25,6 @@ const BubbleContainer = styled.div<{ isButton: boolean }>`
   background-color: ${({ isButton }) =>
     isButton ? `${theme.color.pointColor}` : '#f1f1f1ce'};
   color: ${({ isButton }) => (isButton ? '#000' : '#000')};
-  /* margin: 5px 0; */
   align-self: ${({ isButton }) => (isButton ? 'flex-end' : 'flex-start')};
   width: fit-content;
   max-width: 240px;
