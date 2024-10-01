@@ -11,6 +11,7 @@ import Stamp from '../components/css/Stamp';
 import { UserInfoAPI } from '../api/UserInfoAPI';
 import { StampAPI } from 'api/StampAPI';
 import { modeAtom } from 'recoil/modeAtom';
+import html2canvas from 'html2canvas'; // html2canvas 가져오기
 
 const Fortune: React.FC = (props: any) => {
   const [user, setUser] = useRecoilState(userAtom);
@@ -134,7 +135,7 @@ const Fortune: React.FC = (props: any) => {
           messages: [
             {
               role: 'user',
-              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데,입력받은 생년월일 기반으로 오늘의 운세 결과를 솔직하게 반말로 출력하는데 일관된 같은 값을 입력했을 때 일관된 답변을 줬으면 좋겠어. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
+              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데,입력받은 생년월일 기반으로 오늘의 운세 결과를 친철하고 친근한 말투로 출력하는데 일관된 같은 값을 입력했을 때 일관된 답변을 줘. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
             },
           ],
           max_tokens: 180,
@@ -149,6 +150,7 @@ const Fortune: React.FC = (props: any) => {
       );
       // OpenAI API의 응답에서 운세 텍스트를 추출해 상태에 저장
       setFortune(response.data.choices[0].message.content);
+      setRandomImage(getRandomImage()); // 새로운 랜덤 이미지 설정
       setIsResultPage(true); // 결과 페이지로 전환
     } catch (error) {
       console.error('운세를 가져오는 중 오류 발생:', error);
@@ -162,6 +164,7 @@ const Fortune: React.FC = (props: any) => {
     setGender(''); // 성별 입력값 초기화
     setBirthdate(''); // 생년월일 입력값 초기화
     setIsResultPage(false); // 입력 화면으로 전환
+    setRandomImage(getRandomImage()); // 랜덤 이미지 새로 설정
   };
 
   // 공유하기 버튼 클릭 시 호출되는 함수
@@ -197,6 +200,18 @@ const Fortune: React.FC = (props: any) => {
       alert('숫자만 입력할 수 있습니다.');
     }
   };
+
+  const handleDownloadImage = () => {
+    const resultCard = document.getElementById('result-card'); // ID로 결과 카드 가져오기
+    if (resultCard) {
+      html2canvas(resultCard).then((canvas) => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png'); // 데이터 URL 생성
+        link.download = 'fortune-result.png'; // 파일 이름 지정
+        link.click(); // 다운로드 트리거
+      });
+    }
+  };
   // 운세 결과 화면
   if (isResultPage) {
     return (
@@ -213,7 +228,7 @@ const Fortune: React.FC = (props: any) => {
         </Header>
         <Contents2 isDarkMode={isDarkMode}>
           <div style={{ height: '600px', maxHeight: '78%' }}>
-            <ResultCard>
+            <ResultCard id="result-card">
               <InnerCard>
                 <CardImage src={randomImage} alt="icon" />
                 <CardTitle>{user.nickName}님의 운세</CardTitle>
@@ -229,7 +244,7 @@ const Fortune: React.FC = (props: any) => {
             </ButtonContainer>
           </div>
           <ButtonContainer style={{ width: '90%' }}>
-            <ShareButton onClick={handleShare}>공유하기</ShareButton>
+            <ShareButton onClick={handleDownloadImage}>공유하기</ShareButton>
             <MainButton onClick={handleGoToMain}>메인으로 가기</MainButton>
           </ButtonContainer>
         </Contents2>
@@ -325,6 +340,7 @@ const Contents2 = styled(Contents)<{ isDarkMode: boolean }>`
   display: flex;
   width: 100%;
   height: 100%;
+  max-height: 770px;
   background: ${({ isDarkMode }) =>
     isDarkMode
       ? 'linear-gradient(180deg, #0d093dc5 34%, #ff91c11a 100%)' // 다크 모드 배경
