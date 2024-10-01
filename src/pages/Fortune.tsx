@@ -362,7 +362,7 @@ const Contents2 = styled(Contents)<{ isDarkMode: boolean }>`
   display: flex;
   width: 100%;
   height: 100%;
-  max-height: 770px;
+  /* min-height: 750px; */
   background: ${({ isDarkMode }) =>
     isDarkMode
       ? 'linear-gradient(180deg, #0d093dc5 34%, #ff91c11a 100%)' // 다크 모드 배경
