@@ -135,7 +135,7 @@ const Fortune: React.FC = (props: any) => {
           messages: [
             {
               role: 'user',
-              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데,입력받은 생년월일 기반으로 오늘의 운세 결과를 친철하고 친근한 말투로 출력하는데 일관된 같은 값을 입력했을 때 일관된 답변을 줘. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
+              content: `성별은 ${gender}이고, 생년월일은 ${birthdate}, 오늘은 ${currentDate}인데,입력받은 생년월일 기반으로 오늘의 운세 결과를 너무 길지 않게 친근한 말투로 출력해 그리고 같은 값을 입력했을 때 일관된 답변을 줘. 운세 다음 줄바꿈하고 행운 점수 100점 만점기준으로 표시`,
             },
           ],
           max_tokens: 180,
