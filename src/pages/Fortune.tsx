@@ -204,12 +204,34 @@ const Fortune: React.FC = (props: any) => {
   const handleDownloadImage = () => {
     const resultCard = document.getElementById('result-card'); // ID로 결과 카드 가져오기
     if (resultCard) {
-      html2canvas(resultCard).then((canvas) => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png'); // 데이터 URL 생성
-        link.download = 'fortune-result.png'; // 파일 이름 지정
-        link.click(); // 다운로드 트리거
-      });
+      html2canvas(resultCard)
+        .then((canvas) => {
+          // 1. 이미지 다운로드
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png'); // 데이터 URL 생성
+          link.download = 'fortune-result.png'; // 파일 이름 지정
+          link.click(); // 다운로드 트리거
+
+          // 2. 클립보드에 이미지 복사
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const item = new ClipboardItem({ 'image/png': blob });
+              navigator.clipboard
+                .write([item])
+                .then(() => {
+                  alert(`🍀공유해보세요🍀\n이미지가 클립보드에 복사되었어요!`);
+                })
+                .catch((err) => {
+                  console.error('클립보드에 복사 실패:', err);
+                });
+            }
+          });
+        })
+        .catch((err) => {
+          console.error('html2canvas 오류:', err);
+        });
+    } else {
+      console.error('결과 카드 요소를 찾을 수 없습니다.');
     }
   };
   // 운세 결과 화면
