@@ -6,33 +6,60 @@ import { useNavigate } from 'react-router-dom';
 import { loginAPI } from 'api/LoginAPI';
 import Container from '../components/css/Container';
 import theme from 'styles/theme';
+import { useMutation } from '@tanstack/react-query';
 
-const LoginPage = (props: any) => {
+interface InputInfo {
+  id: string;
+  pwd: string;
+}
+interface LoginResponse {
+  token: string;
+}
+
+const LoginPage = () => {
   const navigate = useNavigate();
-  const [inputInfo, setInputInfo] = useState({
+  const [inputInfo, setInputInfo] = useState<InputInfo>({
     id: '',
     pwd: '',
   });
 
-  const DarkMode = localStorage.getItem('darkMode') === 'true';
+  const DarkMode: boolean = localStorage.getItem('darkMode') === 'true'; // 로컬 스토리지에서 darkMode가 true인지를 확인
 
-  const onChangeInfo = (e: any) => {
+  const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 입력할 때 마다 값 수정하는 함수
     setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
   };
 
-  const onClickLogin = async () => {
+  const onKeyDownLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 로그인 할 때 엔터키 입력 함수
+    if (e.key === 'Enter') {
+      onClickLogin();
+    }
+  };
+
+  // useMutation 훅을 사용하여 로그인 API 호출 관리
+  const mutation = useMutation<LoginResponse, Error, InputInfo>({
+    mutationFn: loginAPI,
+    onSuccess: (data) => {
+      // 로그인 성공 시 처리 로직
+      sessionStorage.setItem('token', data.token);
+      navigate('/main');
+    },
+    onError: (error) => {
+      // 로그인 실패 시 처리 로직
+      console.error('로그인 실패:', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
+
+  const onClickLogin = () => {
     if (!inputInfo.id || !inputInfo.pwd) {
       alert('아이디, 비밀번호를 모두 입력하세요.');
       return;
     }
-    try {
-      const data = await loginAPI(inputInfo); // 로그인 API 호출
-      sessionStorage.setItem('token', data.token);
-      navigate('/main');
-    } catch (error) {
-      console.error('로그인 실패:', error);
-      alert('로그인에 실패했습니다. 다시 시도해주세요.');
-    }
+
+    // useMutation을 사용하여 로그인 시도
+    mutation.mutate(inputInfo);
   };
 
   return (
@@ -62,6 +89,7 @@ const LoginPage = (props: any) => {
         placeholder="아이디"
         name="id"
         onChange={onChangeInfo}
+        onKeyDown={onKeyDownLogin}
         style={{ color: `${DarkMode ? '#ffffff' : '#000000'}` }}
       />
       <InfoInput2
@@ -69,6 +97,7 @@ const LoginPage = (props: any) => {
         type="password"
         name="pwd"
         onChange={onChangeInfo}
+        onKeyDown={onKeyDownLogin}
         style={{ color: `${DarkMode ? '#ffffff' : '#000000'}` }}
       />
       <LoginBtn
