@@ -12,6 +12,11 @@ MooS는 캐릭터 무너를 활용한 게이미피케이션과 스토리텔링�
   - react
   - Typescript
 ---
+- backend
+  - Java
+  - SpringBoot
+  - MySQL
+---
 
 > 프로젝트 실행방법
 > 1. 터미널을 키고 npm install을 입력한다.
