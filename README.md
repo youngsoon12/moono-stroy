@@ -47,3 +47,12 @@ MooS는 캐릭터 무너를 활용한 게이미피케이션과 스토리텔링�
   
   ![image (5)](https://github.com/user-attachments/assets/cc12ff53-b809-405e-90b5-0da563826750)
 
+- 무너 보살
+    openAI를 활용한 간단한 정보를 입력 후 오늘의 운세 봐주기
+  
+    <img width="296" alt="image" src="https://github.com/user-attachments/assets/31506404-75c2-4e03-95ee-ec97f9c62343" />
+
+- 무너 만들기
+  canva.js를 활용하여 캐릭터의 배경 및 텍스트를 커스텀하여 나만의 사진을 만들어 저장할 수 있다
+
+  <img width="248" alt="image" src="https://github.com/user-attachments/assets/85923a37-8936-43f2-abae-e397079e0b69" />
